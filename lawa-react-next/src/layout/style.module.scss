@@ -1,0 +1,21 @@
+.wrapper {
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: 80px auto 192px;
+  grid-template-areas:
+    'header'
+    'body'
+    'footer';
+}
+
+.header {
+  grid-area: header;
+}
+
+.body {
+  grid-area: body;
+}
+
+.footer {
+  grid-area: footer;
+}

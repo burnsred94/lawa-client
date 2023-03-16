@@ -1,0 +1,143 @@
+.header {
+  background-color: #1b191a;
+  z-index: 100;
+  max-width: 1200px;
+  position: sticky;
+  top: 0;
+  height: 80px;
+  margin: 0 auto;
+
+  &Wrapper {
+    display: grid;
+    margin: 25px 0 25px;
+    justify-items: space-around;
+    grid-template-columns: 8fr 2.1fr 3fr 3fr;
+  }
+
+  &Contacts {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: #E25730;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+
+    img {
+      margin-right: 10px;
+    }
+
+    a {
+      transition: all 500ms ease-in-out;
+      &:hover {
+        color: #E25730;
+        transition: all 500ms ease-in-out;
+      }
+    }
+  }
+
+  &Burger {
+    display: flex;
+    justify-content: flex-end;
+
+    &Button {
+      background: none;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 38px;
+      height: 24px;
+      border: none;
+      cursor: pointer;
+
+      span {
+        transition: 250ms all ease-in-out;
+      }
+
+      span:nth-child(1) {
+        display: block;
+        position: absolute;
+        top: 30px;
+        height: 2.5px;
+        width: 38px;
+        background-color: #E25730;
+      }
+
+      span:nth-child(2) {
+        display: block;
+        position: absolute;
+        top: 39px;
+        width: 32px;
+        background-color:#E25730;
+        height: 2.5px;
+      }
+
+      span:nth-child(3) {
+        position: absolute;
+        display: block;
+        top: 48px;
+        height: 2.5px;
+        width: 28px;
+        background-color: #E25730;
+      }
+    }
+
+    &Button:hover > span {
+      transition: 250ms all ease-in-out;
+      width: 38px;
+    }
+
+    &Active {
+      span:nth-child(2) {
+        display: none;
+      }
+      span:nth-child(1) {
+        width: 38px;
+        top: 40px;
+        transform: rotate(135deg);
+      }
+      span:nth-child(3) {
+        width: 38px;
+        top: 40px;
+        transform: rotate(45deg);
+      }
+    }
+  }
+}
+
+.menu {
+  margin: 0;
+  position: absolute;
+  right: -1000px;
+  top: 80px;
+  background-color: #1b191a;
+  width: 400px;
+  transition: 500ms all ease-in-out;
+
+  &Active {
+    transition: 500ms all ease-in-out;
+    right: -160px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .header {
+    width: 100%;
+    padding: 0 15px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    width: 100%;
+
+    &Wrapper {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    &Contacts {
+      display: none;
+    }
+  }
+}

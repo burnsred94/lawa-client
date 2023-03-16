@@ -1,0 +1,360 @@
+.header {
+  background: url('../../../public/images/frameService.png') no-repeat center;
+  display: block;
+  max-width: 100%;
+  height: 220px;
+
+  &Wrapper {
+    margin: 0 auto;
+    max-width: 1200px;
+    h1 {
+      font-size: 48px;
+      color: #fff;
+    }
+  }
+}
+
+.breadCrumb {
+  margin: 0 auto;
+  max-width: 1200px;
+  margin-top: 25px;
+  &Wrapper {
+    margin-left: -15px;
+    display: flex;
+  }
+}
+
+.service {
+  width: 100%;
+  margin: 0 auto;
+
+  &Wrapper {
+    max-width: 1200px;
+    display: grid;
+    z-index: 2;
+    margin: 0 auto;
+  }
+
+  &Title {
+    padding-left: 30px;
+    margin-top: 145px;
+    display: flex;
+    align-items: center;
+
+    h2 {
+      padding-left: 30px;
+      line-height: 0;
+    }
+
+    &::before {
+      content: ' ';
+      position: relative;
+      margin-left: -30px;
+      display: block;
+      background-color: #E25730;
+      width: 1px;
+      height: 35px;
+    }
+  }
+
+  &Items {
+    display: grid;
+    margin-top: 50px;
+    z-index: 1;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 30px;
+  }
+
+  &Button {
+    display: none;
+  }
+}
+
+.sphere {
+  margin-top: 150px;
+  width: 100%;
+
+  &Wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-areas:
+      'title'
+      'block';
+  }
+
+  &Title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &Block {
+    display: grid;
+    margin-top: 46px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 30px;
+
+    &Wrapper {
+      max-width: 100%;
+    }
+
+    &Item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #242424;
+      padding: 55px 0;
+      margin-bottom: 25px;
+
+      &:hover {
+        -webkit-box-shadow: 6px 6px 9px 0px rgba(226, 87, 48, 0.2);
+        -moz-box-shadow: 6px 6px 9px 0px rgba(226, 87, 48, 0.2);
+        box-shadow: 6px 6px 9px 0px rgba(226, 87, 48, 0.2);
+        transition: 250ms ease-in-out;
+        scale: 1.02;
+      }
+    }
+  }
+}
+
+.result {
+  margin: 0 auto;
+  margin-top: 150px;
+  max-width: 1200px;
+
+  &Title {
+    display: flex;
+    align-items: flex-start;
+
+    h2 {
+      line-height: 120%;
+      padding-left: 30px;
+    }
+
+    &::before {
+      content: ' ';
+      position: relative;
+      margin-top: 15px;
+      margin-left: -30px;
+      display: block;
+      background-color: #E25730;
+      width: 1px;
+      height: 35px;
+    }
+  }
+
+  &Wrapper {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-areas: 'images list';
+  }
+
+  &Images {
+    grid-area: images;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 580px;
+
+    &Left {
+      background-image: url('../../../public/images/lawa-right.png');
+      width: 270px;
+      height: 476px;
+    }
+
+    &Right {
+      background-image: url('../../../public/images/lawa-left.png');
+      margin-top: 60px;
+      width: 270px;
+      height: 476px;
+    }
+  }
+
+  &List {
+    grid-area: list;
+
+    &Items {
+      padding: 0;
+      list-style: none;
+
+      li {
+        margin-bottom: 32px;
+        img {
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+}
+
+.process {
+  margin: 0 auto;
+  margin-top: 150px;
+  max-width: 1200px;
+
+  &Wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    align-items: center;
+    grid-template-areas: 'first next last';
+  }
+
+  &First {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #E25730;
+    border-right: none;
+    max-height: 565px;
+    max-width: 100%;
+    grid-area: first;
+
+    h3 {
+      margin: 35px 0 20px;
+    }
+
+    &Items {
+      list-style: none;
+      color: #fff;
+      li {
+        margin-bottom: 18px;
+        max-width: 200px;
+      }
+    }
+  }
+
+  &Next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #191919;
+    grid-area: next;
+    max-width: 100%;
+    height: 720px;
+  }
+
+  &Last {
+    background-color: #E25730;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid #E25730;
+    border-right: none;
+    max-height: 565px;
+    max-width: 100%;
+    grid-area: last;
+
+    h3 {
+      margin: 35px 40px 20px;
+    }
+
+    &Items {
+      list-style: none;
+      color: #fff;
+      padding: 0;
+      li {
+        padding-left: 40px;
+        margin-bottom: 18px;
+        max-width: 240px;
+      }
+    }
+  }
+}
+
+.trust {
+  margin-top: 150px;
+
+  &Wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+  }
+
+  &Blocks {
+    max-width: 100%;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    justify-items: space-between;
+    background-color: #242424;
+    z-index: 1;
+
+    div > img {
+      filter: grayscale(100%);
+      opacity: 1;
+      transition: 1s all ease-in-out;
+    }
+
+    div > img:hover {
+      opacity: 1;
+      filter: grayscale(0);
+    }
+  }
+
+  &ButtonLeft {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 100px;
+    margin-left: 10px;
+    background: none;
+    border: none;
+    opacity: 0.5;
+    transition: all 250ms ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      transition: all 250ms ease-in-out;
+      opacity: 1;
+    }
+  }
+
+  &ButtonRight {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 100px;
+    right: 0;
+    margin-right: 10px;
+    background: none;
+    border: none;
+    opacity: 0.5;
+    transition: all 250ms ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      transition: all 250ms ease-in-out;
+      opacity: 1;
+    }
+  }
+
+  &Image {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    max-width: 307px;
+    height: 207px;
+    border-right: 1px #2b2b2b solid;
+    border-left: 1px #2b2b2b solid;
+  }
+}
+
+.questions {
+  background-image: url('../../../public/images/frame.png');
+  margin-top: 120px;
+  max-width: 100%;
+  height: 300px;
+
+  &Wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    button {
+      margin-top: 53px;
+    }
+  }
+}

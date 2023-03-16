@@ -1,0 +1,46 @@
+.button {
+  color: #fff;
+  position: relative;
+  background: transparent;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 150%;
+  cursor: pointer;
+
+  text-transform: uppercase;
+
+  padding: 13px 32px;
+  border-color: transparent;
+  border: none;
+  z-index: 1;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 64%;
+    height: 100%;
+    background: #E25730;
+    transition: 250ms all ease-in-out;
+    z-index: -1;
+  }
+  &:hover::before {
+    animation-name: feidInUp;
+    animation: 250ms all ease-in-out;
+    width: 100%;
+  }
+}
+
+@keyframes feidInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 30%, 0);
+    transform: translate3d(0, 30%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}

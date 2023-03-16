@@ -1,0 +1,685 @@
+.main {
+}
+
+.header {
+	width: 100%;
+	background: linear-gradient(
+		135deg,
+		rgba(27, 25, 26, 1) 0%,
+		rgba(27, 25, 26, 0.8436624649859944) 25%,
+		rgba(226, 87, 48, 0.09) 100%
+	);
+
+	&Wrapper {
+		max-width: 1200px;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-areas:
+			"text image"
+			"social social";
+		margin: 0 auto;
+	}
+
+	&Text {
+		grid-area: text;
+		margin-top: 103px;
+		z-index: 1;
+
+		p {
+			margin: 40px 0;
+		}
+	}
+
+	&Images {
+		grid-area: image;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		img {
+			z-index: 1;
+		}
+	}
+
+	&Social {
+		grid-area: social;
+		display: flex;
+		margin: 25px 0 30px;
+		justify-content: center;
+
+		&Wrapper {
+			display: flex;
+			justify-content: space-between;
+			width: 500px;
+		}
+
+		&Items {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 150px;
+		}
+
+		&Item {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border-radius: 50%;
+			width: 32px;
+			height: 32px;
+			background-color: var(--primary-color);
+		}
+
+		&Time {
+			display: flex;
+			width: 140px;
+			justify-content: space-between;
+			align-items: center;
+
+			span:last-child {
+				color: var(--default-color-text);
+			}
+
+			span:first-child {
+				color: var(--primary-color);
+				font-style: normal;
+				font-weight: 600;
+				font-size: 14px;
+				line-height: 150%;
+			}
+		}
+	}
+}
+
+.service {
+	width: 100%;
+	margin: 0 auto;
+	background: linear-gradient(
+		25deg,
+		rgba(27, 25, 26, 1) 0%,
+		rgba(27, 25, 26, 0.8436624649859944) 55%,
+		rgba(226, 87, 48, 0.09576330532212884) 100%
+	);
+
+	&Wrapper {
+		max-width: 1200px;
+		display: grid;
+		z-index: 2;
+		margin: 0 auto;
+	}
+
+	&Title {
+		padding-left: 30px;
+		margin-top: 145px;
+		display: flex;
+		align-items: center;
+
+		h2 {
+			padding-left: 30px;
+			line-height: 0;
+		}
+
+		&::before {
+			content: " ";
+			position: relative;
+			margin-left: -30px;
+			display: block;
+			background-color: var(--primary-color);
+			width: 1px;
+			height: 35px;
+		}
+	}
+
+	&Items {
+		display: grid;
+		margin-top: 50px;
+		z-index: 1;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		gap: 30px;
+	}
+
+	&Button {
+		display: none;
+	}
+}
+
+.approach {
+	max-width: 1200px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 2fr 1.3fr;
+
+	&Images {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		img {
+			width: 100%;
+			height: 800px;
+		}
+	}
+
+	&List {
+		margin-top: 150px;
+		z-index: 1;
+
+		h2 {
+			display: flex;
+			align-items: center;
+			margin-left: 30px;
+			line-height: 0;
+			padding-bottom: 80px;
+			height: 42px;
+
+			&::before {
+				content: " ";
+				position: absolute;
+				margin-left: -31px;
+				display: block;
+				background-color: var(--primary-color);
+				width: 0.7px;
+				height: 35px;
+			}
+		}
+
+		ul {
+			padding: 0;
+			margin-left: 30px;
+		}
+
+		&Item {
+			display: grid;
+			grid-template-columns: 40px 1fr;
+			margin-bottom: 32px;
+			align-items: center;
+			grid-template-areas:
+				"img title"
+				"text text";
+
+			img {
+				grid-area: img;
+			}
+
+			p {
+				padding-left: 16px;
+				font-size: 18px;
+				grid-area: title;
+			}
+
+			span {
+				margin-top: 8px;
+				padding-left: 55px;
+				grid-area: text;
+				font-weight: 400;
+				font-style: normal;
+				font-size: 16px;
+				opacity: 0.8;
+				color: var(--default-color-text);
+			}
+		}
+	}
+}
+
+.cases {
+	max-width: 1200px;
+	margin: 0 auto;
+	margin-top: 158px;
+
+	&Title {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		h2 {
+			padding-left: 60px;
+			display: flex;
+			align-items: center;
+			z-index: 1;
+
+			&::before {
+				content: " ";
+				position: relative;
+				margin-right: 30px;
+				margin-left: -60px;
+				display: block;
+				background-color: var(--primary-color);
+				width: 1px;
+				height: 35px;
+			}
+		}
+	}
+
+	&Cards {
+		display: grid;
+		margin-top: 46px;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+	}
+
+	&Slider {
+		display: none;
+	}
+}
+
+.slogan {
+	margin-top: 150px;
+	position: relative;
+
+	&Wrapper {
+		margin: 0 auto;
+		background-image: url("/lawabackground.png");
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		max-width: 1200px;
+		height: 250px;
+
+		h4 {
+			width: 650px;
+			font-size: 20px;
+			text-align: center;
+			text-transform: uppercase;
+		}
+	}
+}
+
+.reviewCards {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	column-gap: 60px;
+	margin: 40px 15px 0;
+}
+
+.trust {
+	margin-top: 150px;
+
+	&Wrapper {
+		max-width: 1200px;
+		margin: 0 auto;
+		margin-bottom: 50px;
+	}
+
+	&Blocks {
+		max-width: 100%;
+		position: relative;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+		justify-items: space-between;
+		background-color: var(--secondary-color);
+		z-index: 1;
+
+		div > img {
+			filter: grayscale(100%);
+			opacity: 1;
+			transition: 1s all ease-in-out;
+		}
+
+		div > img:hover {
+			opacity: 1;
+			filter: grayscale(0);
+		}
+	}
+
+	&ButtonLeft {
+		position: absolute;
+		display: flex;
+		justify-content: space-between;
+		margin-top: 100px;
+		margin-left: 10px;
+		background: none;
+		border: none;
+		opacity: 0.5;
+		transition: all 250ms ease-in-out;
+		cursor: pointer;
+
+		&:hover {
+			transition: all 250ms ease-in-out;
+			opacity: 1;
+		}
+	}
+
+	&ButtonRight {
+		position: absolute;
+		display: flex;
+		justify-content: space-between;
+		margin-top: 100px;
+		right: 0;
+		margin-right: 10px;
+		background: none;
+		border: none;
+		opacity: 0.5;
+		transition: all 250ms ease-in-out;
+		cursor: pointer;
+
+		&:hover {
+			transition: all 250ms ease-in-out;
+			opacity: 1;
+		}
+	}
+
+	&Image {
+		display: grid;
+		align-items: center;
+		justify-items: center;
+		max-width: 307px;
+		height: 207px;
+		border-right: 1px #2b2b2b solid;
+		border-left: 1px #2b2b2b solid;
+	}
+}
+
+.form {
+	margin: 0 auto;
+	max-width: 1200px;
+	margin-top: 150px;
+
+	&Wrapper {
+		display: grid;
+		grid-template-columns: 1.5fr 1fr;
+		justify-content: space-between;
+		align-items: center;
+		grid-template-areas: "image form";
+
+		&Image {
+			grid-area: image;
+		}
+
+		&Fields {
+			max-width: 450px;
+			grid-area: form;
+			p {
+				margin-top: 15px;
+				margin-bottom: 30px;
+				max-width: 400px;
+			}
+		}
+	}
+}
+
+.questions {
+	background-image: url("/images/frame.png");
+	margin-top: 120px;
+	max-width: 100%;
+	height: 300px;
+
+	&Wrapper {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: 100%;
+		max-width: 1200px;
+		margin: 0 auto;
+
+		button {
+			margin-top: 53px;
+		}
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.header {
+		padding: 0 15px;
+		width: 100%;
+
+		&Text {
+			margin-top: 50px;
+			h1 {
+				font-size: 120px;
+			}
+
+			p {
+				font-size: 16px;
+			}
+			button {
+				font-size: 12px;
+			}
+		}
+
+		&Images {
+			img {
+				width: 350px;
+				height: 350px;
+			}
+		}
+	}
+
+	.service {
+		padding: 0 15px;
+		&Wrapper {
+			width: 100%;
+			max-width: none;
+		}
+		&Items {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 15px;
+		}
+		&Text {
+			margin-top: 50px;
+		}
+	}
+
+	.approach {
+		margin-top: 150px;
+		grid-template-columns: 2fr;
+
+		&Images {
+			display: none;
+		}
+
+		&List {
+			margin-top: 0;
+		}
+	}
+
+	.cases {
+		margin-top: 100px;
+		padding: 0 15px;
+
+		&Cards {
+			grid-template-columns: 1fr 1fr;
+			justify-content: center;
+			gap: 50px;
+		}
+		&Defualt {
+			display: grid;
+			justify-content: center;
+		}
+	}
+
+	.trust {
+		&Blocks {
+			display: flex;
+			position: absolute;
+			justify-content: space-between;
+			align-items: center;
+			overflow: hidden;
+		}
+
+		&ButtonLeft {
+			display: none;
+		}
+
+		&ButtonRight {
+			display: none;
+		}
+
+		&Image {
+			display: grid;
+			align-items: center;
+			justify-items: center;
+			padding: 0 50px;
+			width: 310px;
+			height: 207px;
+			border-right: 1px #2b2b2b solid;
+			border-left: 1px #2b2b2b solid;
+		}
+	}
+
+	.form {
+		margin-top: 300px;
+		&Wrapper {
+			margin: 0 auto;
+			grid-template-areas: "form";
+			grid-template-columns: 1fr;
+			align-items: center;
+			justify-items: center;
+			&Image {
+				display: none;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.header {
+		background: none;
+
+		&Wrapper {
+			max-width: auto;
+			grid-template-columns: 1fr;
+			grid-template-areas:
+				"text"
+				"image"
+				"social";
+		}
+		&Text {
+			margin-top: 0;
+
+			h1 {
+				font-size: 60px;
+				line-height: 72px;
+			}
+
+			p {
+				margin: 0;
+				margin-bottom: 25px;
+			}
+		}
+
+		&Images {
+			justify-content: flex-end;
+
+			img {
+				margin-top: -50px;
+				width: 200px;
+				height: 200px;
+			}
+		}
+
+		&Social {
+			max-width: auto;
+
+			&Wrapper {
+				width: 100%;
+				justify-content: space-between;
+			}
+		}
+	}
+
+	.service {
+		background: none;
+
+		&Title {
+			margin-top: 100px;
+			padding-left: 0;
+
+			h2 {
+				font-size: 28px;
+				padding-left: 0;
+			}
+
+			&::before {
+				display: none;
+			}
+		}
+
+		&Items {
+			grid-template-columns: 1fr;
+		}
+
+		&Button {
+			display: flex;
+			justify-content: center;
+			margin-top: 25px;
+		}
+	}
+
+	.cases {
+		margin-top: 100px;
+		&Title {
+			flex-direction: column;
+			align-items: flex-start;
+			padding-left: 0;
+			h2 {
+				font-size: 28px;
+				margin-bottom: 16px;
+				padding-left: 0;
+			}
+
+			h2::before {
+				display: none;
+			}
+		}
+
+		&Cards {
+			grid-template-columns: 1fr;
+			justify-content: center;
+			align-items: center;
+		}
+		&NonActive {
+			z-index: 2;
+			display: none;
+		}
+		&Active > div {
+			z-index: 2;
+			display: block;
+		}
+		&Slider {
+			display: flex;
+			margin-top: 30px;
+			justify-content: center;
+			align-items: center;
+			column-gap: 5px;
+		}
+		&ButtonSlider {
+			border: none;
+			width: 25px;
+			height: 3px;
+		}
+		&ButtonSliderActive {
+			background-color: var(--primary-color);
+		}
+	}
+
+	.review {
+		&Cards {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.trust {
+		display: none;
+	}
+
+	.form {
+		&Wrapper {
+			grid-template-columns: 1fr;
+			&Image {
+				display: none;
+			}
+		}
+	}
+}
+
+.sloganWrapper {
+	margin-top: 100px;
+	width: 100%;
+}
+
+.sloganWrapper > h4 {
+	font-size: 18px;
+	margin: 40px 15px;
+	text-align: start;
+	width: 100%;
+}

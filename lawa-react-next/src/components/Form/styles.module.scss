@@ -1,0 +1,38 @@
+.form {
+  form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      display: flex;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      max-width: 470px;
+      padding: 18px 13px;
+      margin-top: 20px;
+
+      input {
+        width: 100%;
+        background: none;
+        border: none;
+      }
+    }
+  }
+
+  &Area {
+    display: flex;
+    align-items: flex-start !important;
+    height: 135px;
+    input {
+      width: 100%;
+      height: 100%;
+
+      &::placeholder {
+        position: absolute;
+      }
+    }
+  }
+
+  &Button {
+    margin-top: 32px;
+  }
+}

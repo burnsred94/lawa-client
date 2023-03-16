@@ -1,0 +1,43 @@
+html {
+  margin: 0 auto;
+}
+
+:root {
+  --primary-color: #E25730;
+  --default-color-text: #ffffff;
+  --dull-text-color: #9B9B9B;
+  --secondary-color: #242424;
+}
+
+body {
+	margin: 0 auto;
+	padding: 0;
+  overflow-x: hidden;
+
+	background: #1B191A;
+
+}
+
+a {
+	text-decoration: none;
+
+	color: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    margin: 0 15px;
+  }
+}
