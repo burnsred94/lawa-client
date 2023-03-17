@@ -10,23 +10,40 @@ import { partners, resultFirst, resultLast, resultList, service, sphere } from '
 
 import styles from './style.module.scss'
 import axios from 'axios'
-import { URL_SERVICE_PAGE } from '@/constants/constants'
+import { URL_SERVICES_PAGE, URL_SERVICE_PAGE } from '@/constants/constants'
 import { ServicePage } from '@/interfaces/service-page.interface'
 import { GetStaticPropsContext } from 'next'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { IServicesPage } from '@/interfaces/services-page.interface'
+import { loaderImage } from '@/utils/image-loader/image-loader.utlis'
 
 
-function Services (): JSX.Element {
+function Services(): JSX.Element {
   const route = useRouter()
-  
-  
+  const [data, setData] = useState<IServicesPage>()
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data } = await axios.get<IServicesPage>(process.env.NEXT_PUBLIC_DOMAIN + URL_SERVICES_PAGE);
+        if (data) {
+          setData(data)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    fetchData()
+  }, [route.query])
+
+  console.log(data)
 
   return (
     <>
       <main>
         <section className={styles.header}>
           <div className={styles.headerWrapper}>
-            <Headlines tag='h1'>Наши услуги</Headlines>
+            <Headlines tag='h1'>{data?.title ? data.title : ''}</Headlines>
           </div>
         </section>
         <section className={styles.breadCrumb}>
@@ -37,12 +54,12 @@ function Services (): JSX.Element {
         <section className={styles.service}>
           <div className={styles.serviceWrapper}>
             <div className={styles.serviceTitle}>
-              <Headlines tag='h2'>Услуги</Headlines>
+              <Headlines tag='h2'>{data?.title_services ? data.title_services : ''}</Headlines>
             </div>
             <div className={styles.serviceItems}>
-              {service.map((item, key) => (
-                <Service type='card' key={key} img={item.img} link={route.asPath + '/' + item.link}>{item.text}</Service>
-              ))}
+              {data?.services ? data.services.map((item, key) => (
+                <Service type='card' key={key} img={item.img.url} link={route.asPath + '/' + item.slug}>{item.title}</Service>
+              )) : null}
             </div>
             <div className={styles.serviceButton}>
               <Button>Смотреть все</Button>
@@ -52,28 +69,27 @@ function Services (): JSX.Element {
         <section className={styles.sphere}>
           <div className={styles.sphereWrapper}>
             <div className={styles.sphereTitle}>
-              <Headlines tag="h2">Или выбери свою сферу</Headlines>
+              <Headlines tag="h2">{data?.title_sphere ? data.title_sphere : ''}</Headlines>
               <Button>Смотреть все предложения</Button>
             </div>
             <div className={styles.sphereBlock}>
-              {sphere.map((value, key) => (
+              {data?.spheres ? data?.spheres.map((value, key) => (
                 <div key={key} className={styles.sphereBlockWrapper}>
-                  <Link href={value.url}>
+                  <Link href='/sphere'>
                     <div className={styles.sphereBlockItem}>
                       <Image
                         priority
+                        loader={() => loaderImage(value.img.url)}
                         width={90}
                         height={90}
-                        src={value.img}
+                        src={process.env.NEXT_PUBLIC_DOMAIN + value.img.url}
                         alt='img'
                       />
                     </div>
                     <Paragraph type="normal-text">{value.title}</Paragraph>
                   </Link>
                 </div>
-              ))
-
-              }
+              )) : null}
             </div>
           </div>
         </section>
@@ -86,14 +102,14 @@ function Services (): JSX.Element {
             <div className={styles.resultList}>
               <div className={styles.resultTitle}>
                 <Headlines tag="h2">
-                  Cокрушающий результат
+                  {data?.title_results ? data.title_results : ''}
                 </Headlines>
               </div>
               <ul className={styles.resultListItems}>
-                {resultList.map((item, key) => (
+                {data?.list_result.map((item, key) => (
                   <li key={key}>
-                    <Image priority alt="iconList" width={45} height={45} src={item.img} />
-                    <Paragraph type="normal-text">{item.text}</Paragraph>
+                    <Image priority alt={item.img.alt} width={45} height={45} src={process.env.NEXT_PUBLIC_DOMAIN + item.img.url} />
+                    <Paragraph type="normal-text">{item.description}</Paragraph>
                   </li>
                 ))}
               </ul>
@@ -104,10 +120,10 @@ function Services (): JSX.Element {
           <div className={styles.processWrapper}>
             <div className={styles.processFirst}>
               <Headlines tag="h3">
-                Делаем мы
+                {data?.table.title_we ? data?.table.title_we : ''}
               </Headlines>
               <ul className={styles.processFirstItems}>
-                {resultFirst.map((listItem, key) => (
+                {data?.table.We.map((listItem, key) => (
                   <li key={key}>{listItem.text}</li>
                 ))}
               </ul>
@@ -120,9 +136,9 @@ function Services (): JSX.Element {
                 Получаете вы
               </Headlines>
               <ul className={styles.processLastItems}>
-                {resultLast.map((listItem, key) => (
+                {data?.table.You ? data?.table.You.map((listItem, key) => (
                   <li key={key}>{listItem.text}</li>
-                ))}
+                )) : null}
               </ul>
             </div>
           </div>
@@ -130,7 +146,7 @@ function Services (): JSX.Element {
         <section className={styles.trust}>
           <div className={styles.trustWrapper}>
             <div className={styles.casesTitle}>
-              <Headlines tag='h2'>Нам доверяют</Headlines>
+              <Headlines tag='h2'>{data?.title_images ? data?.title_images : null}</Headlines>
             </div>
           </div>
           <div className={styles.trustBlocks}>
@@ -138,13 +154,16 @@ function Services (): JSX.Element {
               <Image src='/svg/arrow-left.svg' alt='arrow' width={24} height={24} priority />
             </button>
             {
-              partners.map((item, key) => (
+              data?.trust_images.map((item, key) => (
                 <div key={key} className={styles.trustImage}>
                   <Image
-                    src={item.url}
-                    alt={item.alt}
-                    width={item.width}
-                    height={item.height}
+                    priority
+                    loader={() => loaderImage(item.url)}
+
+                    src={process.env.NEXT_PUBLIC_DOMAIN + item.url}
+                    alt={item.name}
+                    width={220}
+                    height={120}
                   />
                 </div>
               ))
@@ -157,7 +176,7 @@ function Services (): JSX.Element {
         <section className={styles.questions}>
           <div className={styles.questionsWrapper}>
             <div>
-              <Headlines tag='h3'>Остались вопросы?</Headlines>
+              <Headlines tag='h3'>{data?.title_question ? data?.title_question : ''}</Headlines>
               <Button>Обсудить проект</Button>
             </div>
           </div>

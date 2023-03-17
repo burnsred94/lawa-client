@@ -61,8 +61,8 @@ function Home() {
             </div>
             <div className={styles.headerImages}>
               {
-               data && <Image loader={
-                  () => loaderImage(data.header_img.url)} src={process.env.NEXT_PUBLIC_DOMAIN +  data.header_img.url} alt={data.header_img.name} width={450} height={450} />
+               data?.header_img ? <Image loader={
+                  () => loaderImage(data.header_img.url)} src={process.env.NEXT_PUBLIC_DOMAIN +  data.header_img.url} alt={data.header_img.name} width={450} height={450} /> : null
               }
             </div>
             <div className={styles.headerSocial}>
@@ -93,9 +93,9 @@ function Home() {
               </Headlines>
             </div>
             <div className={styles.serviceItems}>
-              {data && data.services.map((item, key) => (
+              {data?.services ? data.services.map((item, key) => (
                 <Service type='card' key={key} img={item.img.url} link={`services/${item.slug}`}>{item.title}</Service>
-              ))}
+              )): null}
             </div>
             <div className={styles.serviceButton}>
               <Button>Смотреть все</Button>
@@ -104,18 +104,18 @@ function Home() {
         </section>
         <section className={styles.approach}>
           <div className={styles.approachImages}>
-            {data && <Image
+            {data?.approach_image ? <Image
               loader={() => loaderImage(data.approach_image.url)}
               src={process.env.NEXT_PUBLIC_DOMAIN + data.approach_image.url}
               alt={data.approach_image.name}
               width={495}
               height={506}
-            />}
+            />: null}
           </div>
           <div className={styles.approachList}>
             <Headlines tag='h2'>{data && data.title_approach}</Headlines>
             <ul className={styles.approachListItems}>
-              {data && data.approach_list.map((item, key) => (
+              {data?.approach_list ? data.approach_list.map((item, key) => (
                 <li key={key} className={styles.approachListItem}>
                   <Image
                     loader={() => loaderImage(item.img.url)}
@@ -129,7 +129,7 @@ function Home() {
                     {item.description}
                   </span>
                 </li>
-              ))}
+              )): null}
             </ul>
           </div>
         </section>
@@ -139,14 +139,14 @@ function Home() {
             <Button>Смотреть все работы</Button>
           </div>
           <div className={styles.casesCards}>
-            {data && data.case.map((item, key) => (
+            {data?.case ? data.case.map((item, key) => (
               <div key={key} className={cn(styles.casesDefualt, {
                 [styles.casesActive]: key === active,
                 [styles.casesNonActive]: key !== active
               })}>
                 <Service type='card-partners' img={item.img.url} link={item.link}>{item.description}</Service>
               </div>
-            ))}
+            )): null}
           </div>
           <div className={styles.casesSlider}>
             {data && data.reviews.slice(0, 3).map((item, key) => (
@@ -162,7 +162,7 @@ function Home() {
         </section>
         <section className={styles.slogan}>
           <div className={styles.sloganWrapper}>
-            <Headlines tag='h4'>{data && data.slogan}</Headlines>
+            <Headlines tag='h4'>{data?.slogan ? data.slogan : ''}</Headlines>
           </div>
         </section>
         <section className={styles.cases}>
@@ -171,17 +171,17 @@ function Home() {
             <Button>Смотреть все Отзывы</Button>
           </div>
           <div className={styles.reviewCards}>
-            {data && data.reviews.map((item, key) => (
+            {data?.reviews ? data.reviews.map((item, key) => (
               <div key={key} className={cn(styles.casesDefualt, {
                 [styles.casesActive]: key === activeReview,
                 [styles.casesNonActive]: key !== activeReview
               })}>
                 <Service type='card-review' img={item.logo.url} title={item.name} text={item.description} client_name={item.post} />
               </div>
-            ))}
+            )): null}
           </div>
           <div className={styles.casesSlider}>
-            {data && data.reviews.slice(0, 3).map((item, key) => (
+            {data?.reviews ? data.reviews.slice(0, 3).map((item, key) => (
               <button
                 className={cn(styles.buttonSliderBlock, {
                   [styles.buttonSliderBlockActive]: key === active
@@ -189,13 +189,13 @@ function Home() {
                 key={key}
                 onClick={() => setActive(key)}
               />
-            ))}
+            )): null}
           </div>
         </section>
         <section className={styles.trust}>
           <div className={styles.trustWrapper}>
             <div className={styles.casesTitle}>
-              <Headlines tag='h2'>{data && data.title_trust}</Headlines>
+              <Headlines tag='h2'>{data?.title_trust ? data.title_trust: ''}</Headlines>
             </div>
           </div>
           <div className={styles.trustBlocks}>
@@ -203,7 +203,7 @@ function Home() {
               <Image src='svg/arrow-left.svg' alt='arrow' width={24} height={24} priority />
             </button>
             {
-             data &&  data.trust_images.map((item, key) => (
+             data?.trust_images ? data.trust_images.map((item, key) => (
                 <div key={key} className={styles.trustImage}>
                   <Image
                     loader={() => loaderImage(item.url)}
@@ -213,7 +213,7 @@ function Home() {
                     height={170}
                   />
                 </div>
-              ))
+              )): null
             }
             <button className={styles.trustButtonRight}>
               <Image src='svg/arrow-right.svg' alt='arrow' width={24} height={24} priority />
@@ -226,8 +226,8 @@ function Home() {
               <Image src='/images/message.png' width={650} height={650} alt='message' />
             </div>
             <div className={styles.formWrapperFields}>
-              <Headlines tag='h3'>{data && data.title_form}</Headlines>
-              <Paragraph type='sub-title-text-dull'>{data && data.description_form}</Paragraph>
+              <Headlines tag='h3'>{data?.title_form ? data.title_form: ''}</Headlines>
+              <Paragraph type='sub-title-text-dull'>{data?.description_form ? data.description_form : ''}</Paragraph>
               <Form />
             </div>
           </div>
@@ -235,7 +235,7 @@ function Home() {
         <section className={styles.questions}>
           <div className={styles.questionsWrapper}>
             <div>
-              <Headlines tag='h3'>{data && data.title_questions}</Headlines>
+              <Headlines tag='h3'>{data?.title_questions ? data.title_questions: ''}</Headlines>
               <Button>Обсудить проект</Button>
             </div>
           </div>
