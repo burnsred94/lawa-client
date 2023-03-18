@@ -45,7 +45,7 @@ function Home() {
       <Head>
         <title>{data?.seo.title}</title>
         <meta name="description" content={`${data?.seo.description}`} />
-        <meta property="og:image" content={`${data?.seo.image.formats.medium.url}`} />
+        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_DOMAIN}${data?.seo.image.formats.medium.url}`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/svg/logo.svg" />
       </Head>
