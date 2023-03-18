@@ -177,7 +177,7 @@ function Home() {
                 [styles.casesActive]: key === activeReview,
                 [styles.casesNonActive]: key !== activeReview
               })}>
-                {/* <Service type='card-review' img={item.logo.url} title={item.name} text={item.description} client_name={item.post} /> */}
+                <Service type='card-review' img={item.logo.url} title={item.name} text={item.description} client_name={item.post} />
               </div>
             )): null}
           </div>
