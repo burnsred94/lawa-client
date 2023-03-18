@@ -1,28 +1,30 @@
-import Head from 'next/head'
 import { Button, Paragraph, Headlines } from '@/components'
 import styles from "../styles/Home.module.scss"
 import Image from 'next/image'
 import cn from 'classnames'
-import { social, service, approach, cases, reviews, partners } from '../mock/mock.data'
-import { Attributes, useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Form } from '@/components/Form/Form'
 import { Service } from '@/components/service/Service'
 import { withLayout } from '@/layout/layout'
 import axios from 'axios'
 import { MainPage } from '@/interfaces/main-page.interface'
-import { ImageObject } from '@/interfaces/image.interface'
 import { loaderImage } from '@/utils/image-loader/image-loader.utlis'
-import { URL_MAIN_PAGE, URL_SERVICE_PAGE } from '@/constants/constants'
+import { URL_MAIN_PAGE } from '@/constants/constants'
 import { useRouter } from 'next/router'
+import { NextSeo } from 'next-seo'
+import { AssetService } from '@/services/AssetService'
 
 
 
 function Home() {
-  const route = useRouter()
   const [active, setActive] = useState(0)
   const [activeReview, setActiveReview] = useState(0)
   const [data, setData] = useState<MainPage>()
 
+  const route = useRouter()
+  const link = `https://lawa.by${route.asPath}`
+  const canonicalLink = link.includes('?') ? link.substring(0, link.indexOf('?')) : link
+  const assetService = new AssetService({ assetsBase: process.env.NEXT_PUBLIC_DOMAIN as string })
 
   useEffect(() => {
     async function fetchData() {
@@ -42,13 +44,26 @@ function Home() {
 
   return (
     <>
-      <Head>
-        <title>{data?.seo.title}</title>
-        <meta name="description" content={`${data?.seo.description}`} />
-        <meta property="og:image" content={`${process.env.NEXT_PUBLIC_DOMAIN}${data?.seo.image.formats.medium.url}`} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/svg/logo.svg" />
-      </Head>
+      <>
+        <NextSeo
+          title={data?.seo.title}
+          description={data?.seo.description}
+          canonical={canonicalLink}
+          openGraph={{
+            url: canonicalLink,
+            title: data?.seo.title,
+            description: data?.seo.description,
+            images: [{
+              url: `${assetService.permalink(`${data?.seo.image.url as string || ''}`, 'asset')}`,
+              width: data?.seo.image.width || 2400,
+              height: data?.seo.image.height || 1252,
+              alt: 'Lawa',
+              type: data?.seo.image.mime || 'image/jpeg',
+            }],
+          }}
+
+        />
+      </>
       <main className={styles.main}>
         {data?.header_image !== null && data?.title !== null ?
 
@@ -75,7 +90,7 @@ function Home() {
                     {data?.social.map((social, key) => (
                       <div key={key} className={styles.headerSocialItem}>
                         <a href={social.address}>
-                        <Image loader={()=> loaderImage(social.img.url)} src={process.env.NEXT_PUBLIC_DOMAIN + social.img.url} alt={social.img.name} width={17} height={17} />
+                          <Image loader={() => loaderImage(social.img.url)} src={process.env.NEXT_PUBLIC_DOMAIN + social.img.url} alt={social.img.name} width={17} height={17} />
                         </a>
                       </div>
                     ))}
