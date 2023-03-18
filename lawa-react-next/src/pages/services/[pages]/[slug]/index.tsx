@@ -1,7 +1,7 @@
 import cn from 'classnames'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Button, Headlines, Paragraph } from '@/components'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
@@ -11,20 +11,40 @@ import { cases, reviews, slugPageData } from '@/mock/mock.data'
 
 import { SlugProps } from './slug.props'
 import styles from './style.module.scss'
+import { SubService } from '@/interfaces/sub-service-page.interfaces'
+import axios from 'axios'
+import { URL_SUB_SERVICES_PAGE } from '@/constants/constants'
 
 
 function SlugPage({ ...props }: SlugProps): JSX.Element {
   const route = useRouter()
   const [activeReview, setActiveReview] = useState()
   const [active, setActive] = useState(0)
-  const data = slugPageData.find((item) => item.slug === (route.asPath.split('/').pop()))
+  const [dataSubPage, setDataSubPage] = useState<SubService>()
+  // const data = slugPageData.find((item) => item.slug === (route.asPath.split('/').pop()))
+
+  useEffect (()=> {
+    async function fetchData () {
+      try {
+        if(route.query.slug) {
+          const {data} = await axios.get<SubService>(process.env.NEXT_PUBLIC_DOMAIN + URL_SUB_SERVICES_PAGE + route.query.slug);
+          setDataSubPage(data)
+        }
+      }catch (e) {
+        console.log(e)
+      }
+    }
+    fetchData()
+  },[route.query])
+
+  console.log(dataSubPage)
 
   return (
     <>
       <main>
         <section className={styles.header}>
           <div className={styles.headerWrapper}>
-            <Headlines tag='h1'>{data?.title}</Headlines>
+            <Headlines tag='h1'>{dataSubPage?.title}</Headlines>
           </div>
         </section>
         <section className={styles.breadCrumb}>
@@ -32,10 +52,10 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
             <Breadcrumbs data={[
               { title: 'Услуги', path: '/' + route.asPath.split('/').splice(0, 2).join('') },
               {
-                title: data !== undefined ? data?.page : '', path: typeof route.query.pages === 'string' ? '/' +
-                  route.asPath.split('/').splice(0, 2).join('') + '/' + route.query.pages : ''
+                title: dataSubPage?.title !== undefined ? dataSubPage?.title : '', path: typeof route.query.slug === 'string' ? '/' +
+                  route.asPath.split('/').splice(0, 2).join('') + '/' + route.query.slug : ''
               },
-              { title: data !== undefined ? data?.title : '', path: route.asPath }
+              { title: dataSubPage?.title !== undefined ? dataSubPage?.title : '', path: route.asPath }
             ]} />
           </div>
         </section>
@@ -48,11 +68,11 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
             <div className={styles.resultList}>
               <div className={styles.resultTitle}>
                 <Headlines tag="h2">
-                  {data?.title}
+                  {dataSubPage?.title}
                 </Headlines>
               </div>
               <div className={styles.resultList}>
-                <div className={styles.resultDescription} dangerouslySetInnerHTML={{ __html: typeof data?.description === 'string' ? data?.description : '' }}>
+                <div className={styles.resultDescription} dangerouslySetInnerHTML={{ __html: typeof dataSubPage?.description === 'string' ? dataSubPage?.description : '' }}>
                 </div>
                 <Button>Заказать услугу</Button>
               </div>
@@ -64,22 +84,22 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
             <Headlines tag='h2' >Наш Арсенал</Headlines>
           </div>
           <div className={styles.specificsArsenal}>
-            {data && data.arsenal.map((item, key) => (
+            {/* {dataSubPage && dataSubPage.list.map((item, key) => (
               <div key={key} className={styles.specificsArsenalItem}>
-                <Service type='arsenal-card' text={item.desc} img={item.image}>{item.title}</Service>
+                <Service type='arsenal-card' text={item.description} img={item}>{item.title}</Service>
               </div>
-            ))}
+            ))} */}
           </div>
         </section>
         <section className={styles.process}>
           <div className={styles.processWrapper}>
             <div className={styles.processFirst}>
               <Headlines tag="h3">
-                Делаем мы
+                {dataSubPage?.table.title_we}
               </Headlines>
               <ul className={styles.processFirstItems}>
-                {data?.data_bp.first_list.map((listItem, key) => (
-                  <li key={key}>{listItem}</li>
+                {dataSubPage?.table.We.map((listItem, key) => (
+                  <li key={key}>{listItem.text}</li>
                 ))}
               </ul>
             </div>
@@ -88,11 +108,11 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
             </div>
             <div className={styles.processLast}>
               <Headlines tag="h3">
-                Получаете вы
+                {dataSubPage?.table.title_you}
               </Headlines>
               <ul className={styles.processLastItems}>
-                {data?.data_bp.last_list.map((listItem, key) => (
-                  <li key={key}>{listItem}</li>
+                {dataSubPage?.table.You.map((listItem, key) => (
+                  <li key={key}>{listItem.text}</li>
                 ))}
               </ul>
             </div>

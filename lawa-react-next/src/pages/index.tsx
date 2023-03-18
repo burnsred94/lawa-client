@@ -38,6 +38,7 @@ function Home() {
     fetchData()
   },[route.query])
  
+  console.log(data)
 
   return (
     <>
@@ -61,8 +62,8 @@ function Home() {
             </div>
             <div className={styles.headerImages}>
               {
-               data?.header_img ? <Image loader={
-                  () => loaderImage(data.header_img.url)} src={process.env.NEXT_PUBLIC_DOMAIN +  data.header_img.url} alt={data.header_img.name} width={450} height={450} /> : null
+               data?.header_image ? <Image loader={
+                  () => loaderImage(data.header_image.url)} src={process.env.NEXT_PUBLIC_DOMAIN +  data.header_image.url} alt={data.header_image.name} width={450} height={450} /> : null
               }
             </div>
             <div className={styles.headerSocial}>
@@ -94,7 +95,7 @@ function Home() {
             </div>
             <div className={styles.serviceItems}>
               {data?.services ? data.services.map((item, key) => (
-                <Service type='card' key={key} img={item.img.url} link={`services/${item.slug}`}>{item.title}</Service>
+                <Service type='card' key={key} img={item.preview_img?.url as string} link={`services/${item.slug}`}>{item.title}</Service>
               )): null}
             </div>
             <div className={styles.serviceButton}>
@@ -139,12 +140,12 @@ function Home() {
             <Button>Смотреть все работы</Button>
           </div>
           <div className={styles.casesCards}>
-            {data?.case ? data.case.map((item, key) => (
+            {data?.cases ? data.cases.map((item, key) => (
               <div key={key} className={cn(styles.casesDefualt, {
                 [styles.casesActive]: key === active,
                 [styles.casesNonActive]: key !== active
               })}>
-                <Service type='card-partners' img={item.img.url} link={item.link}>{item.description}</Service>
+                <Service type='card-partners' img={item.image.url} link={item.link}>{item.description}</Service>
               </div>
             )): null}
           </div>
@@ -176,7 +177,7 @@ function Home() {
                 [styles.casesActive]: key === activeReview,
                 [styles.casesNonActive]: key !== activeReview
               })}>
-                <Service type='card-review' img={item.logo.url} title={item.name} text={item.description} client_name={item.post} />
+                {/* <Service type='card-review' img={item.logo.url} title={item.name} text={item.description} client_name={item.post} /> */}
               </div>
             )): null}
           </div>
@@ -235,7 +236,7 @@ function Home() {
         <section className={styles.questions}>
           <div className={styles.questionsWrapper}>
             <div>
-              <Headlines tag='h3'>{data?.title_questions ? data.title_questions: ''}</Headlines>
+              <Headlines tag='h3'>{data?.title_qustions ? data.title_qustions: ''}</Headlines>
               <Button>Обсудить проект</Button>
             </div>
           </div>

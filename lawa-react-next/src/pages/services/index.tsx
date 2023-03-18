@@ -11,23 +11,22 @@ import { partners, resultFirst, resultLast, resultList, service, sphere } from '
 import styles from './style.module.scss'
 import axios from 'axios'
 import { URL_SERVICES_PAGE, URL_SERVICE_PAGE } from '@/constants/constants'
-import { ServicePage } from '@/interfaces/service-page.interface'
 import { GetStaticPropsContext } from 'next'
 import { useEffect, useState } from 'react'
-import { IServicesPage } from '@/interfaces/services-page.interface'
+import { ServicesPage } from '@/interfaces/services-page.interface'
 import { loaderImage } from '@/utils/image-loader/image-loader.utlis'
 
 
 function Services(): JSX.Element {
   const route = useRouter()
-  const [data, setData] = useState<IServicesPage>()
+  const [data, setData] = useState<ServicesPage>()
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data } = await axios.get<IServicesPage>(process.env.NEXT_PUBLIC_DOMAIN + URL_SERVICES_PAGE);
+        const { data } = await axios.get<ServicesPage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_SERVICES_PAGE);
         if (data) {
-          setData(data)
+          setData(data[0])
         }
       } catch (e) {
         console.log(e)
@@ -36,7 +35,6 @@ function Services(): JSX.Element {
     fetchData()
   }, [route.query])
 
-  console.log(data)
 
   return (
     <>
@@ -58,7 +56,7 @@ function Services(): JSX.Element {
             </div>
             <div className={styles.serviceItems}>
               {data?.services ? data.services.map((item, key) => (
-                <Service type='card' key={key} img={item.img.url} link={route.asPath + '/' + item.slug}>{item.title}</Service>
+                <Service type='card' key={key} img={item.preview_img?.url} link={route.asPath + '/' + item.slug}>{item.title}</Service>
               )) : null}
             </div>
             <div className={styles.serviceButton}>
@@ -106,9 +104,9 @@ function Services(): JSX.Element {
                 </Headlines>
               </div>
               <ul className={styles.resultListItems}>
-                {data?.list_result.map((item, key) => (
+                {data?.list_result && data?.list_result.map((item, key) => (
                   <li key={key}>
-                    <Image priority alt={item.img.alt} width={45} height={45} src={process.env.NEXT_PUBLIC_DOMAIN + item.img.url} />
+                    <Image priority alt={item.img.name} width={45} height={45} src={process.env.NEXT_PUBLIC_DOMAIN + item.img.url} />
                     <Paragraph type="normal-text">{item.description}</Paragraph>
                   </li>
                 ))}
@@ -120,7 +118,7 @@ function Services(): JSX.Element {
           <div className={styles.processWrapper}>
             <div className={styles.processFirst}>
               <Headlines tag="h3">
-                {data?.table.title_we ? data?.table.title_we : ''}
+                {data?.table.title_we}
               </Headlines>
               <ul className={styles.processFirstItems}>
                 {data?.table.We.map((listItem, key) => (

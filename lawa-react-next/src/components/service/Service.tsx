@@ -15,6 +15,7 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
 
   const [activeText, setActiveText] = useState(false)
 
+    
 
   switch (type) {
   case 'card':
@@ -31,15 +32,15 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
             />
           </div>
           <div className={styles.serviceText}>
-            <Image
+            {img ? <Image
               priority
               loader={() => loaderImage(img)}
               src={process.env.NEXT_PUBLIC_API_URL + img}
               width={48}
               height={48}
               alt="arrow"
-            />
-            <Paragraph type='normal-text'>{children}</Paragraph>
+            />: "Not image preview"}
+            <Paragraph type='normal-text'>{typeof children === 'string'? children : 'Not description preview'}</Paragraph>
           </div>
         </div>
       </Link>
@@ -49,13 +50,13 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
       <div className={styles.partners}>
         <div className={styles.partnersCard}>
           <div className={styles.partnersImage}>
-            <Image
+            {img ? <Image
               loader={() => loaderImage(img)}
               src={process.env.NEXT_PUBLIC_API_URL + img}
               width={220}
               height={85}
               alt="arrow"
-            />
+            /> : "Not image preview"}
           </div>
         </div>
         <div className={cn({
@@ -108,23 +109,24 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
       </div>
     )
   case 'specific-card':
+  
     return (
       <div className={styles.specific}>
         <div className={styles.specificImage}>
-          <Image priority loader={()=>loaderImage(img)} src={process.env.NEXT_PUBLIC_DOMAIN + img} width={56} height={56} alt='image specific' />
+          {img ? <Image priority loader={()=>loaderImage(img)} src={process.env.NEXT_PUBLIC_DOMAIN + img} width={56} height={56} alt='image specific' />: "Not load image"}
           <Paragraph type='normal-text'>{text}</Paragraph>
         </div>
         <div className={styles.specificDescription}>
-          <Paragraph type='sub-title-text-dull'>{children}</Paragraph>
+           <Paragraph type='sub-title-text-dull' >{typeof children === 'string'? children : 'Not description preview'}</Paragraph>
         </div>
         <div className={styles.specificLink}>
           <Link href={link ? link : '#'} onClick={() => setActiveText(true)}>Подробнее
-            <Image
+          <Image
               src='/svg/left_tang.svg'
               width={24}
               height={24}
               alt='arrow right'
-            />
+            /> 
           </Link>
         </div>
       </div>

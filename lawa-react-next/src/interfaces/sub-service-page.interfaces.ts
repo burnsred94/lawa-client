@@ -1,22 +1,24 @@
-export interface Service {
+export interface SubService {
     id: number
+    title_header: string
     title: string
+    description: string
+    title_cases: string
+    title_review: string
     createdAt: string
     updatedAt: string
     publishedAt: string
-    title_service: any
-    description: string
-    link_service: any
-    title_cases: string
-    cases_link: any
-    title_review: any
-    link_review: any
+    descr_preview: string
     slug: string
+    review_link: any
+    cases_link: string
     preview_img: PreviewImg
-    sub_services: SubService[]
-    table_we_and_you: TableWeAndYou
+    table: Table
     cases: Case[]
     reviews: Review[]
+    list: List[]
+    questions: Questions
+    images: Image2[]
   }
   
   export interface PreviewImg {
@@ -40,30 +42,12 @@ export interface Service {
     updatedAt: string
   }
   
-  export interface SubService {
-    id: number
-    title_header: string
-    title: string
-    description: string
-    title_cases?: string
-    title_review?: string
-    createdAt: string
-    updatedAt: string
-    publishedAt?: string
-    descr_preview: any
-    slug: any
-    review_link: any
-    cases_link: any
-    preview_img: any
-  }
-  
-  export interface TableWeAndYou {
+  export interface Table {
     id: number
     We: We[]
     You: You[]
     title_we: string
     title_you: string
-    img: any
   }
   
   export interface We {
@@ -114,6 +98,61 @@ export interface Service {
     createdAt: string
     updatedAt: string
     publishedAt: string
-    logo: any
+    logo: Logo
+  }
+  
+  export interface Logo {
+    id: number
+    name: string
+    alternativeText: any
+    caption: any
+    width: number
+    height: number
+    formats: any
+    hash: string
+    ext: string
+    mime: string
+    size: number
+    url: string
+    previewUrl: any
+    provider: string
+    provider_metadata: any
+    folderPath: string
+    createdAt: string
+    updatedAt: string
+  }
+  
+  export interface List {
+    id: number
+    title: string
+    description: string
+    link: any
+  }
+  
+  export interface Questions {
+    id: number
+    title: string
+    link: string
+  }
+  
+  export interface Image2 {
+    id: number
+    name: string
+    alternativeText: any
+    caption: any
+    width: number
+    height: number
+    formats: any
+    hash: string
+    ext: string
+    mime: string
+    size: number
+    url: string
+    previewUrl: any
+    provider: string
+    provider_metadata: any
+    folderPath: string
+    createdAt: string
+    updatedAt: string
   }
   

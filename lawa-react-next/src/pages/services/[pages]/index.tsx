@@ -12,21 +12,20 @@ import { cases, dataPages, resultFirst, resultLast, reviews } from '@/mock/mock.
 import styles from './style.module.scss'
 import axios from 'axios'
 import { URL_SERVICE_PAGE } from '@/constants/constants'
-import { ServicePage } from '@/interfaces/service-page.interface'
+import { Service as ServiceItem} from '@/interfaces/service-page.interface'
 
  function Page  ({ ...props }): JSX.Element {
   const route = useRouter()
   const [activeReview, setActiveReview] = useState()
   const [active, setActive] = useState(0)
-  const [dataPage , setDataPage] = useState<ServicePage>()
+  const [dataPage , setDataPage] = useState<ServiceItem>()
   const data = dataPages.find((item) => item.slug === (route.asPath.split('/').pop()))
 
-  console.log(route)  
 
   useEffect (()=> {
     async function fetchData () {
       try {
-        const {data} = await axios.get<ServicePage>(process.env.NEXT_PUBLIC_DOMAIN + URL_SERVICE_PAGE + route.asPath.split('/').pop());
+        const {data} = await axios.get<ServiceItem>(process.env.NEXT_PUBLIC_DOMAIN + URL_SERVICE_PAGE + route.asPath.split('/').pop());
           setDataPage(data)
       }catch (e) {
         console.log(e)
@@ -35,7 +34,7 @@ import { ServicePage } from '@/interfaces/service-page.interface'
     fetchData()
   },[route.query])
 
-
+  
   return (
     <>
       <main>
@@ -76,7 +75,10 @@ import { ServicePage } from '@/interfaces/service-page.interface'
         })}>
           {
             dataPage && dataPage.sub_services.map((item, key) => (
-              <Service key={key} type='specific-card' link={route.query.pages + '/' + item.slug} img={item.img.url} text={item.title}>{item.description}</Service>
+              <Service key={key} type='specific-card' 
+                link={route.query.pages + '/' + item.slug} 
+                img={item.preview_img?.url} 
+                text={item.title}>{item.descr_preview}</Service>
             ))
           }
         </section>
@@ -87,8 +89,8 @@ import { ServicePage } from '@/interfaces/service-page.interface'
                 Делаем мы
               </Headlines>
               <ul className={styles.processFirstItems}>
-                {dataPage?.table_we_and_you.we.map((listItem, key) => (
-                  <li key={key}>{listItem}</li>
+                {dataPage?.table_we_and_you.We.map((listItem, key) => (
+                  <li key={key}>{listItem.text}</li>
                 ))}
               </ul>
             </div>
@@ -100,8 +102,8 @@ import { ServicePage } from '@/interfaces/service-page.interface'
                 Получаете вы
               </Headlines>
               <ul className={styles.processLastItems}>
-                {dataPage?.table_we_and_you.you.map((listItem, key) => (
-                  <li key={key}>{listItem}</li>
+                {dataPage?.table_we_and_you.You.map((listItem, key) => (
+                  <li key={key}>{listItem.text}</li>
                 ))}
               </ul>
             </div>
@@ -118,7 +120,7 @@ import { ServicePage } from '@/interfaces/service-page.interface'
                 [styles.casesActive]: key === active,
                 [styles.casesNonActive]: key !== active
               })}>
-                <Service type='card-partners'  img={item.img.url} link={item.link}>{item.description}</Service>
+                <Service type='card-partners'  img={item.image.url} link={item.link}>{item.description}</Service>
               </div>
             ))}
           </div>
@@ -145,7 +147,7 @@ import { ServicePage } from '@/interfaces/service-page.interface'
                 [styles.casesActive]: key === activeReview,
                 [styles.casesNonActive]: key !== activeReview
               })}>
-                <Service type='card-review' img={item.img.url} title={item.post} text={item.description} client_name={item.name} />
+                <Service type='card-review' img={item.logo.url} title={item.post} text={item.description} client_name={item.name} />
               </div>
             ))}
           </div>
