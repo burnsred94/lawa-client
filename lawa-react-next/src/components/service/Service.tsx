@@ -109,7 +109,8 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
       </div>
     )
   case 'specific-card':
-  
+    {console.log(img)}
+    
     return (
       <div className={styles.specific}>
         <div className={styles.specificImage}>
@@ -134,7 +135,7 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
   case 'arsenal-card':
     return (
       <div className={styles.arsenal}>
-        <Image priority src={img} width={48} height={48} alt='arsenal icon'/>
+        <Image priority loader={()=> loaderImage(img)} src={process.env.NEXT_PUBLIC_DOMAIN + img} width={48} height={48} alt='arsenal icon'/>
         <Paragraph type='normal-text'>{children}</Paragraph>
         <Paragraph type='sub-title-text-normal'>{text}</Paragraph>
       </div>

@@ -23,15 +23,15 @@ export const MenuComponent = ({ ...props }: MenuProps): JSX.Element => {
           <li key={key} className={styles.firstItem}>
             <div className={styles.firstItemWrapper}>
               <Link href={item.link} className={cn({
-                [styles.firstItemLink] : item.link == route.pathname
+                [styles.firstItemLink]: item.link == route.pathname
               })}>{item.name}</Link>
               {
                 item.props &&
-                                <button className={styles.firstItemButton} onClick={() => (active ? setActive(false) : setActive(true))}>
-                                  <Image className={cn({
-                                    [styles.secondLevelActiveImg]: active
-                                  })} src="/arrowdown.svg" width={28} height={28} alt='arrow down' />
-                                </button>
+                <button className={styles.firstItemButton} onClick={() => (active ? setActive(false) : setActive(true))}>
+                  <Image className={cn({
+                    [styles.secondLevelActiveImg]: active
+                  })} src="/arrowdown.svg" width={28} height={28} alt='arrow down' />
+                </button>
               }
               {item.props && item.props && secondLevelMenu(item.props, item.link)}
             </div>
@@ -56,7 +56,7 @@ export const MenuComponent = ({ ...props }: MenuProps): JSX.Element => {
     )
   }
 
-  return (<>
+  return (<div>
     {firstLevelMenu(menu)}
-  </>)
+  </div>)
 }

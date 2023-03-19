@@ -1,14 +1,17 @@
 .header {
   background-color: #1b191a;
   z-index: 100;
-  max-width: 1200px;
+  width: 100%;
   position: sticky;
   top: 0;
   height: 80px;
-  margin: 0 auto;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
   &Wrapper {
     display: grid;
+    max-width: 1200px;
     margin: 25px 0 25px;
     justify-items: space-around;
     grid-template-columns: 8fr 2.1fr 3fr 3fr;
@@ -18,7 +21,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    color: #E25730;
+    color: var(--default-color-text);
     white-space: nowrap;
     font-weight: 600;
     font-size: 16px;
@@ -106,19 +109,26 @@
   }
 }
 
-.menu {
-  margin: 0;
-  position: absolute;
-  right: -1000px;
-  top: 80px;
-  background-color: #1b191a;
-  width: 400px;
-  transition: 500ms all ease-in-out;
 
-  &Active {
-    transition: 500ms all ease-in-out;
-    right: -160px;
-  }
+
+.menu {
+  position: fixed;
+	top: 80px;
+	bottom: 0;
+	right: 0;
+	z-index: 1;
+	width: 450px;
+	padding: 40 0 0 0;
+	background-color: #1b191a;
+	transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+	transform: translateX(100%);
+	box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.45);
+	
+
+	&Active {
+		transition-delay: 0.1s;
+		transform: translateX(0);
+	}
 }
 
 @media screen and (max-width: 1200px) {
@@ -139,5 +149,9 @@
     &Contacts {
       display: none;
     }
+  }
+
+  .menu {
+    width: 100%;
   }
 }

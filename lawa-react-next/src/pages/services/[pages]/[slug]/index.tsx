@@ -14,51 +14,91 @@ import styles from './style.module.scss'
 import { SubService } from '@/interfaces/sub-service-page.interfaces'
 import axios from 'axios'
 import { URL_SUB_SERVICES_PAGE } from '@/constants/constants'
+import { AssetService } from '@/services/AssetService'
+import { NextSeo } from 'next-seo'
 
 
 function SlugPage({ ...props }: SlugProps): JSX.Element {
   const route = useRouter()
   const [activeReview, setActiveReview] = useState()
   const [active, setActive] = useState(0)
-  const [dataSubPage, setDataSubPage] = useState<SubService>()
-  // const data = slugPageData.find((item) => item.slug === (route.asPath.split('/').pop()))
+  const [data, setData] = useState<SubService>()
 
-  useEffect (()=> {
-    async function fetchData () {
+  const link = `https://lawa.by${route.asPath}`
+  const canonicalLink = link.includes('?') ? link.substring(0, link.indexOf('?')) : link
+  const assetService = new AssetService({ assetsBase: process.env.NEXT_PUBLIC_DOMAIN as string })
+
+
+  useEffect(() => {
+    async function fetchData() {
       try {
-        if(route.query.slug) {
-          const {data} = await axios.get<SubService>(process.env.NEXT_PUBLIC_DOMAIN + URL_SUB_SERVICES_PAGE + route.query.slug);
-          setDataSubPage(data)
+        if (route.query.slug) {
+          const { data } = await axios.get<SubService>(process.env.NEXT_PUBLIC_DOMAIN + URL_SUB_SERVICES_PAGE + route.query.slug);
+          setData(data)
         }
-      }catch (e) {
+      } catch (e) {
         console.log(e)
       }
     }
     fetchData()
-  },[route.query])
+  }, [route.query])
 
-  console.log(dataSubPage)
+  console.log(route.query.page )
+
 
   return (
     <>
+      <>
+        {data?.seo !== null ?
+          <NextSeo
+            title={data?.seo.title}
+            description={data?.seo.description}
+            canonical={canonicalLink}
+            openGraph={{
+              url: canonicalLink,
+              title: data?.seo.title,
+              description: data?.seo.description,
+              images: [{
+                url: `${assetService.permalink(`${data?.seo.image.url as string || ''}`, 'asset')}`,
+                width: data?.seo.image.width || 2400,
+                height: data?.seo.image.height || 1252,
+                alt: 'Lawa',
+                type: data?.seo.image.mime || 'image/jpeg',
+              }],
+            }}
+
+          /> : null}
+      </>
       <main>
+        {data?.title !== null ? 
+        
         <section className={styles.header}>
           <div className={styles.headerWrapper}>
-            <Headlines tag='h1'>{dataSubPage?.title}</Headlines>
+            <Headlines tag='h1'>{data?.title}</Headlines>
           </div>
-        </section>
+        </section>: 
+        
+        null}
+
+        {data?.service.title !== null && data?.service.slug !== null ?
+
         <section className={styles.breadCrumb}>
           <div className={styles.breadCrumbWrapper}>
             <Breadcrumbs data={[
               { title: 'Услуги', path: '/' + route.asPath.split('/').splice(0, 2).join('') },
               {
-                title: dataSubPage?.title !== undefined ? dataSubPage?.title : '', path: typeof route.query.slug === 'string' ? '/' +
-                  route.asPath.split('/').splice(0, 2).join('') + '/' + route.query.slug : ''
+                title: data?.service.title !== undefined ? data?.service.title : '', path: typeof route.query.pages === 'string' ? '/' +
+                  route.asPath.split('/').splice(0, 2).join('') + '/' + route.query.pages : ''
               },
-              { title: dataSubPage?.title !== undefined ? dataSubPage?.title : '', path: route.asPath }
+              { title: data?.title !== undefined ? data?.title : '', path: route.asPath }
             ]} />
           </div>
-        </section>
+        </section>: 
+        
+        null}
+
+        {data?.title !== null ? 
+
         <section className={styles.result}>
           <div className={styles.resultWrapper}>
             <div className={styles.resultImages}>
@@ -68,37 +108,64 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
             <div className={styles.resultList}>
               <div className={styles.resultTitle}>
                 <Headlines tag="h2">
-                  {dataSubPage?.title}
+                  {data?.title}
                 </Headlines>
               </div>
               <div className={styles.resultList}>
-                <div className={styles.resultDescription} dangerouslySetInnerHTML={{ __html: typeof dataSubPage?.description === 'string' ? dataSubPage?.description : '' }}>
+                <div className={styles.resultDescription} dangerouslySetInnerHTML={{ __html: typeof data?.description === 'string' ? data?.description : '' }}>
                 </div>
                 <Button>Заказать услугу</Button>
               </div>
             </div>
           </div>
-        </section>
+        </section>:
+
+          null}
+
+        { data?.sub_service_items !== null? 
+         <section className={cn(styles.services, {
+          [styles.servicesGridTheere]: data?.sub_service_items.length !== undefined && data?.sub_service_items.length < 4,
+          [styles.servicesGridAdaptive]: data?.sub_service_items.length !== undefined && data?.sub_service_items.length % 2 !== 0,
+        })}>
+          {
+            data && data.sub_service_items.map((item, key) => (
+              <Service key={key} type='specific-card'
+                link={route.asPath + '/' + item.slug}
+                img={item.image_preview?.url as string}
+                text={item.title}>{item.decsription_preview}</Service>
+            ))
+          }
+        </section> :
+
+        null}
+
+        {data?.list !== null ? 
+        
         <section className={styles.specifics}>
           <div className={styles.specificsTitle}>
             <Headlines tag='h2' >Наш Арсенал</Headlines>
           </div>
           <div className={styles.specificsArsenal}>
-            {/* {dataSubPage && dataSubPage.list.map((item, key) => (
+            {data && data.list.map((item, key) => (
               <div key={key} className={styles.specificsArsenalItem}>
-                <Service type='arsenal-card' text={item.description} img={item}>{item.title}</Service>
+                {item.img ? <Service type='arsenal-card' text={item.description} img={item.img.url}>{item.title}</Service> : null}
               </div>
-            ))} */}
+            ))}
           </div>
-        </section>
+        </section>: 
+        
+        null }
+
+        {data?.table !== null ? 
+        
         <section className={styles.process}>
           <div className={styles.processWrapper}>
             <div className={styles.processFirst}>
               <Headlines tag="h3">
-                {dataSubPage?.table.title_we}
+                {data?.table.title_we}
               </Headlines>
               <ul className={styles.processFirstItems}>
-                {dataSubPage?.table.We.map((listItem, key) => (
+                {data?.table.We.map((listItem, key) => (
                   <li key={key}>{listItem.text}</li>
                 ))}
               </ul>
@@ -108,16 +175,21 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
             </div>
             <div className={styles.processLast}>
               <Headlines tag="h3">
-                {dataSubPage?.table.title_you}
+                {data?.table.title_you}
               </Headlines>
               <ul className={styles.processLastItems}>
-                {dataSubPage?.table.You.map((listItem, key) => (
+                {data?.table.You.map((listItem, key) => (
                   <li key={key}>{listItem.text}</li>
                 ))}
               </ul>
             </div>
           </div>
-        </section>
+        </section>: 
+        
+        null}
+
+        {data?.cases !== null ? 
+        
         <section className={styles.cases}>
           <div className={styles.casesTitle}>
             <Headlines tag='h2'>Наши Кейсы</Headlines>
@@ -144,7 +216,11 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
               />
             ))}
           </div>
-        </section>
+        </section>: 
+        null}
+
+        {data?.reviews !== null ? 
+        
         <section className={styles.cases}>
           <div className={styles.casesTitle}>
             <Headlines tag='h2'>Отзывы</Headlines>
@@ -171,15 +247,22 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
               />
             ))}
           </div>
-        </section>
-        <section className={styles.questions}>
+        </section>: 
+        
+        null}
+
+        {data?.questions !== null ?
+
+          <section className={styles.questions}>
           <div className={styles.questionsWrapper}>
             <div>
               <Headlines tag='h3'>Остались вопросы?</Headlines>
               <Button>Обсудить проект</Button>
             </div>
           </div>
-        </section>
+        </section>: 
+        
+        null}
       </main>
     </>
   )

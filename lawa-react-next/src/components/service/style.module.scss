@@ -10,14 +10,6 @@
 	padding: 16px 16px 20px 15px;
 	transition: 500ms ease-in-out;
 
-	&:hover {
-		-webkit-box-shadow: 6px 6px 9px 0px rgba(226, 87, 48, 0.2);
-		-moz-box-shadow: 6px 6px 9px 0px rgba(226, 87, 48, 0.2);
-		box-shadow: 6px 6px 9px 0px rgba(226, 87, 48, 0.2);
-		transition: 250ms ease-in-out;
-		scale: 1.02;
-	}
-
 	&Arrow {
 		display: flex;
 		justify-content: flex-end;
@@ -26,8 +18,16 @@
 		img {
 			transition: 500ms all ease-in-out;
 		}
+	}
 
-		img:hover {
+	&:hover {
+		-webkit-box-shadow: 6px 6px 9px 0px rgba(226, 87, 48, 0.2);
+		-moz-box-shadow: 6px 6px 9px 0px rgba(226, 87, 48, 0.2);
+		box-shadow: 6px 6px 9px 0px rgba(226, 87, 48, 0.2);
+		transition: 250ms ease-in-out;
+		scale: 1.02;
+
+		.serviceArrow > img {
 			transition: 500ms all ease-in-out;
 			transform: rotate(45deg);
 		}
@@ -207,7 +207,7 @@
 			height: 100px;
 			overflow: hidden;
 			-webkit-line-clamp: 4;
-      display: -webkit-box;
+			display: -webkit-box;
 			-webkit-box-orient: vertical;
 			text-overflow: ellipsis;
 		}

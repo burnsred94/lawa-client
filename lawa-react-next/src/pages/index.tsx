@@ -30,6 +30,7 @@ function Home() {
     async function fetchData() {
       try {
         const { data } = await axios.get<MainPage>(process.env.NEXT_PUBLIC_DOMAIN + URL_MAIN_PAGE);
+        console.log(data)
         if (data) {
           setData(data)
         }
@@ -40,7 +41,6 @@ function Home() {
     fetchData()
   }, [route.query])
 
-  console.log(data)
 
   return (
     <>
