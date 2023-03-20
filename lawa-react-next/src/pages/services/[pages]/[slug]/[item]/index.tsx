@@ -13,6 +13,7 @@ import cn from "classnames"
 
 import styles from "./style.module.scss"
 import { Service } from "@/components/service/Service"
+import { reviews } from "@/mock/mock.data"
 
 
 function SubServiceItem ({...props}): JSX.Element {
@@ -202,34 +203,34 @@ function SubServiceItem ({...props}): JSX.Element {
           {data?.reviews !== null ? 
           
           <section className={styles.cases}>
-            <div className={styles.casesTitle}>
-              <Headlines tag='h2'>Отзывы</Headlines>
-              <Button>Смотреть все Отзывы</Button>
-            </div>
-            <div className={styles.reviewCards}>
-              {data?.reviews.map((item, key) => (
-                <div key={key} className={cn(styles.casesDefualt, {
-                  [styles.casesActive]: key === activeReview,
-                  [styles.casesNonActive]: key !== activeReview
-                })}>
-                  <Service type='card-review' img={item.logo.url} title={item.name} text={item.description} client_name={item.name} />
-                </div>
-              ))}
-            </div>
-            <div className={styles.casesSlider}>
-              {data?.reviews.slice(0, 3).map((item, key) => (
-                <button
-                  className={cn(styles.buttonSliderBlock, {
-                    [styles.buttonSliderBlockActive]: key === active
-                  })}
-                  key={key}
-                  onClick={() => setActive(key)}
-                />
-              ))}
-            </div>
-          </section>: 
-          
-          null}
+          <div className={styles.casesTitle}>
+            <Headlines tag='h2'>Отзывы</Headlines>
+            <Button>Смотреть все Отзывы</Button>
+          </div>
+          <div className={styles.reviewCards}>
+            {data?.reviews.map((item, key) => (
+              <div key={key} className={cn(styles.casesDefualt, {
+                [styles.casesActive]: key === active,
+                [styles.casesNonActive]: key !== active
+              })}>
+                <Service type='card-review' img={item.logo.url} title={item.post} text={item.description} client_name={item.name} />
+              </div>
+            ))}
+          </div>
+          <div className={styles.casesSlider}>
+            {data?.reviews.slice(0, 3).map((item, key) => (
+              <button
+                className={cn(styles.buttonSliderBlock, {
+                  [styles.buttonSliderBlockActive]: key === active
+                })}
+                key={key}
+                onClick={() => setActive(key)}
+              />
+            ))}
+          </div>
+        </section> :
+
+        null}
   
           {data?.questions !== null ?
            

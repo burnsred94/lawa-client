@@ -202,8 +202,8 @@ function Page({ ...props }): JSX.Element {
             <div className={styles.reviewCards}>
               {data?.reviews.map((item, key) => (
                 <div key={key} className={cn(styles.casesDefualt, {
-                  [styles.casesActive]: key === activeReview,
-                  // [styles.casesNonActive]: key !== activeReview
+                  [styles.casesActive]: key === active,
+                  [styles.casesNonActive]: key !== active
                 })}>
                   <Service type='card-review' img={item.logo.url} title={item.post} text={item.description} client_name={item.name} />
                 </div>

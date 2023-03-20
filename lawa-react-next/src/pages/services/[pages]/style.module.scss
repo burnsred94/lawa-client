@@ -247,20 +247,26 @@
 @media screen and (max-width: 768px) {
 	.header {
 		background: url("../../../../public/images/frameService.png") no-repeat center;
-		height: 100px;
+		max-height: 100px;
 		display: grid;
 		align-content: center;
-		justify-content: start;
 
 		&Wrapper {
 			h1 {
+				margin-left: 15px;
 				font-size: 26px;
+				line-height: 30px;
 			}
 		}
 	}
 
+	.breadCrumb {
+		margin-left: 15px;
+	}
+
 	.result {
 		margin-top: 80px;
+		padding: 0 15px;
 		&Images {
 			display: none;
 		}
@@ -293,6 +299,7 @@
 	}
 
 	.specifics {
+		padding: 0 15px;
 		margin-top: 100px;
 		grid-template-columns: 1fr;
 
@@ -301,142 +308,142 @@
 		}
 	}
 
-  .process {
-	margin-top: 100px;
-	max-width: 100%;
+	.process {
+		margin-top: 100px;
+		max-width: 100%;
+		padding: 0 15px;
 
-	&Wrapper {
-		grid-template-columns: 1fr;
-		justify-items: center;
-		grid-template-areas:
-			"first"
-			"next"
-			"last";
-	}
-
-	&First {
-		display: flex;
-		flex-direction: column;
-		align-items: self-start;
-		border: 1px solid #e25730;
-		margin-bottom: -20px;
-		width: 100%;
-
-		h3 {
-			margin: 35px 0 20px 40px;
+		&Wrapper {
+			grid-template-columns: 1fr;
+			justify-items: center;
+			grid-template-areas:
+				"first"
+				"next"
+				"last";
 		}
-		&Items {
-			list-style: none;
-			color: #fff;
-			li {
-				margin-bottom: 18px;
-				max-width: 100%;
+
+		&First {
+			display: flex;
+			flex-direction: column;
+			align-items: self-start;
+			border: 1px solid #e25730;
+			margin-bottom: -20px;
+			width: 100%;
+
+			h3 {
+				margin: 35px 0 20px 40px;
+			}
+			&Items {
+				list-style: none;
+				color: #fff;
+				li {
+					margin-bottom: 18px;
+					max-width: 100%;
+				}
+			}
+		}
+
+		&Next {
+			position: relative;
+			width: 100px;
+			height: 70px;
+			img {
+				width: 25px;
+				height: 30px;
+				transform: rotate(90deg);
+			}
+		}
+
+		&Last {
+			margin-top: -20px;
+			width: 100%;
+			grid-area: last;
+
+			h3 {
+				margin: 35px 40px 20px;
+			}
+
+			&Items {
+				list-style: none;
+				color: #fff;
+				padding: 0;
+				li {
+					padding-left: 40px;
+					margin-bottom: 18px;
+					max-width: 100%;
+				}
 			}
 		}
 	}
 
-	&Next {
-		position: relative;
-		width: 100px;
-		height: 70px;
-		img {
+	.cases {
+		margin-top: 100px;
+		padding: 0 15px;
+		&Title {
+			flex-direction: column;
+			align-items: flex-start;
+			padding-left: 0;
+			h2 {
+				font-size: 28px;
+				margin-bottom: 16px;
+				padding-left: 0;
+			}
+
+			h2::before {
+				display: none;
+			}
+		}
+
+		&Cards {
+			grid-template-columns: 1fr;
+			justify-content: center;
+			align-items: center;
+		}
+		&NonActive {
+			z-index: 2;
+			display: none;
+		}
+		&Active > div {
+			z-index: 2;
+			display: block;
+		}
+		&Slider {
+			display: flex;
+			margin-top: 30px;
+			justify-content: center;
+			align-items: center;
+			column-gap: 5px;
+		}
+		&ButtonSlider {
+			border: none;
 			width: 25px;
-			height: 30px;
-			transform: rotate(90deg);
+			height: 3px;
+		}
+		&ButtonSliderActive {
+			background-color: var(--primary-color);
 		}
 	}
 
-	&Last {
-		margin-top: -20px;
-		width: 100%;
-		grid-area: last;
-
-		h3 {
-			margin: 35px 40px 20px;
+	.reviewCards {
+		grid-template-columns: 1fr;
+		&Card {
 		}
+	}
+	.questions {
+		margin-top: 100px;
+		height: 264px;
 
-		&Items {
-			list-style: none;
-			color: #fff;
-			padding: 0;
-			li {
-				padding-left: 40px;
-				margin-bottom: 18px;
-				max-width: 100%;
+		&Wrapper {
+			height: 100%;
+			max-width: 1200px;
+			margin: 0 auto;
+
+			div {
+				margin-left: 20px;
+			}
+			button {
+				margin-top: 53px;
 			}
 		}
 	}
-
-
 }
-
-.cases {
-  margin-top: 100px;
-  &Title {
-    flex-direction: column;
-    align-items: flex-start;
-    padding-left: 0;
-    h2 {
-      font-size: 28px;
-      margin-bottom: 16px;
-      padding-left: 0;
-    }
-
-    h2::before {
-      display: none;
-    }
-  }
-
-  &Cards {
-    grid-template-columns: 1fr;
-    justify-content: center;
-    align-items: center;
-  }
-  &NonActive {
-    z-index: 2;
-    display: none;
-  }
-  &Active > div {
-    z-index: 2;
-    display: block;
-  }
-  &Slider {
-    display: flex;
-    margin-top: 30px;
-    justify-content: center;
-    align-items: center;
-    column-gap: 5px;
-  }
-  &ButtonSlider {
-    border: none;
-    width: 25px;
-    height: 3px;
-  }
-  &ButtonSliderActive {
-    background-color: var(--primary-color);
-  }
-}
-
-.reviewCards {
-    grid-template-columns: 1fr;
-}
-.questions {
-  margin-top: 100px;
-  height: 264px;
-
-  &Wrapper {
-    height: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-  
-    div {
-      margin-left: 20px;
-    }
-    button {
-      margin-top: 53px;
-    }
-  }
-} 
-
-}
-

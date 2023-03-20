@@ -360,7 +360,9 @@
 }
 
 @media screen and (max-width: 768px) {
+	
 	.header {
+
 		background: url("../../../public/images/frameService.png") no-repeat center;
 		height: 100px;
 		display: grid;
@@ -369,14 +371,19 @@
 
 		&Wrapper {
 			h1 {
+				margin-left: 15px;
 				font-size: 28px;
 			}
 		}
 	}
 
+	.breadCrumb {
+		margin-left: 15px;
+	}
+
 	.service {
 		background: none;
-
+		padding: 0 15px;
 		&Title {
 			margin-top: 100px;
 			padding-left: 0;
@@ -404,6 +411,7 @@
 
 	.sphere {
 		margin-top: 50px;
+		padding: 0 15px;
 		&Title {
 			display: grid;
 			grid-template-columns: 1fr;
@@ -426,6 +434,7 @@
 		margin: 0 auto;
 		margin-top: 150px;
 		max-width: 1200px;
+		padding: 0 15px;
 
 		&Title {
 			h2 {
@@ -445,6 +454,7 @@
 			grid-area: images;
 			display: grid;
 			grid-template-columns: 1fr 1fr;
+			gap: 20px;
 			max-width: 100%;
 
 			&Left {
@@ -475,6 +485,7 @@
 	.process {
 		margin-top: 100px;
 		max-width: 100%;
+		padding: 0 15px;
 
 		&Wrapper {
 			grid-template-columns: 1fr;

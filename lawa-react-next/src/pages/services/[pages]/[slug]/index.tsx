@@ -196,20 +196,21 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
             <Button>Смотреть все работы</Button>
           </div>
           <div className={styles.casesCards}>
-            {cases.map((item, key) => (
+            {data?.cases.map((item, key) => (
               <div key={key} className={cn(styles.casesDefualt, {
                 [styles.casesActive]: key === active,
                 [styles.casesNonActive]: key !== active
               })}>
-                <Service type='card-partners' img={item.img} link={item.link}>{item.title}</Service>
+                <Service type='card-partners' img={item.image.url} link={item.link}>{item.description}</Service>
               </div>
             ))}
           </div>
           <div className={styles.casesSlider}>
-            {cases.slice(0, 3).map((item, key) => (
+            {data?.cases.slice(0, 3).map((item, key) => (
               <button
                 className={cn(styles.casesButtonSlider, {
-                  [styles.casesButtonSliderActive]: key === active
+                  [styles.casesActive]: key === active,
+                  [styles.casesNonActive]: key !== active
                 })}
                 key={key}
                 onClick={() => setActive(key)}
@@ -227,12 +228,12 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
             <Button>Смотреть все Отзывы</Button>
           </div>
           <div className={styles.reviewCards}>
-            {reviews.map((item, key) => (
+            {data?.reviews.map((item, key) => (
               <div key={key} className={cn(styles.casesDefualt, {
-                [styles.casesActive]: key === activeReview,
-                [styles.casesNonActive]: key !== activeReview
+                [styles.casesActive]: key === active,
+                [styles.casesNonActive]: key !== active
               })}>
-                <Service type='card-review' img={item.img} title={item.title} text={item.text} client_name={item.name_client} />
+                <Service type='card-review' img={item.logo.url} title={item.post} text={item.description} client_name={item.name} />
               </div>
             ))}
           </div>

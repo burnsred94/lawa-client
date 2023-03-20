@@ -116,13 +116,13 @@
 	top: 80px;
 	bottom: 0;
 	right: 0;
+  width: 400px;
 	z-index: 1;
-	width: 450px;
-	padding: 40 0 0 0;
+	padding: 40px 0 0 0;
 	background-color: #1b191a;
 	transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 	transform: translateX(100%);
-	box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.45);
+	box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.45);
 	
 
 	&Active {
@@ -134,16 +134,17 @@
 @media screen and (max-width: 1200px) {
   .header {
     width: 100%;
-    padding: 0 15px;
   }
 }
 
 @media screen and (max-width: 768px) {
   .header {
     width: 100%;
-
+    padding: 0 15px;
     &Wrapper {
-      grid-template-columns: 1fr 1fr;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
     }
 
     &Contacts {

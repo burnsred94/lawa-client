@@ -20,3 +20,20 @@
 .active {
   color: #E25730;
 }
+
+
+@media screen and (max-width: 768px) {
+  .breadCrumbs {
+    margin: 0 15px;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    div {
+      a{
+        white-space: pre-wrap;
+        margin: 0;
+      }
+
+    }
+  }
+}

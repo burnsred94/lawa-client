@@ -319,13 +319,19 @@
 		&Wrapper {
 			h1 {
 				font-size: 26px;
-        display: none;
+        margin-left: 15px;
+        line-height: 28px;
 			}
 		}
 	}
 
+  .breadCrumb {
+    margin-left: 15px;
+  }
+
 	.result {
 		margin-top: 80px;
+    padding: 15px;
 		&Images {
 			display: none;
 		}
@@ -357,18 +363,39 @@
 		}
 	}
 
+  .services {
+    padding: 0 15px;
+    grid-template-columns: 1fr;
+  }
+
 	.specifics {
+    padding: 15px;
 		margin-top: 100px;
 		grid-template-columns: 1fr;
+
+    &Title {
+      h2{ 
+        margin: 0;
+      }
+
+      &::before {
+        display: none;
+      }
+    }
 
 		&GridTheere {
 			grid-template-columns: 1fr;
 		}
+
+    &Arsenal {
+      grid-template-columns: 1fr;
+    }
 	}
 
   .process {
 	margin-top: 100px;
 	max-width: 100%;
+  padding: 0 15px;
 
 	&Wrapper {
 		grid-template-columns: 1fr;
@@ -437,6 +464,7 @@
 
 .cases {
   margin-top: 100px;
+  padding: 0 15px;
   &Title {
     flex-direction: column;
     align-items: flex-start;
