@@ -41,12 +41,11 @@ function Home() {
     fetchData()
   }, [route.query])
 
-
   return (
     <>
       <>
         <NextSeo
-          title={data?.seo.title}
+          title={data?.seo?.title}
           description={data?.seo.description}
           canonical={canonicalLink}
           openGraph={{
@@ -119,7 +118,7 @@ function Home() {
               </div>
               <div className={styles.serviceItems}>
                 {data?.services ? data.services.map((item, key) => (
-                  <Service type='card' key={key} img={item.preview_img?.url as string} link={`services/${item.slug}`}>{item.title}</Service>
+                  <Service type='card' key={key} img={item.preview_img} link={`services/${item.slug}`}>{item.title}</Service>
                 )) : null}
               </div>
               <div className={styles.serviceButton}>
@@ -179,7 +178,7 @@ function Home() {
                   [styles.casesActive]: key === active,
                   [styles.casesNonActive]: key !== active
                 })}>
-                  <Service type='card-partners' img={item.image.url} link={item.link}>{item.description}</Service>
+                  <Service type='card-partners' img={item.image} link={item.link}>{item.description}</Service>
                 </div>
               )) : null}
             </div>
@@ -202,7 +201,7 @@ function Home() {
 
           <section className={styles.slogan}>
             <div className={styles.sloganWrapper}>
-              <Headlines tag='h4'>{data?.slogan ? data.slogan : ''}</Headlines>
+              <Headlines tag='h4'>{data?.slogan ? `${data?.slogan}` : ''}</Headlines>
             </div>
           </section> :
 
@@ -221,7 +220,7 @@ function Home() {
                   [styles.casesActive]: key === activeReview,
                   [styles.casesNonActive]: key !== activeReview
                 })}>
-                  <Service type='card-review' img={item.logo.url} title={item.name} text={item.description} client_name={item.post} />
+                  <Service type='card-review' img={item.logo} title={item.name} text={item.description} client_name={item.post} />
                 </div>
               )) : null}
             </div>

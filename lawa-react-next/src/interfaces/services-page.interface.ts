@@ -25,5 +25,6 @@ export interface ServicesPage {
   list_result: ListResult[]
   table: Table
   trust_images: Image[]
+  sub_description: string;
   seo: Seo
 }

@@ -34,8 +34,8 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
           <div className={styles.serviceText}>
             {img ? <Image
               priority
-              loader={() => loaderImage(img)}
-              src={process.env.NEXT_PUBLIC_API_URL + img}
+              loader={() => loaderImage(img.url)}
+              src={process.env.NEXT_PUBLIC_API_URL + img.url}
               width={48}
               height={48}
               alt="arrow"
@@ -51,10 +51,10 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
         <div className={styles.partnersCard}>
           <div className={styles.partnersImage}>
             {img ? <Image
-              loader={() => loaderImage(img)}
-              src={process.env.NEXT_PUBLIC_API_URL + img}
-              width={220}
-              height={85}
+              loader={() => loaderImage(img.url)}
+              src={process.env.NEXT_PUBLIC_API_URL + img.url}
+              width={img.width}
+              height={img.height}
               alt="arrow"
             /> : "Not image preview"}
           </div>
@@ -95,8 +95,8 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
         <div className={styles.reviewCredential}>
           <Image
             priority
-            loader={() => loaderImage(img)}
-            src={process.env.NEXT_PUBLIC_API_URL + img}
+            loader={() => loaderImage(img.url)}
+            src={process.env.NEXT_PUBLIC_API_URL + img.url}
             width={90}
             height={90}
             alt="client"
@@ -108,13 +108,11 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
         </div>
       </div>
     )
-  case 'specific-card':
-    {console.log(img)}
-    
+  case 'specific-card':    
     return (
       <div className={styles.specific}>
         <div className={styles.specificImage}>
-          {img ? <Image priority loader={()=>loaderImage(img)} src={process.env.NEXT_PUBLIC_DOMAIN + img} width={56} height={56} alt='image specific' />: "Not load image"}
+          {img ? <Image priority loader={()=>loaderImage(img.url)} src={process.env.NEXT_PUBLIC_DOMAIN + img.url} width={56} height={56} alt='image specific' />: "Not load image"}
           <Paragraph type='normal-text'>{text}</Paragraph>
         </div>
         <div className={styles.specificDescription}>
@@ -135,7 +133,7 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
   case 'arsenal-card':
     return (
       <div className={styles.arsenal}>
-        <Image priority loader={()=> loaderImage(img)} src={process.env.NEXT_PUBLIC_DOMAIN + img} width={48} height={48} alt='arsenal icon'/>
+        {img !== null ? <Image priority loader={()=> loaderImage(img.url)} src={process.env.NEXT_PUBLIC_DOMAIN + img.url} width={48} height={48} alt='arsenal icon'/>: "Not load image"}
         <Paragraph type='normal-text'>{children}</Paragraph>
         <Paragraph type='sub-title-text-normal'>{text}</Paragraph>
       </div>
@@ -144,7 +142,8 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
     return (
       <div className={styles.executives}>
         <div className={styles.executivesImage}>
-          <Link href={img}/>
+        {img ? <Image priority loader={()=>loaderImage(img.url)} src={process.env.NEXT_PUBLIC_DOMAIN + img.url} width={380} height={370} alt='image specific' />: "Not load image"}
+
         </div>
         <div className={styles.executivesText}>
           <span>{children}</span>

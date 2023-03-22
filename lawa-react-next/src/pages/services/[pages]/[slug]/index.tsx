@@ -43,8 +43,7 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
     fetchData()
   }, [route.query])
 
-  console.log(route.query.page )
-
+    console.log(data?.cases)
 
   return (
     <>
@@ -131,7 +130,7 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
             data && data.sub_service_items.map((item, key) => (
               <Service key={key} type='specific-card'
                 link={route.asPath + '/' + item.slug}
-                img={item.image_preview?.url as string}
+                img={item.image_preview}
                 text={item.title}>{item.decsription_preview}</Service>
             ))
           }
@@ -139,16 +138,16 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
 
         null}
 
-        {data?.list !== null ? 
+        {data?.list !== null ?
         
         <section className={styles.specifics}>
           <div className={styles.specificsTitle}>
-            <Headlines tag='h2' >Наш Арсенал</Headlines>
+            <Headlines tag='h2' >{'Наш Арсенал'}</Headlines>
           </div>
           <div className={styles.specificsArsenal}>
             {data && data.list.map((item, key) => (
               <div key={key} className={styles.specificsArsenalItem}>
-                {item.img ? <Service type='arsenal-card' text={item.description} img={item.img.url}>{item.title}</Service> : null}
+                <Service type='arsenal-card' text={item.description} img={item.img}>{item.title}</Service>
               </div>
             ))}
           </div>
@@ -191,17 +190,17 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
         {data?.cases !== null ? 
         
         <section className={styles.cases}>
-          <div className={styles.casesTitle}>
-            <Headlines tag='h2'>Наши Кейсы</Headlines>
+          {data?.cases !== null ? <div className={styles.casesTitle}>
+            <Headlines tag='h2'>{"Наши Кейсы"}</Headlines>
             <Button>Смотреть все работы</Button>
-          </div>
+          </div>: null}
           <div className={styles.casesCards}>
             {data?.cases.map((item, key) => (
               <div key={key} className={cn(styles.casesDefualt, {
                 [styles.casesActive]: key === active,
                 [styles.casesNonActive]: key !== active
               })}>
-                <Service type='card-partners' img={item.image.url} link={item.link}>{item.description}</Service>
+                <Service type='card-partners' img={item.image} link={item.link}>{item.description}</Service>
               </div>
             ))}
           </div>
@@ -233,7 +232,7 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
                 [styles.casesActive]: key === active,
                 [styles.casesNonActive]: key !== active
               })}>
-                <Service type='card-review' img={item.logo.url} title={item.post} text={item.description} client_name={item.name} />
+                <Service type='card-review' img={item.logo} title={item.post} text={item.description} client_name={item.name} />
               </div>
             ))}
           </div>

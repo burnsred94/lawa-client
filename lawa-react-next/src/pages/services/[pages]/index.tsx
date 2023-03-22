@@ -119,7 +119,7 @@ function Page({ ...props }): JSX.Element {
               data && data.sub_services.map((item, key) => (
                 <Service key={key} type='specific-card'
                   link={route.query.pages + '/' + item.slug}
-                  img={item.preview_img?.url as string}
+                  img={item.preview_img}
                   text={item.title}>{item.descr_preview}</Service>
               ))
             }
@@ -173,7 +173,7 @@ function Page({ ...props }): JSX.Element {
                   [styles.casesActive]: key === active,
                   [styles.casesNonActive]: key !== active
                 })}>
-                  <Service type='card-partners' img={item.image.url} link={item.link}>{item.description}</Service>
+                  <Service type='card-partners' img={item.image} link={item.link}>{item.description}</Service>
                 </div>
               ))}
             </div>
@@ -205,7 +205,7 @@ function Page({ ...props }): JSX.Element {
                   [styles.casesActive]: key === active,
                   [styles.casesNonActive]: key !== active
                 })}>
-                  <Service type='card-review' img={item.logo.url} title={item.post} text={item.description} client_name={item.name} />
+                  <Service type='card-review' img={item.logo} title={item.post} text={item.description} client_name={item.name} />
                 </div>
               ))}
             </div>

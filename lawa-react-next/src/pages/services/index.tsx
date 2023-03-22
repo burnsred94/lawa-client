@@ -79,9 +79,10 @@ function Services(): JSX.Element {
               <div className={styles.serviceTitle}>
                 <Headlines tag='h2'>{data?.title_services ? data.title_services : ''}</Headlines>
               </div>
+              <div className={styles.serviceSubDescription} dangerouslySetInnerHTML={{__html: data?.sub_description as string}}/>
               <div className={styles.serviceItems}>
                 {data?.services ? data.services.map((item, key) => (
-                  <Service type='card' key={key} img={item.preview_img?.url} link={route.asPath + '/' + item.slug}>{item.title}</Service>
+                  <Service type='card' key={key} img={item.preview_img} link={route.asPath + '/' + item.slug}>{item.title}</Service>
                 )) : null}
               </div>
               <div className={styles.serviceButton}>

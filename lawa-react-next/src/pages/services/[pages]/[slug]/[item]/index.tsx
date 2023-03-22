@@ -129,7 +129,7 @@ function SubServiceItem ({...props}): JSX.Element {
             <div className={styles.specificsArsenal}>
               {data && data.arsenal.map((item, key) => (
                 <div key={key} className={styles.specificsArsenalItem}>
-                  <Service type='arsenal-card' text={item.description} img={item.img.url}>{item.title}</Service>
+                  <Service type='arsenal-card' text={item.description} img={item.img}>{item.title}</Service>
                 </div>
               ))}
             </div>
@@ -173,7 +173,7 @@ function SubServiceItem ({...props}): JSX.Element {
           
           <section className={styles.cases}>
             <div className={styles.casesTitle}>
-              <Headlines tag='h2'>Наши Кейсы</Headlines>
+              <Headlines tag='h2'>{data?.cases !== null && 'Наши кейсы'}</Headlines>
               <Button>Смотреть все работы</Button>
             </div>
             <div className={styles.casesCards}>
@@ -182,7 +182,7 @@ function SubServiceItem ({...props}): JSX.Element {
                   [styles.casesActive]: key === active,
                   [styles.casesNonActive]: key !== active
                 })}>
-                  <Service type='card-partners' img={item.image.url} link={item.link}>{item.description}</Service>
+                  <Service type='card-partners' img={item.image} link={item.link}>{item.description}</Service>
                 </div>
               ))}
             </div>
@@ -213,7 +213,7 @@ function SubServiceItem ({...props}): JSX.Element {
                 [styles.casesActive]: key === active,
                 [styles.casesNonActive]: key !== active
               })}>
-                <Service type='card-review' img={item.logo.url} title={item.post} text={item.description} client_name={item.name} />
+                <Service type='card-review' img={item.logo} title={item.post} text={item.description} client_name={item.name} />
               </div>
             ))}
           </div>
