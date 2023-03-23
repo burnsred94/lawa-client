@@ -93,14 +93,14 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
           />
         </button>
         <div className={styles.reviewCredential}>
-          <Image
+          {img ? <Image
             priority
             loader={() => loaderImage(img.url)}
             src={process.env.NEXT_PUBLIC_API_URL + img.url}
             width={90}
             height={90}
             alt="client"
-          />
+          />: "Not image preview"}
           <div className={styles.reviewData}>
             <span>{title}</span>
             <span>{client_name}</span>
