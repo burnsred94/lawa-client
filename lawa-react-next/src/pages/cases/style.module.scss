@@ -24,21 +24,27 @@
 	}
 }
 
-.posts {
-    margin: 0 auto;
+.description {
+    margin: 120px auto 40px auto;
     max-width: 1200px;
-    margin-top: 100px;
-    
+
+    &Text {
+        max-width: 500px;
+        p{
+            font-size: 24px;
+        }
+    }
+}
+
+.services {
+    max-width: 1200px;
+    margin: 0 auto;
+
     &Wrapper {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        gap: 30px;
-    }
-    
-    &Nav {
-        justify-items: center;
-        display: grid;
-        margin: 50px 0;
+        row-gap:60px;
+        column-gap: 30px;
     }
 }
 
@@ -63,6 +69,7 @@
 }
 
 @media screen and (max-width: 768px) {
+
     .header {
 
 		background: url("../../../public/images/frameService.png") no-repeat center;
@@ -83,19 +90,31 @@
 		margin-left: 15px;
 	}
 
-	.posts {
-		margin: 50px 15px 0 15px;
-		display: flex;
-		flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    .description {
+        margin: 80px 15px 40px;
+        p {
+            font-size: 16px;
+        }
+    }
 
-		&Wrapper {
-			grid-template-columns: 1fr;
-		}
-	}
+    .services {
+        margin: 0 15px;
+        &Wrapper {
+            grid-template-columns: 1fr;
+        }
 
-	.questions {
+        h2 {
+            padding-left: 0;
+            font-size: 28px;
+            line-height: 32px;
+
+            &::before {
+                display: none;
+            }
+        }
+    }
+
+    .questions {
 		margin-top: 100px;
 		height: 264px;
 

@@ -118,21 +118,22 @@
 		"text"
 		"button"
 		"client";
-
-	p {
-		max-width: 330px;
-		font-size: 16px;
-		font-weight: 400;
-		height: 126px;
-		margin-bottom: 5px;
-		overflow: hidden;
-	}
-
-	p {
-		text-justify: distribute;
-		display: -webkit-box;
-		-webkit-line-clamp: 5;
-		-webkit-box-orient: vertical;
+	&Block {
+		
+		&Text {
+			max-width: 330px;
+			font-size: 16px;
+			font-weight: 400;
+			height: 126px;
+			margin-bottom: 5px;
+			overflow: hidden;
+			p {
+				text-justify: distribute;
+				display: -webkit-box;
+				--webkit-line-clamp: 5;
+				--webkit-box-orient: vertical;
+			}
+		}
 	}
 
 	&Button {
@@ -155,6 +156,9 @@
 	&Credential {
 		display: grid;
 		grid-template-columns: 1fr 4fr;
+		img {
+			border-radius: 50%;
+		}
 	}
 
 	&Data {

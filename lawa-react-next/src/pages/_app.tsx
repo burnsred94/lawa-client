@@ -8,6 +8,8 @@ const lato = Lato({
   subsets: ['latin'],
 })
 
+
+
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return <>
     <style jsx global>{`

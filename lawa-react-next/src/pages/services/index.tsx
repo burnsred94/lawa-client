@@ -106,14 +106,15 @@ function Services(): JSX.Element {
                   <div key={key} className={styles.sphereBlockWrapper}>
                     <Link href='/sphere'>
                       <div className={styles.sphereBlockItem}>
-                        <Image
+                      {value.img !== null ? 
+                      <Image
                           priority
                           loader={() => loaderImage(value.img.url)}
                           width={90}
                           height={90}
-                          src={process.env.NEXT_PUBLIC_DOMAIN + value.img.url}
+                          src={ process.env.NEXT_PUBLIC_DOMAIN + value.img?.url}
                           alt='img'
-                        />
+                        />: 'Not image data'}
                       </div>
                       <Paragraph type="normal-text">{value.title}</Paragraph>
                     </Link>
@@ -142,7 +143,7 @@ function Services(): JSX.Element {
                 <ul className={styles.resultListItems}>
                   {data?.list_result && data?.list_result.map((item, key) => (
                     <li key={key}>
-                      <Image priority alt={item.img.name} width={45} height={45} src={process.env.NEXT_PUBLIC_DOMAIN + item.img.url} />
+                      {item.img !== null ? <Image priority alt={item.img.hash} width={45} height={45} src={process.env.NEXT_PUBLIC_DOMAIN + item.img.url} />: null}
                       <Paragraph type="normal-text">{item.description}</Paragraph>
                     </li>
                   ))}
