@@ -119,19 +119,17 @@
 		"button"
 		"client";
 	&Block {
-		
 		&Text {
 			max-width: 330px;
 			font-size: 16px;
 			font-weight: 400;
 			height: 126px;
 			margin-bottom: 5px;
-			overflow: hidden;
 			p {
-				text-justify: distribute;
+				overflow: hidden;
 				display: -webkit-box;
-				--webkit-line-clamp: 5;
-				--webkit-box-orient: vertical;
+				-webkit-line-clamp: 5;
+				-webkit-box-orient: vertical;
 			}
 		}
 	}

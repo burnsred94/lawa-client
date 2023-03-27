@@ -2209,17 +2209,9 @@ export const menu: Menu[] = [
     link: '/about'
   },
   {
-    name: 'Блог',
-    link: '/blog'
-  },
-  {
     name: 'Отзывы',
     link: '/reviews'
   },
-  {
-    name: 'Контакты',
-    link: '/contacts'
-  }
 ]
 
 export const pageAbout = {

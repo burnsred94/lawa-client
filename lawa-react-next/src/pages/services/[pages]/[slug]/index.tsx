@@ -17,6 +17,7 @@ import { URL_SUB_SERVICES_PAGE } from '@/constants/constants'
 import { AssetService } from '@/services/AssetService'
 import { NextSeo } from 'next-seo'
 import ReactMarkdown from 'react-markdown'
+import { Modal } from '@/components/Modal/Modal.component'
 
 
 function SlugPage({ ...props }: SlugProps): JSX.Element {
@@ -24,6 +25,16 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
   const [activeReview, setActiveReview] = useState()
   const [active, setActive] = useState(0)
   const [data, setData] = useState<SubService>()
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   const link = `https://lawa.by${route.asPath}`
   const canonicalLink = link.includes('?') ? link.substring(0, link.indexOf('?')) : link
@@ -70,6 +81,7 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
           /> : null}
       </>
       <main>
+        {showModal && <Modal onClose={handleCloseModal} />}
         {data?.title !== null ?
 
           <section className={styles.header}>
@@ -113,7 +125,7 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
                 </div>
                 <div className={styles.resultList}>
                   <ReactMarkdown className={styles.resultListDescription}>{data?.description as string}</ReactMarkdown>
-                  <Button>Заказать услугу</Button>
+                  <Button init='button' onClick={() => handleOpenModal()}>Заказать услугу</Button>
                 </div>
               </div>
             </div>
@@ -138,7 +150,7 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
 
           null}
 
-        {data?.list !== null ?
+        {data?.list.length ?
 
           <section className={styles.specifics}>
             <div className={styles.specificsTitle}>
@@ -187,12 +199,12 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
 
           null}
 
-        {data?.cases !== null ?
+        {data?.cases.length ?
 
           <section className={styles.cases}>
             {data?.cases !== null ? <div className={styles.casesTitle}>
               <Headlines tag='h2'>{"Наши Кейсы"}</Headlines>
-              <Button>Смотреть все работы</Button>
+              <Button init='link' link='/cases'>Смотреть все работы</Button>
             </div> : null}
             <div className={styles.casesCards}>
               {data?.cases.map((item, key) => (
@@ -219,12 +231,12 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
           </section> :
           null}
 
-        {data?.reviews !== null ?
+        {data?.reviews.length ?
 
           <section className={styles.cases}>
             <div className={styles.casesTitle}>
               <Headlines tag='h2'>Отзывы</Headlines>
-              <Button>Смотреть все Отзывы</Button>
+              <Button init='link' link='/reviews'>Смотреть все Отзывы</Button>
             </div>
             <div className={styles.reviewCards}>
               {data?.reviews.map((item, key) => (
@@ -257,7 +269,7 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
             <div className={styles.questionsWrapper}>
               <div>
                 <Headlines tag='h3'>Остались вопросы?</Headlines>
-                <Button>Обсудить проект</Button>
+                <Button init='button' onClick={() => handleOpenModal()}>Обсудить проект</Button>
               </div>
             </div>
           </section> :

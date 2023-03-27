@@ -13,6 +13,7 @@ import { URL_MAIN_PAGE } from '@/constants/constants'
 import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
 import { AssetService } from '@/services/AssetService'
+import { Modal } from '@/components/Modal/Modal.component'
 
 
 
@@ -20,6 +21,16 @@ function Home() {
   const [active, setActive] = useState(0)
   const [activeReview, setActiveReview] = useState(0)
   const [data, setData] = useState<MainPage>()
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   const route = useRouter()
   const link = `https://lawa.by${route.asPath}`
@@ -64,6 +75,7 @@ function Home() {
         />
       </>
       <main className={styles.main}>
+        {showModal && <Modal onClose={handleCloseModal} />}
         {data?.header_image !== null && data?.title !== null ?
 
           <section className={styles.header}>
@@ -75,7 +87,7 @@ function Home() {
                 <Paragraph type='sub-title-text-dull'>
                   {data && data.sub_title}
                 </Paragraph>
-                <Button>Связаться с нами</Button>
+                <Button init='button' onClick={() => handleOpenModal()}>Связаться с нами</Button>
               </div>
               <div className={styles.headerImages}>
                 {
@@ -122,7 +134,7 @@ function Home() {
                 )) : null}
               </div>
               <div className={styles.serviceButton}>
-                <Button>Смотреть все</Button>
+                <Button init='link' link={'/services'}>Смотреть все</Button>
               </div>
             </div>
           </section> :
@@ -170,7 +182,7 @@ function Home() {
           <section className={styles.cases}>
             <div className={styles.casesTitle}>
               <Headlines tag='h2'>{data && data.title_cases}</Headlines>
-              <Button>Смотреть все работы</Button>
+              <Button init='link' link='/cases'>Смотреть все работы</Button>
             </div>
             <div className={styles.casesCards}>
               {data?.cases ? data.cases.map((item, key) => (
@@ -212,10 +224,10 @@ function Home() {
           <section className={styles.cases}>
             <div className={styles.casesTitle}>
               <Headlines tag='h2'>Отзывы</Headlines>
-              <Button>Смотреть все Отзывы</Button>
+              <Button init='link' link={'/reviews'} >Смотреть все Отзывы</Button>
             </div>
             <div className={styles.reviewCards}>
-              {data?.reviews ? data.reviews.map((item, key) => (
+              {data?.reviews ? data.reviews.slice(0, 3).map((item, key) => (
                 <div key={key} className={cn(styles.casesDefualt, {
                   [styles.casesActive]: key === activeReview,
                   [styles.casesNonActive]: key !== activeReview
@@ -292,12 +304,13 @@ function Home() {
             <div className={styles.questionsWrapper}>
               <div>
                 <Headlines tag='h3'>{data?.questions.title ? data.questions.title : ''}</Headlines>
-                <Button>Обсудить проект</Button>
+                <Button init='button' onClick={() => handleOpenModal()}>Обсудить проект</Button>
               </div>
             </div>
           </section> :
 
           null}
+
       </main>
     </>
   )

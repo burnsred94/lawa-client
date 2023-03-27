@@ -11,6 +11,8 @@ import { Caveat } from '@next/font/google'
 import cn from "classnames";
 import styles from "./style.module.scss";
 import axios from "axios";
+import { Modal } from "@/components/Modal/Modal.component";
+import { useState } from "react";
 
 
 const caveat = Caveat({
@@ -21,6 +23,17 @@ const caveat = Caveat({
 
 function CasesPage({ page }: CasesProps): JSX.Element {
     const data = page[0];
+
+
+    const [showModal, setShowModal] = useState(false);
+
+    const handleOpenModal = () => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
 
     const route = useRouter()
     const link = `https://lawa.by${route.asPath}`
@@ -52,23 +65,36 @@ function CasesPage({ page }: CasesProps): JSX.Element {
                 />
             </>
             <main>
-                <section className={styles.header}>
-                    <div className={styles.headerWrapper}>
-                        <Headlines tag='h1'>{data?.title ? data.title : ''}</Headlines>
-                    </div>
-                </section>
-                <section className={styles.breadCrumb}>
-                    <div className={styles.breadCrumbWrapper}>
-                        <Breadcrumbs data={[{ title: 'Наши кейсы', path: route.asPath }]} />
-                    </div>
-                </section>
-                <section className={cn(`${caveat.className}`, `${styles.description}`)} >
-                    <div className={styles.descriptionText}>
-                        <Paragraph className={`${caveat.className}`} type='normal-text'>
-                            {data.description}
-                        </Paragraph>
-                    </div>
-                </section>
+                {showModal && <Modal onClose={handleCloseModal} />}
+                {data.title !== null ?
+
+                    <section className={styles.header}>
+                        <div className={styles.headerWrapper}>
+                            <Headlines tag='h1'>{data?.title ? data.title : ''}</Headlines>
+                        </div>
+                    </section> :
+
+                    null}
+                {data.title !== null ?
+
+                    <section className={styles.breadCrumb}>
+                        <div className={styles.breadCrumbWrapper}>
+                            <Breadcrumbs data={[{ title: 'Наши кейсы', path: route.asPath }]} />
+                        </div>
+                    </section> :
+
+                    null}
+                {data.description !== null ?
+
+                    <section className={cn(`${caveat.className}`, `${styles.description}`)} >
+                        <div className={styles.descriptionText}>
+                            <Paragraph className={`${caveat.className}`} type='normal-text'>
+                                {data.description}
+                            </Paragraph>
+                        </div>
+                    </section> :
+
+                    null}
 
                 {data.cases !== null ?
 
@@ -92,7 +118,7 @@ function CasesPage({ page }: CasesProps): JSX.Element {
                         <div className={styles.questionsWrapper}>
                             <div>
                                 <Headlines tag='h3'>{data?.questions.title}</Headlines>
-                                <Button>{data?.questions.link}</Button>
+                                <Button init='button' onClick={() => handleOpenModal()}>{data?.questions.link}</Button>
                             </div>
                         </div>
 

@@ -15,6 +15,7 @@ import styles from "./style.module.scss"
 import { Service } from "@/components/service/Service"
 import { reviews } from "@/mock/mock.data"
 import ReactMarkdown from "react-markdown"
+import { Modal } from "@/components/Modal/Modal.component"
 
 
 function SubServiceItem({ ...props }): JSX.Element {
@@ -22,6 +23,16 @@ function SubServiceItem({ ...props }): JSX.Element {
   const [activeReview, setActiveReview] = useState()
   const [active, setActive] = useState(0)
   const [data, setData] = useState<SubServiceItem>()
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   const link = `https://lawa.by${route.asPath}`
   const canonicalLink = link.includes('?') ? link.substring(0, link.indexOf('?')) : link
@@ -42,7 +53,6 @@ function SubServiceItem({ ...props }): JSX.Element {
     fetchData()
   }, [route.query])
 
-  console.log(route.query)
 
   return (
     <>
@@ -68,6 +78,8 @@ function SubServiceItem({ ...props }): JSX.Element {
           /> : null}
       </>
       <main>
+        {showModal && <Modal onClose={handleCloseModal} />}
+
         {data?.title !== null ?
 
           <section className={styles.header}>
@@ -112,7 +124,7 @@ function SubServiceItem({ ...props }): JSX.Element {
                 </div>
                 <div className={styles.resultList}>
                   <ReactMarkdown className={styles.resultListDescription}>{data?.description as string}</ReactMarkdown>
-                  <Button>Заказать услугу</Button>
+                  <Button init="button" onClick={() => handleOpenModal()}>Заказать услугу</Button>
                 </div>
               </div>
             </div>
@@ -120,7 +132,7 @@ function SubServiceItem({ ...props }): JSX.Element {
 
           null}
 
-        {data?.arsenal !== null ?
+        {data?.arsenal.length ?
 
           <section className={styles.specifics}>
             <div className={styles.specificsTitle}>
@@ -169,12 +181,12 @@ function SubServiceItem({ ...props }): JSX.Element {
 
           null}
 
-        {data?.cases !== null ?
+        {data?.cases.length !== null ?
 
           <section className={styles.cases}>
             <div className={styles.casesTitle}>
               <Headlines tag='h2'>{data?.cases !== null && 'Наши кейсы'}</Headlines>
-              <Button>Смотреть все работы</Button>
+              <Button init="link" link="/cases">Смотреть все работы</Button>
             </div>
             <div className={styles.casesCards}>
               {data?.cases.map((item, key) => (
@@ -205,7 +217,7 @@ function SubServiceItem({ ...props }): JSX.Element {
           <section className={styles.cases}>
             <div className={styles.casesTitle}>
               <Headlines tag='h2'>Отзывы</Headlines>
-              <Button>Смотреть все Отзывы</Button>
+              <Button init="link" link="/reviews">Смотреть все Отзывы</Button>
             </div>
             <div className={styles.reviewCards}>
               {data?.reviews.map((item, key) => (
@@ -238,7 +250,7 @@ function SubServiceItem({ ...props }): JSX.Element {
             <div className={styles.questionsWrapper}>
               <div>
                 <Headlines tag='h3'>{data?.questions}</Headlines>
-                <Button>{data?.question_link}</Button>
+                <Button init='button' onClick={() => handleOpenModal()}>{data?.question_link}</Button>
               </div>
             </div>
           </section> :

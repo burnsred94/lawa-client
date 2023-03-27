@@ -13,13 +13,24 @@ import { useState } from "react"
 import { Params } from "./interfaces/review.interfaces"
 import styles from "./style.module.scss"
 import cn from 'classnames'
+import ReactMarkdown from "react-markdown"
+import { Modal } from "@/components/Modal/Modal.component"
 
 
 function Review({ data }: ReviewProps): JSX.Element {
     const route = useRouter()
     const [active, setActive] = useState(0)
 
-    console.log(route)
+    const [showModal, setShowModal] = useState(false);
+
+    const handleOpenModal = () => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
     return (
         <>
             <>
@@ -44,73 +55,109 @@ function Review({ data }: ReviewProps): JSX.Element {
                 /> */}
             </>
             <main>
-                <section className={styles.header}>
-                    <div className={styles.headerWrapper}>
-                        <Headlines tag='h1'>{data.name ? data.name : ''}</Headlines>
-                    </div>
-                </section>
+                {showModal && <Modal onClose={handleCloseModal} />}
 
-                <section className={styles.breadCrumb}>
-                    <div className={styles.breadCrumbWrapper}>
-                        <Breadcrumbs data={[{ title: 'Наши отзывы', path: '/reviews/' }, { title: data.name, path: route.asPath }]} />
-                    </div>
-                </section>
+                {data.name !== null ?
 
-                <section className={styles.content}>
-                    <div className={styles.contentTitle}>
-                        <Headlines tag="h2">{data.name ? data.name : ''}</Headlines>
-                    </div>
-                    <div className={styles.contentWrapper}>
-                        <div className={styles.contentPhoto}>
-                            <div className={styles.contentPhotoWrapper}>
-                                {data.photo && data.photo.map((item, index) => (
-                                    <div key={index} className={cn({
-                                        [styles.contentPhotoItemActive]: index === active,
-                                        [styles.contentPhotoItemNonActive]: index !== active,
-                                    })}>
-                                        <Image
-                                            loader={() => loaderImage(item.url)}
-                                            src={process.env.NEXT_PUBLIC_URL + item.url}
-                                            width={item.width || 2400}
-                                            height={item.height || 1252}
-                                            alt={item.hash || ''}
-                                        />
-                                    </div>
-                                ))}
-                                <div className={styles.contentPhotoSlider}>
-                                    {data && data.photo.map((item, key) => (
-                                        <button
-                                            className={cn(styles.contentPhotoSlider, {
-                                                [styles.contentPhotoButtonSliderNonActive]: key !== active,
-                                                [styles.contentPhotoButtonSliderActive]: key === active
-                                            })}
-                                            key={key}
-                                            onClick={() => setActive(key)}
-                                        />
+                    <section className={styles.header}>
+                        <div className={styles.headerWrapper}>
+                            <Headlines tag='h1'>{data.name ? data.name : ''}</Headlines>
+                        </div>
+                    </section> :
+
+                    null}
+
+                {data.name !== null ?
+
+                    <section className={styles.breadCrumb}>
+                        <div className={styles.breadCrumbWrapper}>
+                            <Breadcrumbs data={[{ title: 'Наши отзывы', path: '/reviews/' }, { title: data.name, path: route.asPath }]} />
+                        </div>
+                    </section> :
+
+                    null}
+
+                {data.photo !== null ?
+
+                    <section className={styles.content}>
+                        <div className={styles.contentTitle}>
+                            <Headlines tag="h2">{data.name ? data.name : ''}</Headlines>
+                        </div>
+                        <div className={styles.contentWrapper}>
+                            <div className={styles.contentPhoto}>
+                                <div className={styles.contentPhotoWrapper}>
+                                    {data.photo && data.photo.map((item, index) => (
+                                        <div key={index} className={cn({
+                                            [styles.contentPhotoItemActive]: index === active,
+                                            [styles.contentPhotoItemNonActive]: index !== active,
+                                        })}>
+                                            <Image
+                                                loader={() => loaderImage(item.url)}
+                                                src={process.env.NEXT_PUBLIC_URL + item.url}
+                                                width={item.width || 2400}
+                                                height={item.height || 1252}
+                                                alt={item.hash || ''}
+                                            />
+                                        </div>
                                     ))}
+                                    <div className={styles.contentPhotoSlider}>
+                                        <div className={styles.sliderWrapper}>
+                                            <button className={cn(`${styles.sliderButton}, ${styles.sliderButtonLeft}`, {
+                                                [styles.sliderButtonActive]: active !== data.photo.length,
+                                                [styles.sliderButtonNonActive]: active === 0,
+                                            })}
+                                                onClick={() => active !== 0 ? setActive(active - 1) : setActive(0)}
+                                            >
+                                                <Image
+                                                    src='/arrowright.svg'
+                                                    width={25}
+                                                    height={25}
+                                                    alt='arrow right'
+                                                />
+                                            </button>
+                                        </div>
+                                        <div className={styles.sliderWrapper}>
+                                            <button className={cn(`${styles.sliderButton}, ${styles.sliderButtonRight}`, {
+                                                [styles.sliderButtonActive]: active >= 0,
+                                                [styles.sliderButtonNonActive]: active === data.photo.length - 1,
+                                            })}
+                                                onClick={() => active < data.photo.length - 1 ? setActive(active + 1) : null}
+                                            >
+                                                <Image
+                                                    src='/arrowright.svg'
+                                                    width={25}
+                                                    height={25}
+                                                    alt='arrow right'
+                                                />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={styles.contentDescription}>
+                                <div className={styles.contentDescriptionText}>
+                                    <ReactMarkdown>{data.description}</ReactMarkdown>
+                                </div>
+                                <div className={styles.contentDescriptionButton} >
+                                    <Button init='button' onClick={() => handleOpenModal()}>Заказать Услугу</Button>
                                 </div>
                             </div>
                         </div>
-                        <div className={styles.contentDescription}>
-                            <div className={styles.contentDescriptionText}>
-                                {data.description}
-                            </div>
-                            <div className={styles.contentDescriptionButton} >
-                                <Button >Заказать Услугу</Button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                    </section> :
 
-                <section className={styles.questions}>
+                    null}
+
+                {data ? <section className={styles.questions}>
+
                     <div className={styles.questionsWrapper}>
                         <div>
                             <Headlines tag='h3'>Остались вопросы?</Headlines>
-                            <Button>Давайте обсудим</Button>
+                            <Button init='button' onClick={() => handleOpenModal()}>Давайте обсудим</Button>
                         </div>
                     </div>
+                </section> :
 
-                </section>
+                    null}
             </main>
 
         </>

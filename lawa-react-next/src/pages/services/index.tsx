@@ -13,11 +13,23 @@ import styles from './style.module.scss'
 import axios from 'axios'
 import { NextSeo } from 'next-seo'
 import { AssetService } from '@/services/AssetService'
+import { Modal } from '@/components/Modal/Modal.component'
+import ReactMarkdown from 'react-markdown'
 
 
 function Services(): JSX.Element {
   const route = useRouter()
   const [data, setData] = useState<ServicesPage>()
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   const link = `https://lawa.by${route.asPath}`
   const canonicalLink = link.includes('?') ? link.substring(0, link.indexOf('?')) : link
@@ -61,6 +73,7 @@ function Services(): JSX.Element {
         /> : null}
       </>
       <main>
+        {showModal && <Modal onClose={handleCloseModal} />}
         <section className={styles.header}>
           <div className={styles.headerWrapper}>
             <Headlines tag='h1'>{data?.title ? data.title : ''}</Headlines>
@@ -78,14 +91,14 @@ function Services(): JSX.Element {
               <div className={styles.serviceTitle}>
                 <Headlines tag='h2'>{data?.title_services ? data.title_services : ''}</Headlines>
               </div>
-              <div className={styles.serviceSubDescription} dangerouslySetInnerHTML={{ __html: data?.sub_description as string }} />
+              <ReactMarkdown>{data?.sub_description as string}</ReactMarkdown>
               <div className={styles.serviceItems}>
                 {data?.services ? data.services.map((item, key) => (
                   <Service type='card' key={key} img={item.preview_img} link={route.asPath + '/' + item.slug}>{item.title}</Service>
                 )) : null}
               </div>
               <div className={styles.serviceButton}>
-                <Button>Смотреть все</Button>
+                <Button init='link' link='/services'>Смотреть все</Button>
               </div>
             </div>
           </section> :
@@ -98,14 +111,14 @@ function Services(): JSX.Element {
             <div className={styles.sphereWrapper}>
               <div className={styles.sphereTitle}>
                 <Headlines tag="h2">{data?.title_sphere ? data.title_sphere : ''}</Headlines>
-                <Button>Смотреть все предложения</Button>
+                <Button init='button'>Смотреть все предложения</Button>
               </div>
               <div className={styles.sphereBlock}>
                 {data?.spheres ? data?.spheres.map((value, key) => (
                   <div key={key} className={styles.sphereBlockWrapper}>
-                    <Link href='/sphere'>
-                      <div className={styles.sphereBlockItem}>
-                        {value.img !== null ?
+                    {value.img !== null ?
+                      <Link href='/sphere'>
+                        <div className={styles.sphereBlockItem}>
                           <Image
                             priority
                             loader={() => loaderImage(value.img.url)}
@@ -113,10 +126,10 @@ function Services(): JSX.Element {
                             height={90}
                             src={process.env.NEXT_PUBLIC_DOMAIN + value.img?.url}
                             alt='img'
-                          /> : 'Not image data'}
-                      </div>
-                      <Paragraph type="normal-text">{value.title}</Paragraph>
-                    </Link>
+                          />
+                        </div>
+                        <Paragraph type="normal-text">{value.title}</Paragraph>
+                      </Link> : null}
                   </div>
                 )) : null}
               </div>
@@ -226,7 +239,7 @@ function Services(): JSX.Element {
             <div className={styles.questionsWrapper}>
               <div>
                 <Headlines tag='h3'>{data?.title_question ? data?.title_question : ''}</Headlines>
-                <Button>Обсудить проект</Button>
+                <Button init='button' onClick={() => handleOpenModal()}>Обсудить проект</Button>
               </div>
             </div>
           </section> :

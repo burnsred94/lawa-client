@@ -14,6 +14,7 @@ import Image from "next/image";
 import axios from "axios";
 import cn from "classnames";
 import styles from "./style.module.scss";
+import { Modal } from "@/components/Modal/Modal.component";
 
 
 
@@ -21,28 +22,48 @@ function Case({ data }: CaseProps): JSX.Element {
     const route = useRouter();
     const [active, setActive] = useState(0);
 
-    console.log(active);
+    const [showModal, setShowModal] = useState(false);
+
+    const handleOpenModal = () => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
 
     return (
         <>
             <main>
-                <section className={styles.header}>
-                    <div className={styles.headerWrapper}>
-                        <Headlines tag='h1'>{data?.title ? data.title : ''}</Headlines>
-                    </div>
-                </section>
-                <section className={styles.breadCrumb}>
-                    <div className={styles.breadCrumbWrapper}>
-                        <Breadcrumbs data={[{ title: 'Наши кейсы', path: '/cases/' }, { title: data.title, path: route.asPath }]} />
-                    </div>
-                </section>
-                <section className={styles.content}>
+                {showModal && <Modal onClose={handleCloseModal} />}
+                {data.title ?
+
+                    <section className={styles.header}>
+                        <div className={styles.headerWrapper}>
+                            <Headlines tag='h1'>{data?.title ? data.title : ''}</Headlines>
+                        </div>
+                    </section>
+
+                    : null}
+
+                {data.title ?
+
+                    <section className={styles.breadCrumb}>
+                        <div className={styles.breadCrumbWrapper}>
+                            <Breadcrumbs data={[{ title: 'Наши кейсы', path: '/cases/' }, { title: data.title, path: route.asPath }]} />
+                        </div>
+                    </section> :
+
+                    null}
+
+                {data.description ? <section className={styles.content}>
                     <div className={styles.contentTitle}>
                         <Headlines tag="h2">{data.title}</Headlines>
                     </div>
                     <div className={styles.contentWrapper}>
                         <div className={styles.contentPhotoWrapper}>
-                            {data.slider_images && data.slider_images.map((item, index) => (
+                            {data.slider_images.length ? data.slider_images.map((item, index) => (
                                 <div key={index} className={cn({
                                     [styles.contentPhotoItemActive]: index === active,
                                     [styles.contentPhotoItemNonActive]: index !== active,
@@ -59,7 +80,7 @@ function Case({ data }: CaseProps): JSX.Element {
                                         alt={item.hash || ''}
                                     />
                                 </div>
-                            ))}
+                            )) : null}
                             <div className={styles.contentPhotoSlider}>
                                 <div className={styles.sliderWrapper}>
                                     <button className={cn(`${styles.sliderButton}, ${styles.sliderButtonLeft}`, {
@@ -98,21 +119,21 @@ function Case({ data }: CaseProps): JSX.Element {
                                 <ReactMarkdown>{data?.description as string}</ReactMarkdown>
                             </div>
                             <div className={styles.contentDescriptionButton}>
-                                <Button>Заказать услугу</Button>
+                                <Button init='button' onClick={() => handleOpenModal()}>Заказать услугу</Button>
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> :
+                    null}
 
-                <section className={styles.questions}>
+                {<section className={styles.questions}>
                     <div className={styles.questionsWrapper}>
                         <div>
                             <Headlines tag='h3'>Остались вопросы?</Headlines>
-                            <Button>Давайте обсудим</Button>
+                            <Button init='button' onClick={() => handleOpenModal()}>Давайте обсудим</Button>
                         </div>
                     </div>
-
-                </section>
+                </section>}
             </main>
         </>
     )

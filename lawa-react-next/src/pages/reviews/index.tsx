@@ -9,11 +9,23 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import { Service } from "@/components/service/Service";
 import axios from "axios";
 import styles from './style.module.scss'
+import { Modal } from "@/components/Modal/Modal.component";
+import { useState } from "react";
 
 
 
 function Reviews({ page }: ReviewsProps): JSX.Element {
     const data = page[0]
+
+    const [showModal, setShowModal] = useState(false);
+
+    const handleOpenModal = () => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
 
 
     const route = useRouter()
@@ -46,18 +58,27 @@ function Reviews({ page }: ReviewsProps): JSX.Element {
                 />
             </>
             <main>
+                {showModal && <Modal onClose={handleCloseModal} />}
 
-                <section className={styles.header}>
-                    <div className={styles.headerWrapper}>
-                        <Headlines tag='h1'>{data?.title ? data.title : ''}</Headlines>
-                    </div>
-                </section>
+                {data?.title !== null ?
 
-                <section className={styles.breadCrumb}>
-                    <div className={styles.breadCrumbWrapper}>
-                        <Breadcrumbs data={[{ title: 'Наши отзывы', path: route.asPath }]} />
-                    </div>
-                </section>
+                    <section className={styles.header}>
+                        <div className={styles.headerWrapper}>
+                            <Headlines tag='h1'>{data?.title ? data.title : ''}</Headlines>
+                        </div>
+                    </section> :
+
+                    null}
+
+                {data.title !== null ?
+
+                    <section className={styles.breadCrumb}>
+                        <div className={styles.breadCrumbWrapper}>
+                            <Breadcrumbs data={[{ title: 'Наши отзывы', path: route.asPath }]} />
+                        </div>
+                    </section> :
+
+                    null}
 
                 {data.reviews !== null ?
 
@@ -76,15 +97,19 @@ function Reviews({ page }: ReviewsProps): JSX.Element {
 
                     null}
 
-                <section className={styles.questions}>
-                    <div className={styles.questionsWrapper}>
-                        <div>
-                            <Headlines tag='h3'>Остались вопросы?</Headlines>
-                            <Button>Давайте обсудим</Button>
-                        </div>
-                    </div>
+                {data ?
 
-                </section>
+                    <section className={styles.questions}>
+                        <div className={styles.questionsWrapper}>
+                            <div>
+                                <Headlines tag='h3'>Остались вопросы?</Headlines>
+                                <Button init='button' onClick={() => handleOpenModal()}>Давайте обсудим</Button>
+                            </div>
+                        </div>
+
+                    </section> :
+
+                    null}
 
             </main>
         </>
