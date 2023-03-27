@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-
 import { Button, Headlines, Paragraph } from '@/components'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Service } from '@/components/service/Service'
@@ -79,7 +78,7 @@ function Services(): JSX.Element {
               <div className={styles.serviceTitle}>
                 <Headlines tag='h2'>{data?.title_services ? data.title_services : ''}</Headlines>
               </div>
-              <div className={styles.serviceSubDescription} dangerouslySetInnerHTML={{__html: data?.sub_description as string}}/>
+              <div className={styles.serviceSubDescription} dangerouslySetInnerHTML={{ __html: data?.sub_description as string }} />
               <div className={styles.serviceItems}>
                 {data?.services ? data.services.map((item, key) => (
                   <Service type='card' key={key} img={item.preview_img} link={route.asPath + '/' + item.slug}>{item.title}</Service>
@@ -106,15 +105,15 @@ function Services(): JSX.Element {
                   <div key={key} className={styles.sphereBlockWrapper}>
                     <Link href='/sphere'>
                       <div className={styles.sphereBlockItem}>
-                      {value.img !== null ? 
-                      <Image
-                          priority
-                          loader={() => loaderImage(value.img.url)}
-                          width={90}
-                          height={90}
-                          src={ process.env.NEXT_PUBLIC_DOMAIN + value.img?.url}
-                          alt='img'
-                        />: 'Not image data'}
+                        {value.img !== null ?
+                          <Image
+                            priority
+                            loader={() => loaderImage(value.img.url)}
+                            width={90}
+                            height={90}
+                            src={process.env.NEXT_PUBLIC_DOMAIN + value.img?.url}
+                            alt='img'
+                          /> : 'Not image data'}
                       </div>
                       <Paragraph type="normal-text">{value.title}</Paragraph>
                     </Link>
@@ -143,7 +142,7 @@ function Services(): JSX.Element {
                 <ul className={styles.resultListItems}>
                   {data?.list_result && data?.list_result.map((item, key) => (
                     <li key={key}>
-                      {item.img !== null ? <Image priority alt={item.img.hash} width={45} height={45} src={process.env.NEXT_PUBLIC_DOMAIN + item.img.url} />: null}
+                      {item.img !== null ? <Image priority alt={item.img.hash} width={45} height={45} src={process.env.NEXT_PUBLIC_DOMAIN + item.img.url} /> : null}
                       <Paragraph type="normal-text">{item.description}</Paragraph>
                     </li>
                   ))}
@@ -154,35 +153,35 @@ function Services(): JSX.Element {
 
           null}
 
-        {data?.table !== null ? 
+        {data?.table !== null ?
 
-        <section className={styles.process}>
-          <div className={styles.processWrapper}>
-            <div className={styles.processFirst}>
-              <Headlines tag="h3">
-                {data?.table.title_we}
-              </Headlines>
-              <ul className={styles.processFirstItems}>
-                {data?.table.We.map((listItem, key) => (
-                  <li key={key}>{listItem.text}</li>
-                ))}
-              </ul>
+          <section className={styles.process}>
+            <div className={styles.processWrapper}>
+              <div className={styles.processFirst}>
+                <Headlines tag="h3">
+                  {data?.table.title_we}
+                </Headlines>
+                <ul className={styles.processFirstItems}>
+                  {data?.table.We.map((listItem, key) => (
+                    <li key={key}>{listItem.text}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className={styles.processNext}>
+                <Image priority src='/svg/dobble_arrow_right.svg' width={183} height={227} alt='dobble arrow' />
+              </div>
+              <div className={styles.processLast}>
+                <Headlines tag="h3">
+                  Получаете вы
+                </Headlines>
+                <ul className={styles.processLastItems}>
+                  {data?.table.You ? data?.table.You.map((listItem, key) => (
+                    <li key={key}>{listItem.text}</li>
+                  )) : null}
+                </ul>
+              </div>
             </div>
-            <div className={styles.processNext}>
-              <Image priority src='/svg/dobble_arrow_right.svg' width={183} height={227} alt='dobble arrow' />
-            </div>
-            <div className={styles.processLast}>
-              <Headlines tag="h3">
-                Получаете вы
-              </Headlines>
-              <ul className={styles.processLastItems}>
-                {data?.table.You ? data?.table.You.map((listItem, key) => (
-                  <li key={key}>{listItem.text}</li>
-                )) : null}
-              </ul>
-            </div>
-          </div>
-        </section> :
+          </section> :
 
           null}
 

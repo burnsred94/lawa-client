@@ -84,7 +84,7 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
           <div className={styles.reviewBlockText}>
             <Paragraph type='normal-text'>{text}</Paragraph>
           </div>
-          <button className={styles.reviewButton}>
+          <Link className={styles.reviewButton} href={`/reviews/${link}`}>
             Читать все
             <Image
               priority
@@ -93,7 +93,7 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
               height={30}
               alt="arrow"
             />
-          </button>
+          </Link>
           <div className={styles.reviewCredential}>
             {img ? <Image
               priority

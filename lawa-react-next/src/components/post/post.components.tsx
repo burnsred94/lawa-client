@@ -5,9 +5,8 @@ import Image from 'next/image'
 import styles from "./styles.module.scss";
 import { Paragraph } from "@/components";
 
-export default function Post({ data, ...props }: PostProps): JSX.Element {
+export function Post({ data, ...props }: PostProps): JSX.Element {
 
-    console.log(data.createdAt);
 
     return (
         <>

@@ -53,7 +53,7 @@
 
 	&Description {
 		color: #fff;
-	
+
 		div > ul > li {
 			margin-bottom: 5px;
 		}
@@ -97,8 +97,10 @@
 	&List {
 		grid-area: list;
 		max-width: 450px;
-		p {
+
+		&Description {
 			margin: 40px 0 80px 0;
+			color: var(--default-color-text);
 			font-size: 15px;
 			line-height: 150%;
 		}

@@ -16,6 +16,7 @@ import axios from 'axios'
 import { URL_SUB_SERVICES_PAGE } from '@/constants/constants'
 import { AssetService } from '@/services/AssetService'
 import { NextSeo } from 'next-seo'
+import ReactMarkdown from 'react-markdown'
 
 
 function SlugPage({ ...props }: SlugProps): JSX.Element {
@@ -43,7 +44,7 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
     fetchData()
   }, [route.query])
 
-    console.log(data?.cases)
+  console.log(data?.cases)
 
   return (
     <>
@@ -69,200 +70,199 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
           /> : null}
       </>
       <main>
-        {data?.title !== null ? 
-        
-        <section className={styles.header}>
-          <div className={styles.headerWrapper}>
-            <Headlines tag='h1'>{data?.title}</Headlines>
-          </div>
-        </section>: 
-        
-        null}
+        {data?.title !== null ?
 
-        {data?.service.title !== null && data?.service.slug !== null ?
-
-        <section className={styles.breadCrumb}>
-          <div className={styles.breadCrumbWrapper}>
-            <Breadcrumbs data={[
-              { title: 'Услуги', path: '/' + route.asPath.split('/').splice(0, 2).join('') },
-              {
-                title: data?.service.title !== undefined ? data?.service.title : '', path: typeof route.query.pages === 'string' ? '/' +
-                  route.asPath.split('/').splice(0, 2).join('') + '/' + route.query.pages : ''
-              },
-              { title: data?.title !== undefined ? data?.title : '', path: route.asPath }
-            ]} />
-          </div>
-        </section>: 
-        
-        null}
-
-        {data?.title !== null ? 
-
-        <section className={styles.result}>
-          <div className={styles.resultWrapper}>
-            <div className={styles.resultImages}>
-              <div className={styles.resultImagesLeft} />
-              <div className={styles.resultImagesRight} />
+          <section className={styles.header}>
+            <div className={styles.headerWrapper}>
+              <Headlines tag='h1'>{data?.title}</Headlines>
             </div>
-            <div className={styles.resultList}>
-              <div className={styles.resultTitle}>
-                <Headlines tag="h2">
-                  {data?.title}
-                </Headlines>
-              </div>
-              <div className={styles.resultList}>
-                <div className={styles.resultDescription} dangerouslySetInnerHTML={{ __html: typeof data?.description === 'string' ? data?.description : '' }}>
-                </div>
-                <Button>Заказать услугу</Button>
-              </div>
-            </div>
-          </div>
-        </section>:
+          </section> :
 
           null}
 
-        { data?.sub_service_items !== null? 
-         <section className={cn(styles.services, {
-          [styles.servicesGridTheere]: data?.sub_service_items.length !== undefined && data?.sub_service_items.length < 4,
-          [styles.servicesGridAdaptive]: data?.sub_service_items.length !== undefined && data?.sub_service_items.length % 2 !== 0,
-        })}>
-          {
-            data && data.sub_service_items.map((item, key) => (
-              <Service key={key} type='specific-card'
-                link={route.asPath + '/' + item.slug}
-                img={item.image_preview}
-                text={item.title}>{item.decsription_preview}</Service>
-            ))
-          }
-        </section> :
+        {data?.service.title !== null && data?.service.slug !== null ?
 
-        null}
+          <section className={styles.breadCrumb}>
+            <div className={styles.breadCrumbWrapper}>
+              <Breadcrumbs data={[
+                { title: 'Услуги', path: '/' + route.asPath.split('/').splice(0, 2).join('') },
+                {
+                  title: data?.service.title !== undefined ? data?.service.title : '', path: typeof route.query.pages === 'string' ? '/' +
+                    route.asPath.split('/').splice(0, 2).join('') + '/' + route.query.pages : ''
+                },
+                { title: data?.title !== undefined ? data?.title : '', path: route.asPath }
+              ]} />
+            </div>
+          </section> :
+
+          null}
+
+        {data?.title !== null ?
+
+          <section className={styles.result}>
+            <div className={styles.resultWrapper}>
+              <div className={styles.resultImages}>
+                <div className={styles.resultImagesLeft} />
+                <div className={styles.resultImagesRight} />
+              </div>
+              <div className={styles.resultList}>
+                <div className={styles.resultTitle}>
+                  <Headlines tag="h2">
+                    {data?.title}
+                  </Headlines>
+                </div>
+                <div className={styles.resultList}>
+                  <ReactMarkdown className={styles.resultListDescription}>{data?.description as string}</ReactMarkdown>
+                  <Button>Заказать услугу</Button>
+                </div>
+              </div>
+            </div>
+          </section> :
+
+          null}
+
+        {data?.sub_service_items !== null ?
+          <section className={cn(styles.services, {
+            [styles.servicesGridTheere]: data?.sub_service_items.length !== undefined && data?.sub_service_items.length < 4,
+            [styles.servicesGridAdaptive]: data?.sub_service_items.length !== undefined && data?.sub_service_items.length % 2 !== 0,
+          })}>
+            {
+              data && data.sub_service_items.map((item, key) => (
+                <Service key={key} type='specific-card'
+                  link={route.asPath + '/' + item.slug}
+                  img={item.image_preview}
+                  text={item.title}>{item.decsription_preview}</Service>
+              ))
+            }
+          </section> :
+
+          null}
 
         {data?.list !== null ?
-        
-        <section className={styles.specifics}>
-          <div className={styles.specificsTitle}>
-            <Headlines tag='h2' >{'Наш Арсенал'}</Headlines>
-          </div>
-          <div className={styles.specificsArsenal}>
-            {data && data.list.map((item, key) => (
-              <div key={key} className={styles.specificsArsenalItem}>
-                <Service type='arsenal-card' text={item.description} img={item.img}>{item.title}</Service>
-              </div>
-            ))}
-          </div>
-        </section>: 
-        
-        null }
 
-        {data?.table !== null ? 
-        
-        <section className={styles.process}>
-          <div className={styles.processWrapper}>
-            <div className={styles.processFirst}>
-              <Headlines tag="h3">
-                {data?.table.title_we}
-              </Headlines>
-              <ul className={styles.processFirstItems}>
-                {data?.table.We.map((listItem, key) => (
-                  <li key={key}>{listItem.text}</li>
-                ))}
-              </ul>
+          <section className={styles.specifics}>
+            <div className={styles.specificsTitle}>
+              <Headlines tag='h2' >{'Наш Арсенал'}</Headlines>
             </div>
-            <div className={styles.processNext}>
-              <Image priority src='/svg/dobble_arrow_right.svg' width={183} height={227} alt='dobble arrow' />
+            <div className={styles.specificsArsenal}>
+              {data && data.list.map((item, key) => (
+                <div key={key} className={styles.specificsArsenalItem}>
+                  <Service type='arsenal-card' text={item.description} img={item.img}>{item.title}</Service>
+                </div>
+              ))}
             </div>
-            <div className={styles.processLast}>
-              <Headlines tag="h3">
-                {data?.table.title_you}
-              </Headlines>
-              <ul className={styles.processLastItems}>
-                {data?.table.You.map((listItem, key) => (
-                  <li key={key}>{listItem.text}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>: 
-        
-        null}
+          </section> :
 
-        {data?.cases !== null ? 
-        
-        <section className={styles.cases}>
-          {data?.cases !== null ? <div className={styles.casesTitle}>
-            <Headlines tag='h2'>{"Наши Кейсы"}</Headlines>
-            <Button>Смотреть все работы</Button>
-          </div>: null}
-          <div className={styles.casesCards}>
-            {data?.cases.map((item, key) => (
-              <div key={key} className={cn(styles.casesDefualt, {
-                [styles.casesActive]: key === active,
-                [styles.casesNonActive]: key !== active
-              })}>
-                <Service type='card-partners' img={item.image} link={item.link}>{item.description}</Service>
+          null}
+
+        {data?.table !== null ?
+
+          <section className={styles.process}>
+            <div className={styles.processWrapper}>
+              <div className={styles.processFirst}>
+                <Headlines tag="h3">
+                  {data?.table.title_we}
+                </Headlines>
+                <ul className={styles.processFirstItems}>
+                  {data?.table.We.map((listItem, key) => (
+                    <li key={key}>{listItem.text}</li>
+                  ))}
+                </ul>
               </div>
-            ))}
-          </div>
-          <div className={styles.casesSlider}>
-            {data?.cases.slice(0, 3).map((item, key) => (
-              <button
-                className={cn(styles.casesButtonSlider, {
+              <div className={styles.processNext}>
+                <Image priority src='/svg/dobble_arrow_right.svg' width={183} height={227} alt='dobble arrow' />
+              </div>
+              <div className={styles.processLast}>
+                <Headlines tag="h3">
+                  {data?.table.title_you}
+                </Headlines>
+                <ul className={styles.processLastItems}>
+                  {data?.table.You.map((listItem, key) => (
+                    <li key={key}>{listItem.text}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </section> :
+
+          null}
+
+        {data?.cases !== null ?
+
+          <section className={styles.cases}>
+            {data?.cases !== null ? <div className={styles.casesTitle}>
+              <Headlines tag='h2'>{"Наши Кейсы"}</Headlines>
+              <Button>Смотреть все работы</Button>
+            </div> : null}
+            <div className={styles.casesCards}>
+              {data?.cases.map((item, key) => (
+                <div key={key} className={cn(styles.casesDefualt, {
                   [styles.casesActive]: key === active,
                   [styles.casesNonActive]: key !== active
-                })}
-                key={key}
-                onClick={() => setActive(key)}
-              />
-            ))}
-          </div>
-        </section>: 
-        null}
+                })}>
+                  <Service type='card-partners' img={item.image} link={item.link}>{item.description}</Service>
+                </div>
+              ))}
+            </div>
+            <div className={styles.casesSlider}>
+              {data?.cases.slice(0, 3).map((item, key) => (
+                <button
+                  className={cn(styles.casesButtonSlider, {
+                    [styles.casesActive]: key === active,
+                    [styles.casesNonActive]: key !== active
+                  })}
+                  key={key}
+                  onClick={() => setActive(key)}
+                />
+              ))}
+            </div>
+          </section> :
+          null}
 
-        {data?.reviews !== null ? 
-        
-        <section className={styles.cases}>
-          <div className={styles.casesTitle}>
-            <Headlines tag='h2'>Отзывы</Headlines>
-            <Button>Смотреть все Отзывы</Button>
-          </div>
-          <div className={styles.reviewCards}>
-            {data?.reviews.map((item, key) => (
-              <div key={key} className={cn(styles.casesDefualt, {
-                [styles.casesActive]: key === active,
-                [styles.casesNonActive]: key !== active
-              })}>
-                <Service type='card-review' img={item.logo} title={item.post} text={item.description} client_name={item.name} />
-              </div>
-            ))}
-          </div>
-          <div className={styles.casesSlider}>
-            {cases.slice(0, 3).map((item, key) => (
-              <button
-                className={cn(styles.buttonSliderBlock, {
-                  [styles.buttonSliderBlockActive]: key === active
-                })}
-                key={key}
-                onClick={() => setActive(key)}
-              />
-            ))}
-          </div>
-        </section>: 
-        
-        null}
+        {data?.reviews !== null ?
+
+          <section className={styles.cases}>
+            <div className={styles.casesTitle}>
+              <Headlines tag='h2'>Отзывы</Headlines>
+              <Button>Смотреть все Отзывы</Button>
+            </div>
+            <div className={styles.reviewCards}>
+              {data?.reviews.map((item, key) => (
+                <div key={key} className={cn(styles.casesDefualt, {
+                  [styles.casesActive]: key === active,
+                  [styles.casesNonActive]: key !== active
+                })}>
+                  <Service type='card-review' img={item.logo} title={item.post} text={item.description} client_name={item.name} />
+                </div>
+              ))}
+            </div>
+            <div className={styles.casesSlider}>
+              {cases.slice(0, 3).map((item, key) => (
+                <button
+                  className={cn(styles.buttonSliderBlock, {
+                    [styles.buttonSliderBlockActive]: key === active
+                  })}
+                  key={key}
+                  onClick={() => setActive(key)}
+                />
+              ))}
+            </div>
+          </section> :
+
+          null}
 
         {data?.questions !== null ?
 
           <section className={styles.questions}>
-          <div className={styles.questionsWrapper}>
-            <div>
-              <Headlines tag='h3'>Остались вопросы?</Headlines>
-              <Button>Обсудить проект</Button>
+            <div className={styles.questionsWrapper}>
+              <div>
+                <Headlines tag='h3'>Остались вопросы?</Headlines>
+                <Button>Обсудить проект</Button>
+              </div>
             </div>
-          </div>
-        </section>: 
-        
-        null}
+          </section> :
+
+          null}
       </main>
     </>
   )

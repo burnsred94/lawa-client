@@ -67,7 +67,7 @@ function Reviews({ page }: ReviewsProps): JSX.Element {
                             {
                                 data.reviews.map((item, index) => (
                                     <>
-                                        <Service type='card-review' text={item.description} img={item.logo} />
+                                        <Service type='card-review' link={item.link} text={item.description} img={item.logo} />
                                     </>
                                 ))
                             }

@@ -1,0 +1,148 @@
+.header {
+	background: url("../../../../public/images/frameService.png") no-repeat center;
+	display: block;
+	max-width: 100%;
+	height: 220px;
+
+	&Wrapper {
+		margin: 0 auto;
+		max-width: 1200px;
+		h1 {
+			font-size: 48px;
+			color: #fff;
+		}
+	}
+}
+
+.breadCrumb {
+	margin: 0 auto;
+	max-width: 1200px;
+	margin-top: 25px;
+	&Wrapper {
+		margin-left: -15px;
+		display: flex;
+	}
+}
+
+.content {
+	max-width: 1200px;
+	margin: 0 auto;
+	display: grid;
+
+	&Wrapper {
+		display: grid;
+		grid-template-areas: "photo description";
+		gap: 100px;
+	}
+
+	&Title {
+		margin: 50px 0;
+
+		h2 {
+			padding-left: 60px;
+			display: flex;
+			align-items: center;
+			z-index: 1;
+
+			&::before {
+				content: " ";
+				position: relative;
+				margin-right: 30px;
+				margin-left: -60px;
+				display: block;
+				background-color: var(--primary-color);
+				width: 1px;
+				height: 35px;
+			}
+		}
+	}
+
+	&Photo {
+		grid-area: photo;
+		&Wrapper {
+			max-width: 600px;
+			display: grid;
+			align-items: center;
+			justify-content: center;
+			img {
+				max-width: 450px;
+				max-height: 450px;
+			}
+		}
+
+		&Item {
+			&Active {
+				z-index: 2;
+				display: block;
+			}
+
+			&NonActive {
+				z-index: 2;
+				display: none;
+			}
+		}
+
+		&Slider {
+			display: flex;
+			margin-top: 20px;
+			justify-content: center;
+			align-items: center;
+			column-gap: 5px;
+		}
+		&ButtonSlider {
+			border: none;
+		}
+
+		&ButtonSliderActive {
+			cursor: pointer;
+			border: none;
+			width: 20px;
+			height: 10px;
+			border-radius: 20%;
+			background-color: var(--primary-color);
+		}
+
+		&ButtonSliderNonActive {
+			cursor: pointer;
+			border: none;
+			width: 20px;
+			height: 10px;
+			border-radius: 20%;
+			background-color: var(--dull-text-color);
+		}
+	}
+
+	&Description {
+		grid-area: description;
+		display: grid;
+		grid-template-columns: 1fr;
+
+		&Text {
+			color: var(--default-color-text);
+			font-size: 18px;
+		}
+	}
+}
+
+.questions {
+	background-image: url("../../../../public/images/frame.png");
+	margin: 0 auto;
+	background-repeat: no-repeat;
+	background-position: center;
+	margin-top: 120px;
+	max-width: 100%;
+	height: 300px;
+
+	&Wrapper {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: 100%;
+		max-width: 1200px;
+		margin: 0 auto;
+
+		button {
+			margin-top: 53px;
+		}
+	}
+}

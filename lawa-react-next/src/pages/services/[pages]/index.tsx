@@ -7,8 +7,7 @@ import { Button, Headlines, Paragraph } from '@/components'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Service } from '@/components/service/Service'
 import { withLayout } from '@/layout/layout'
-import { cases, dataPages, resultFirst, resultLast, reviews } from '@/mock/mock.data'
-
+import ReactMarkdown from 'react-markdown'
 import styles from './style.module.scss'
 import axios from 'axios'
 import { URL_SERVICE_PAGE } from '@/constants/constants'
@@ -98,9 +97,7 @@ function Page({ ...props }): JSX.Element {
                   </Headlines>
                 </div>
                 <div className={styles.resultList}>
-                  <Paragraph type='normal-text'>
-                    {data && data?.description}
-                  </Paragraph>
+                  <ReactMarkdown className={styles.resultListDescription}>{data?.description as string}</ReactMarkdown>
                   <Button>Заказать услугу</Button>
                 </div>
               </div>
@@ -178,7 +175,7 @@ function Page({ ...props }): JSX.Element {
               ))}
             </div>
             <div className={styles.casesSlider}>
-              {cases.slice(0, 3).map((item, key) => (
+              {data?.cases.slice(0, 3).map((item, key) => (
                 <button
                   className={cn(styles.casesButtonSlider, {
                     [styles.casesButtonSliderActive]: key === active
@@ -210,7 +207,7 @@ function Page({ ...props }): JSX.Element {
               ))}
             </div>
             <div className={styles.casesSlider}>
-              {cases.slice(0, 3).map((item, key) => (
+              {data?.cases.slice(0, 3).map((item, key) => (
                 <button
                   className={cn(styles.buttonSliderBlock, {
                     [styles.buttonSliderBlockActive]: key === active
@@ -226,16 +223,16 @@ function Page({ ...props }): JSX.Element {
 
         {data?.questions !== null ?
 
-         <section className={styles.questions}>
-          <div className={styles.questionsWrapper}>
-            <div>
-              <Headlines tag='h3'>Остались вопросы?</Headlines>
-              <Button>Обсудить проект</Button>
+          <section className={styles.questions}>
+            <div className={styles.questionsWrapper}>
+              <div>
+                <Headlines tag='h3'>Остались вопросы?</Headlines>
+                <Button>Обсудить проект</Button>
+              </div>
             </div>
-          </div>
-        </section>:
-         
-        null}
+          </section> :
+
+          null}
       </main>
     </>
   )

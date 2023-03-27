@@ -8,9 +8,9 @@ import styles from "./styles.module.scss"
 import { Button, Headlines } from "@/components";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import { useRouter } from "next/router";
-import Post from "./components/post/post.components";
+import { Post } from "../../components/post/post.components";
 import { useState } from "react";
-import { Navigation } from "./components/navigation/nav.component";
+import { Navigation } from "../../components/navigation/nav.component";
 
 
 function BlogPage({ page }: BlogProps): JSX.Element {

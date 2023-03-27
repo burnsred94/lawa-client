@@ -4,14 +4,13 @@ import { withLayout } from "@/layout/layout"
 import { AssetService } from "@/services/AssetService";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import axios from "axios";
-import styles from "./style.module.scss";
+import { Case } from "../../components/Case/case.components";
 import { Button, Headlines, Paragraph } from "@/components";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import { Caveat } from '@next/font/google'
 import cn from "classnames";
-import { Service } from "@/components/service/Service";
-import { Case } from "./components/case.components";
+import styles from "./style.module.scss";
+import axios from "axios";
 
 
 const caveat = Caveat({
@@ -70,7 +69,7 @@ function CasesPage({ page }: CasesProps): JSX.Element {
                         </Paragraph>
                     </div>
                 </section>
-                
+
                 {data.cases !== null ?
 
                     <section className={styles.services}>
