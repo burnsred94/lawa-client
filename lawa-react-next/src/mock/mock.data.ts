@@ -2206,7 +2206,7 @@ export const menu: Menu[] = [
   },
   {
     name: 'Контакты',
-    link: 'contacts',
+    link: '/contacts',
   }
 ]
 
