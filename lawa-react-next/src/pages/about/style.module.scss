@@ -1,423 +1,421 @@
 .header {
-  background: url('../../../public/images/frameService.png') no-repeat center;
-  display: block;
-  max-width: 100%;
-  height: 220px;
+	background: url("../../../public/images/frameService.png") no-repeat center;
+	display: block;
+	max-width: 100%;
+	height: 220px;
 
-  &Wrapper {
-    margin: 0 auto;
-    max-width: 1200px;
-    h1 {
-      font-size: 48px;
-      color: #fff;
-    }
-  }
+	&Wrapper {
+		margin: 0 auto;
+		max-width: 1200px;
+		h1 {
+			font-size: 48px;
+			color: #fff;
+		}
+	}
 }
 
 .breadCrumb {
-  margin: 0 auto;
-  max-width: 1200px;
-  margin-top: 25px;
-  &Wrapper {
-    margin-left: -15px;
-    display: flex;
-  }
+	margin: 0 auto;
+	max-width: 1200px;
+	margin-top: 25px;
+	&Wrapper {
+		margin-left: -15px;
+		display: flex;
+	}
 }
 
 .result {
-  margin: 0 auto;
-  margin-top: 150px;
-  max-width: 1200px;
+	margin: 0 auto;
+	margin-top: 150px;
+	max-width: 1200px;
 
-  &Title {
-    display: flex;
-    align-items: flex-start;
+	&Title {
+		display: flex;
+		align-items: flex-start;
 
-    h2 {
-      line-height: 120%;
-      padding-left: 30px;
-      margin-bottom: 40px;
-    }
+		h2 {
+			line-height: 120%;
+			padding-left: 30px;
+			margin-bottom: 40px;
+		}
 
-    &::before {
-      content: ' ';
-      position: relative;
-      margin-top: 15px;
-      margin-left: -30px;
-      display: block;
-      background-color: #E25730;
-      width: 1px;
-      height: 35px;
-    }
-  }
+		&::before {
+			content: " ";
+			position: relative;
+			margin-top: 15px;
+			margin-left: -30px;
+			display: block;
+			background-color: #e25730;
+			width: 1px;
+			height: 35px;
+		}
+	}
 
-  p {
-    margin-bottom: 25px;
-  }
+	p {
+		margin-bottom: 25px;
+	}
 
-  &Wrapper {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    grid-template-areas: 'images list';
-  }
+	&Wrapper {
+		display: grid;
+		grid-template-columns: 1.5fr 1fr;
+		grid-template-areas: "images list";
+	}
 
-  &Images {
-    grid-area: images;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    max-width: 580px;
+	&Images {
+		grid-area: images;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		max-width: 580px;
 
-    &Left {
-      background: url('../../../public/images/about_left.png') no-repeat center center;
-      width: 270px;
-      height: 476px;
-    }
+		&Left {
+			background: url("../../../public/images/about_left.png") no-repeat center center;
+			width: 270px;
+			height: 476px;
+		}
 
-    &Right {
-      background: url('../../../public/images/about_right.png') no-repeat center center;
-      margin-top: 60px;
-      width: 270px;
-      height: 476px;
-    }
-  }
+		&Right {
+			background: url("../../../public/images/about_right.png") no-repeat center center;
+			margin-top: 60px;
+			width: 270px;
+			height: 476px;
+		}
+	}
 }
 
 .director {
-  margin: 0 auto;
-  max-width: 1200px;
+	margin: 0 auto;
+	max-width: 1200px;
 
-  &Wrapper {
-    margin-top: 150px;
-    display: grid;
-    grid-template-areas: 'text image';
-    grid-template-columns: 1.3fr 1fr;
-  }
+	&Wrapper {
+		margin-top: 150px;
+		display: grid;
+		grid-template-areas: "text image";
+		grid-template-columns: 1.3fr 1fr;
+	}
 
-  &Text {
-    grid-area: text;
+	&Text {
+		grid-area: text;
 
-    h2 {
-      line-height: 90%;
-      padding-left: 30px;
-      font-size: 28px;
-      display: flex;
-      align-items: center;
+		h2 {
+			line-height: 90%;
+			padding-left: 30px;
+			font-size: 28px;
+			display: flex;
+			align-items: center;
 
-      &::before {
-        content: ' ';
-        position: absolute;
-        margin-left: -30px;
-        display: block;
-        background-color: #E25730;
-        width: 1px;
-        height: 35px;
-      }
-    }
+			&::before {
+				content: " ";
+				position: absolute;
+				margin-left: -30px;
+				display: block;
+				background-color: #e25730;
+				width: 1px;
+				height: 35px;
+			}
+		}
 
-    &Mission {
-      margin-top: 40px;
-      &Title {
-        color: #E25730;
-      }
+		&Mission {
+			margin-top: 40px;
+			&Title {
+				color: #e25730;
+			}
 
-      p {
-        max-width: 470px;
-        margin: 20px 0;
-      }
-    }
-  }
+			p {
+				max-width: 470px;
+				margin: 20px 0;
+			}
+		}
+	}
 
-  &Image {
-    grid-area: image;
+	&Image {
+		grid-area: image;
 
-    max-width: 570px;
-    height: 500px;
-    background-color: #242424;
-  }
+		max-width: 570px;
+		height: 500px;
+		background-color: #242424;
+	}
 }
 
 .executives {
-  margin: 0 auto;
-  max-width: 1200px;
+	margin: 0 auto;
+	max-width: 1200px;
 
-  &Title {
-    margin: 150px 0 50px;
-    h2 {
-      line-height: 90%;
-      padding-left: 30px;
-      display: flex;
-      align-items: center;
+	&Title {
+		margin: 150px 0 50px;
+		h2 {
+			line-height: 90%;
+			padding-left: 30px;
+			display: flex;
+			align-items: center;
 
-      &::before {
-        content: ' ';
-        position: absolute;
-        margin-left: -30px;
-        display: block;
-        background-color: #E25730;
-        width: 1px;
-        height: 35px;
-      }
-    }
-  }
+			&::before {
+				content: " ";
+				position: absolute;
+				margin-left: -30px;
+				display: block;
+				background-color: #e25730;
+				width: 1px;
+				height: 35px;
+			}
+		}
+	}
 
-  &Wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 30px;
-  }
+	&Wrapper {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		gap: 30px;
+	}
 }
 
 .contacts {
-  max-width: 1200px;
-  margin: 0 auto;
+	max-width: 1200px;
+	margin: 0 auto;
 
-  &Title {
-    margin: 150px 0 50px;
-    h2 {
-      line-height: 90%;
-      padding-left: 30px;
-      display: flex;
-      align-items: center;
+	&Title {
+		margin: 150px 0 50px;
+		h2 {
+			line-height: 90%;
+			padding-left: 30px;
+			display: flex;
+			align-items: center;
 
-      &::before {
-        content: ' ';
-        position: absolute;
-        margin-left: -30px;
-        display: block;
-        background-color: #E25730;
-        width: 1px;
-        height: 35px;
-      }
-    }
-  }
+			&::before {
+				content: " ";
+				position: absolute;
+				margin-left: -30px;
+				display: block;
+				background-color: #e25730;
+				width: 1px;
+				height: 35px;
+			}
+		}
+	}
 
-  &Wrapper {
-    max-width: 1100px;
-    padding: 55px 60px 60px;
-    margin: 0 auto;
-    background-color: #242424;
-    display: grid;
-    grid-template-areas:
-      'up'
-      'down';
-    grid-template-columns: 1fr;
-  }
+	&Wrapper {
+		max-width: 1100px;
+		padding: 55px 60px 60px;
+		margin: 0 auto;
+		background-color: #242424;
+		display: grid;
+		grid-template-areas:
+			"up"
+			"down";
+		grid-template-columns: 1fr;
+	}
 
-  &Up {
-    display: grid;
-    grid-area: up;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 'address tel';
-    gap: 55px;
+	&Up {
+		display: grid;
+		grid-area: up;
+		grid-template-columns: 1fr 1fr;
+		grid-template-areas: "address tel";
+		gap: 55px;
 
-    &Address {
-      grid-area: address;
-      padding-bottom: 30px;
-      border-bottom: 1px solid #2b2b2b;
-    }
+		&Address {
+			grid-area: address;
+			padding-bottom: 30px;
+			border-bottom: 1px solid #2b2b2b;
+		}
 
-    &Telefon {
-      grid-area: tel;
-      padding-bottom: 30px;
-      border-bottom: 1px solid #2b2b2b;
-    }
-  }
+		&Telefon {
+			grid-area: tel;
+			padding-bottom: 30px;
+			border-bottom: 1px solid #2b2b2b;
+		}
+	}
 
-  &Down {
-    display: grid;
-    grid-area: down;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 'email social';
-    margin-top: 25px;
-    gap: 55px;
-    &Email {
-      grid-area: email;
-    }
-    &Social {
-      grid-area: social;
-      display: flex;
-      flex-direction: column;
+	&Down {
+		display: grid;
+		grid-area: down;
+		grid-template-columns: 1fr 1fr;
+		grid-template-areas: "email social";
+		margin-top: 25px;
+		gap: 55px;
+		&Email {
+			grid-area: email;
+		}
+		&Social {
+			grid-area: social;
+			display: flex;
+			flex-direction: column;
 
-      &Items {
-        display: flex;
-        margin: 15px 0;
-        align-items: center;
-        justify-content: space-between;
-        width: 130px;
-      }
+			&Items {
+				display: flex;
+				margin: 15px 0;
+				align-items: center;
+				justify-content: space-between;
+				width: 130px;
+			}
 
-      &Item {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        width: 32px;
-        height: 32px;
-        background-color: #E25730;
-      }
-    }
-  }
+			&Item {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 50%;
+				width: 32px;
+				height: 32px;
+				background-color: #e25730;
+			}
+		}
+	}
 
-  &Block {
-    &Title {
-      color: #fff;
-      font-weight: bold;
-      &Small {
-        color: #fff;
-      }
-    }
-    &Sub {
-      display: flex;
-      margin-top: 15px;
-      align-items: center;
-      max-width: 415px;
-      img {
-        margin-right: 12px;
-      }
-      span,
-      a {
-        color: #9b9b9b;
-        font-size: 16px;
-      }
-    }
+	&Block {
+		&Title {
+			color: #fff;
+			font-weight: bold;
+			&Small {
+				color: #fff;
+			}
+		}
+		&Sub {
+			display: flex;
+			margin-top: 15px;
+			align-items: center;
+			max-width: 415px;
+			img {
+				margin-right: 12px;
+			}
+			span,
+			a {
+				color: #9b9b9b;
+				font-size: 16px;
+			}
+		}
 
-    &Numbers {
-      display: grid;
-      margin-top: 15px;
-      grid-template-columns: 1fr 1fr;
-    }
-  }
+		&Numbers {
+			display: grid;
+			margin-top: 15px;
+			grid-template-columns: 1fr 1fr;
+		}
+	}
 }
 
 .questions {
-  background-image: url('../../../public/images/frame.png');
-  margin-top: 120px;
-  max-width: 100%;
-  height: 300px;
+	background-image: url("../../../public/images/frame.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	margin-top: 120px;
+	max-width: 100%;
+	height: 300px;
 
-  &Wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+	&Wrapper {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: 100%;
+		max-width: 1200px;
+		margin: 0 auto;
 
-    button {
-      margin-top: 53px;
-    }
-  }
+		button {
+			margin-top: 53px;
+		}
+	}
 }
 
 @media screen and (max-width: 768px) {
-  .header {
-    height: 100px;
-  
-    &Wrapper {
-      padding-top: 30px;
-      padding-left: 15px;
-     left: 0;
-      h1 {
-        font-size: 28px;
-        line-height: 32px;
-        color: #fff;
-      }
-    }
-  }
+	.header {
+		height: 100px;
 
-  .breadCrumb {
-    margin-left: 15px;
-  }
+		&Wrapper {
+			padding-top: 30px;
+			padding-left: 15px;
+			left: 0;
+			h1 {
+				font-size: 28px;
+				line-height: 32px;
+				color: #fff;
+			}
+		}
+	}
 
-  .result {
-    margin-top: 80px;
-    &Wrapper {
-      grid-template-columns: 1fr;
-    }
-   
-    &Title {
-      max-width: 100%;
-      h2 {
-        font-size: 28px;
-        line-height: 32px;
-      }
-    }
+	.breadCrumb {
+		margin-left: 15px;
+	}
 
-    &Images {
-      display: none;
-    }
+	.result {
+		margin-top: 80px;
+		&Wrapper {
+			grid-template-columns: 1fr;
+		}
 
-    &List {
-      margin:0 15px;
-    }
+		&Title {
+			max-width: 100%;
+			h2 {
+				font-size: 28px;
+				line-height: 32px;
+			}
+		}
 
-  }
+		&Images {
+			display: none;
+		}
 
-  .director {
-    margin-top: 100px;
+		&List {
+			margin: 0 15px;
+		}
+	}
 
-    &Wrapper {
-      grid-template-columns: 1fr;
-      grid-template-areas: 
-      "text"
-      "image";
-      margin: 0 15px;
-    }
+	.director {
+		margin-top: 100px;
 
-    &Text {
-      h2 {
-        font-size: 28px;
-        line-height: 32px;
-        padding: 0;
+		&Wrapper {
+			grid-template-columns: 1fr;
+			grid-template-areas:
+				"text"
+				"image";
+			margin: 0 15px;
+		}
 
-        &::before {
-          display: none;
-        }
-      }
-    }
+		&Text {
+			h2 {
+				font-size: 28px;
+				line-height: 32px;
+				padding: 0;
 
-    &Image {
-      max-width: 100%;
-      max-height: 100%;      
-      img{
-        max-width: 100%;
-        max-height: 290px;      
-      }
-    }
+				&::before {
+					display: none;
+				}
+			}
+		}
 
-  }
+		&Image {
+			max-width: 100%;
+			max-height: 100%;
+			img {
+				max-width: 100%;
+				max-height: 290px;
+			}
+		}
+	}
 
-  .executives {
-    margin: 0 15px;
-    &Wrapper {
-      grid-template-columns: 1fr;
-    }
+	.executives {
+		margin: 0 15px;
+		&Wrapper {
+			grid-template-columns: 1fr;
+		}
 
-    &Title{
+		&Title {
+			h2 {
+				font-size: 28px;
+				padding: 0;
+				&::before {
+					display: none;
+				}
+			}
+		}
 
-      h2 {
-        font-size: 28px;
-        padding: 0;
-        &::before {
-          display: none;
-        }
-      }
+		&Image {
+			width: 100%;
+			img {
+				width: 100%;
+			}
+		}
 
-    }
-
-    &Image {
-      width: 100%;
-      img{
-        width: 100%;
-      }
-    }
-   
-    &Default {
-      display: grid;
+		&Default {
+			display: grid;
 			justify-content: center;
-    }
+		}
 
-    &NonActive {
+		&NonActive {
 			z-index: 2;
 			display: none;
 		}
@@ -428,15 +426,16 @@
 		&Slider {
 			display: flex;
 			margin-top: 30px;
-			justify-content: center;  padding: 0;
+			justify-content: center;
+			padding: 0;
 			align-items: center;
 
-      &Up{
-        grid-template-columns: 1fr;
-        grid-template-columns: 
-        "address"
-        "tel";
-      }
+			&Up {
+				grid-template-columns: 1fr;
+				grid-template-columns:
+					"address"
+					"tel";
+			}
 			column-gap: 5px;
 		}
 		&ButtonSlider {
@@ -447,71 +446,71 @@
 		&ButtonSliderActive {
 			background-color: var(--primary-color);
 		}
-  }
+	}
 
-  .contacts {
-    margin: 0 15px;
-    &Title {
-      margin-top: 100px;
-      h2 {
-        font-size: 28px;
-        line-height: 32px;
-        padding: 0;
+	.contacts {
+		margin: 0 15px;
+		&Title {
+			margin-top: 100px;
+			h2 {
+				font-size: 28px;
+				line-height: 32px;
+				padding: 0;
 
-        &::before {
-          display: none;
-        }
-      }
-    }
-    &Wrapper {
-        padding: 0;
-    }
+				&::before {
+					display: none;
+				}
+			}
+		}
+		&Wrapper {
+			padding: 0;
+		}
 
-    &Up{
-      grid-template-columns: 1fr;
-      gap: 25px;
-      grid-template-areas: 
-      "address"
-      "tel";
+		&Up {
+			grid-template-columns: 1fr;
+			gap: 25px;
+			grid-template-areas:
+				"address"
+				"tel";
 
-      &Telefon {
-        margin: 0 15px;
-      }
+			&Telefon {
+				margin: 0 15px;
+			}
 
-      &Address {
-        padding:35px 0 ;
-        margin: 0 15px;
-      }
-    }
+			&Address {
+				padding: 35px 0;
+				margin: 0 15px;
+			}
+		}
 
-    &BlockNumbers {
-      grid-template-columns: 1fr;
-      div {
-        margin-bottom: 10px;
-      }
-    }
-  &Down {
-    grid-template-columns: 1fr;
-    gap: 25px;
-    grid-template-areas: 
-    "email"
-    "social";
+		&BlockNumbers {
+			grid-template-columns: 1fr;
+			div {
+				margin-bottom: 10px;
+			}
+		}
+		&Down {
+			grid-template-columns: 1fr;
+			gap: 25px;
+			grid-template-areas:
+				"email"
+				"social";
 
-    &Email {
-      padding-bottom: 25px;
-      margin: 0 15px;
-      border-bottom: 1px solid #2B2B2B;
-    }
+			&Email {
+				padding-bottom: 25px;
+				margin: 0 15px;
+				border-bottom: 1px solid #2b2b2b;
+			}
 
-    &Social {
-      margin: 0 15px;
-    }
-  }  
-  }
+			&Social {
+				margin: 0 15px;
+			}
+		}
+	}
 
-  .questions {
-    &Wrapper {
-      margin: 0 15px;
-    }
-  }
+	.questions {
+		&Wrapper {
+			margin: 0 15px;
+		}
+	}
 }
