@@ -14,6 +14,7 @@ import { useRouter } from 'next/router'
 import { NextSeo } from 'next-seo'
 import { AssetService } from '@/services/AssetService'
 import { Modal } from '@/components/Modal/Modal.component'
+import reviews from './reviews'
 
 
 
@@ -232,7 +233,7 @@ function Home() {
                   [styles.casesActive]: key === activeReview,
                   [styles.casesNonActive]: key !== activeReview
                 })}>
-                  <Service type='card-review' img={item.logo} title={item.name} text={item.description} client_name={item.post} />
+                  <Service type='card-review' link={item.link} img={item.logo} title={item.name} text={item.description} client_name={item.post} />
                 </div>
               )) : null}
             </div>

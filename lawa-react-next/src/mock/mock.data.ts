@@ -2168,35 +2168,27 @@ export const menu: Menu[] = [
     props: [
       {
         name: 'Маркетинговые исследования',
-        link: 'marketing_research'
-      },
-      {
-        name: 'Бренд-Стартегии',
-        link: 'brand_strategy'
+        link: 'marketing-research'
       },
       {
         name: 'Невербальная айдентика',
-        link: 'non_verbal_adentics'
+        link: 'not_verbal_adentics'
       },
       {
         name: 'Вербальная айдентика',
-        link: 'verbal_adentics',
+        link: 'verbal-adentics',
       },
       {
         name: 'Коммуникационная стратегия',
-        link: 'comunications_strategy',
+        link: 'comunications-strategy',
       },
       {
-        name: 'Креативная Концепция',
-        link: 'creative-concept',
+        name: 'Продакшн',
+        link: 'production',
       },
       {
-        name: 'Продакшн РМ',
-        link: 'rm-production',
-      },
-      {
-        name: 'Рекламное Сопровождение',
-        link: 'supporting-the-rc',
+        name: 'Сопровождение BTL',
+        link: 'ssupporting-the-BTL',
       },
     ]
   },
@@ -2212,6 +2204,10 @@ export const menu: Menu[] = [
     name: 'Отзывы',
     link: '/reviews'
   },
+  {
+    name: 'Контакты',
+    link: 'contacts',
+  }
 ]
 
 export const pageAbout = {

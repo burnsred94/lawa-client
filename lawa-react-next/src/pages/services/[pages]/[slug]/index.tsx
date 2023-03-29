@@ -139,12 +139,16 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
             [styles.servicesGridAdaptive]: data?.sub_service_items.length !== undefined && data?.sub_service_items.length % 2 !== 0,
           })}>
             {
-              data && data.sub_service_items.map((item, key) => (
-                <Service key={key} type='specific-card'
-                  link={route.asPath + '/' + item.slug}
-                  img={item.image_preview}
-                  text={item.title}>{item.decsription_preview}</Service>
-              ))
+              data && data.sub_service_items.map((item, key) => {
+                if (item.publishedAt !== null) {
+                  return (
+                    <Service key={key} type='specific-card'
+                      link={route.asPath + '/' + item.slug}
+                      img={item.image_preview}
+                      text={item.title}>{item.decsription_preview}</Service>
+                  )
+                }
+              })
             }
           </section> :
 

@@ -1,12 +1,10 @@
-import Head from 'next/head'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 
 import { Button } from '@/components'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Headlines } from '@/components/Headlines/Headlines'
 import { Paragraph } from '@/components/Paragraph/Paragraph'
-
+import { useRouter } from 'next/router'
 import styles from './style.module.scss'
 import { Service } from '@/components/service/Service'
 import { withLayout } from '@/layout/layout'
@@ -18,13 +16,23 @@ import { AssetService } from '@/services/AssetService'
 import { loaderImage } from '@/utils/image-loader/image-loader.utlis'
 import cn from 'classnames'
 import { useState } from 'react'
-
+import { Modal } from '@/components/Modal/Modal.component'
 
 function About({ page }: AboutProps): JSX.Element {
   const route = useRouter()
   const [active, setActive] = useState<number>(1)
 
   const data = page[0]
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   const link = `https://lawa.by${route.asPath}`
   const canonicalLink = link.includes('?') ? link.substring(0, link.indexOf('?')) : link
@@ -50,7 +58,7 @@ function About({ page }: AboutProps): JSX.Element {
         }}
       /> : null}
       <main>
-
+        {showModal && <Modal onClose={handleCloseModal} />}
         {data?.title_header ?
 
           <section className={styles.header}>
@@ -89,7 +97,7 @@ function About({ page }: AboutProps): JSX.Element {
                   <Paragraph type='normal-text'>
                     {data?.description}
                   </Paragraph>
-                  <Button>Смотреть услуги</Button>
+                  <Button init='link' link='/services'>Смотреть услуги</Button>
                 </div>
               </div>
             </div>
@@ -112,14 +120,14 @@ function About({ page }: AboutProps): JSX.Element {
                             <span className={styles.directorTextMissionTitle}>
                               {item.title}
                             </span>
-                            <Paragraph  type="sub-title-text-dull">
+                            <Paragraph type="sub-title-text-dull">
                               {item.text}
                             </Paragraph>
                           </div>
                         </>
                       )
                     } else {
-                      <Paragraph  type="normal-text">{item.slug}</Paragraph>
+                      <Paragraph type="normal-text">{item.slug}</Paragraph>
                     }
                   })}
                 </div>
@@ -147,7 +155,7 @@ function About({ page }: AboutProps): JSX.Element {
               {data.executives.map((execution, key) => (
                 <div key={key} className={cn(styles.executivesDefualt, {
                   [styles.executivesActive]: key === active,
-                  [styles.executivesNonActive]: key !== active 
+                  [styles.executivesNonActive]: key !== active
                 })}>
                   <Service type='executives-card' text={execution.name} img={execution.img}>{execution.post}</Service>
                 </div>
@@ -166,7 +174,7 @@ function About({ page }: AboutProps): JSX.Element {
             </div>
           </section> :
 
-          null} 
+          null}
 
         {data?.data_contacts ?
 
@@ -240,7 +248,7 @@ function About({ page }: AboutProps): JSX.Element {
             <div className={styles.questionsWrapper}>
               <div>
                 <Headlines tag='h3'>Остались вопросы?</Headlines>
-                <Button>Обсудить проект</Button>
+                <Button init='button' onClick={() => handleOpenModal()}>Обсудить проект</Button>
               </div>
             </div>
           </section> :
@@ -267,3 +275,5 @@ export interface AboutProps extends Record<string, unknown> {
 
 
 export default withLayout(About)
+
+

@@ -91,11 +91,15 @@ function Services(): JSX.Element {
               <div className={styles.serviceTitle}>
                 <Headlines tag='h2'>{data?.title_services ? data.title_services : ''}</Headlines>
               </div>
-              <ReactMarkdown>{data?.sub_description as string}</ReactMarkdown>
+              <ReactMarkdown className={styles.serviceSubDescription}>{data?.sub_description as string}</ReactMarkdown>
               <div className={styles.serviceItems}>
-                {data?.services ? data.services.map((item, key) => (
-                  <Service type='card' key={key} img={item.preview_img} link={route.asPath + '/' + item.slug}>{item.title}</Service>
-                )) : null}
+                {data?.services ? data.services.map((item, key) => {
+                  if (item.publishedAt !== null) {
+                    return (
+                      <Service type='card' key={key} img={item.preview_img} link={route.asPath + '/' + item.slug}>{item.title}</Service>
+                    )
+                  }
+                }) : null}
               </div>
               <div className={styles.serviceButton}>
                 <Button init='link' link='/services'>Смотреть все</Button>
@@ -111,7 +115,7 @@ function Services(): JSX.Element {
             <div className={styles.sphereWrapper}>
               <div className={styles.sphereTitle}>
                 <Headlines tag="h2">{data?.title_sphere ? data.title_sphere : ''}</Headlines>
-                <Button init='button'>Смотреть все предложения</Button>
+                <Button init='link' link='/sphere'>Смотреть все предложения</Button>
               </div>
               <div className={styles.sphereBlock}>
                 {data?.spheres ? data?.spheres.map((value, key) => (

@@ -1,0 +1,31 @@
+.container > div > * > * {
+	width: 660px !important;
+	height: 655px !important;
+	display: flex;
+	align-items: center;
+}
+
+.map {
+	width: 700px;
+	height: 700px;
+}
+
+@media screen and (max-width: 768px) {
+	.container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.container > div > * > * {
+		width: 320px !important;
+		height: 320px !important;
+		display: flex;
+		align-items: center;
+	}
+
+	.map {
+		width: 320px;
+		height: 320px;
+	}
+}

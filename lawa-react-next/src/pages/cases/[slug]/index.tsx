@@ -61,9 +61,12 @@ function Case({ data }: CaseProps): JSX.Element {
                     <div className={styles.contentTitle}>
                         <Headlines tag="h2">{data.title}</Headlines>
                     </div>
-                    <div className={styles.contentWrapper}>
+                    <div className={cn({
+                        [styles.contentWrapper]: data.slider_images?.length,
+                        [styles.contentWrapperOnce]: !data.slider_images?.length
+                    })}>
                         <div className={styles.contentPhotoWrapper}>
-                            {data.slider_images.length ? data.slider_images.map((item, index) => (
+                            {data.slider_images?.length ? data.slider_images.map((item, index) => (
                                 <div key={index} className={cn({
                                     [styles.contentPhotoItemActive]: index === active,
                                     [styles.contentPhotoItemNonActive]: index !== active,
@@ -81,38 +84,40 @@ function Case({ data }: CaseProps): JSX.Element {
                                     />
                                 </div>
                             )) : null}
-                            <div className={styles.contentPhotoSlider}>
-                                <div className={styles.sliderWrapper}>
-                                    <button className={cn(`${styles.sliderButton}, ${styles.sliderButtonLeft}`, {
-                                        [styles.sliderButtonActive]: active !== data.slider_images.length,
-                                        [styles.sliderButtonNonActive]: active === 0,
-                                    })}
-                                        onClick={() => active !== 0 ? setActive(active - 1) : setActive(0)}
-                                    >
-                                        <Image
-                                            src='/arrowright.svg'
-                                            width={25}
-                                            height={25}
-                                            alt='arrow right'
-                                        />
-                                    </button>
+                            {data.slider_images?.length ?
+                                <div className={styles.contentPhotoSlider}>
+                                    <div className={styles.sliderWrapper}>
+                                        <button className={cn(`${styles.sliderButton}, ${styles.sliderButtonLeft}`, {
+                                            [styles.sliderButtonActive]: active !== data.slider_images?.length,
+                                            [styles.sliderButtonNonActive]: active === 0,
+                                        })}
+                                            onClick={() => active !== 0 ? setActive(active - 1) : setActive(0)}
+                                        >
+                                            <Image
+                                                src='/arrowright.svg'
+                                                width={25}
+                                                height={25}
+                                                alt='arrow right'
+                                            />
+                                        </button>
+                                    </div>
+                                    <div className={styles.sliderWrapper}>
+                                        <button className={cn(`${styles.sliderButton}, ${styles.sliderButtonRight}`, {
+                                            [styles.sliderButtonActive]: active >= 0,
+                                            [styles.sliderButtonNonActive]: active === data.slider_images?.length - 1,
+                                        })}
+                                            onClick={() => active < data.slider_images.length - 1 ? setActive(active + 1) : null}
+                                        >
+                                            <Image
+                                                src='/arrowright.svg'
+                                                width={25}
+                                                height={25}
+                                                alt='arrow right'
+                                            />
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className={styles.sliderWrapper}>
-                                    <button className={cn(`${styles.sliderButton}, ${styles.sliderButtonRight}`, {
-                                        [styles.sliderButtonActive]: active >= 0,
-                                        [styles.sliderButtonNonActive]: active === data.slider_images.length - 1,
-                                    })}
-                                        onClick={() => active < data.slider_images.length - 1 ? setActive(active + 1) : null}
-                                    >
-                                        <Image
-                                            src='/arrowright.svg'
-                                            width={25}
-                                            height={25}
-                                            alt='arrow right'
-                                        />
-                                    </button>
-                                </div>
-                            </div>
+                                : null}
                         </div>
                         <div className={styles.contentDescription}>
                             <div className={styles.contentDescriptionText}>

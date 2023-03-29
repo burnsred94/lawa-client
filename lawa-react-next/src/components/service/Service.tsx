@@ -66,7 +66,7 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
             <Paragraph type='normal-text'>{children}</Paragraph>
           </div>
           <div className={styles.partnersLink}>
-            <Link href={link ? link : '#'} onClick={() => setActiveText(true)}>Подробнее
+            <Link href={`/cases/${link}`} onClick={() => setActiveText(true)}>Подробнее
               <Image
                 src='/arrowright.svg'
                 width={24}
@@ -121,7 +121,7 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
             <Paragraph type='sub-title-text-dull' >{typeof children === 'string' ? children : 'Not description preview'}</Paragraph>
           </div>
           <div className={styles.specificLink}>
-            <Link href={link ? link : '#'} onClick={() => setActiveText(true)}>Подробнее
+            <Link href={`${link}`} onClick={() => setActiveText(true)}>Подробнее
               <Image
                 src='/svg/left_tang.svg'
                 width={24}

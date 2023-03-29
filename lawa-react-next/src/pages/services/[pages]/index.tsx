@@ -127,16 +127,21 @@ function Page({ ...props }): JSX.Element {
             [styles.specificsGridAdaptive]: data?.sub_services.length !== undefined && data?.sub_services.length % 2 !== 0,
           })}>
             {
-              data && data.sub_services.map((item, key) => (
-                <Service key={key} type='specific-card'
-                  link={route.query.pages + '/' + item.slug}
-                  img={item.preview_img}
-                  text={item.title}>{item.descr_preview}</Service>
-              ))
+              data?.sub_services.map((item, key) => {
+                if (item.publishedAt !== null) {
+                  return (
+                    <Service key={key} type='specific-card'
+                      link={route.query.pages + '/' + item.slug}
+                      img={item.preview_img}
+                      text={item.title}>{item.descr_preview}</Service>
+                  )
+                }
+              })
             }
           </section> :
 
           null}
+
 
 
         {data?.table_we_and_you !== null ?
@@ -216,7 +221,7 @@ function Page({ ...props }): JSX.Element {
                   [styles.casesActive]: key === active,
                   [styles.casesNonActive]: key !== active
                 })}>
-                  <Service type='card-review' img={item.logo} title={item.post} text={item.description} client_name={item.name} />
+                  <Service type='card-review' link={item.link} img={item.logo} title={item.post} text={item.description} client_name={item.name} />
                 </div>
               ))}
             </div>

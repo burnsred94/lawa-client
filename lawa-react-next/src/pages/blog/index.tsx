@@ -3,20 +3,29 @@ import { BlogPage } from "@/interfaces/blog-page.interface";
 import { withLayout } from "@/layout/layout"
 import { NextSeo } from "next-seo"
 import axios from "axios";
-
 import styles from "./styles.module.scss"
 import { Button, Headlines } from "@/components";
 import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
-import { useRouter } from "next/router";
 import { Post } from "../../components/post/post.components";
 import { useState } from "react";
 import { Navigation } from "../../components/navigation/nav.component";
-
+import { Modal } from "@/components/Modal/Modal.component";
+import { useRouter } from "next/router";
 
 function BlogPage({ page }: BlogProps): JSX.Element {
     const route = useRouter();
     const [keys, setKeys] = useState([0, 1, 3]);
     const data = page[0]
+
+    const [showModal, setShowModal] = useState(false);
+
+    const handleOpenModal = () => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
 
     return (
         <>
@@ -41,6 +50,7 @@ function BlogPage({ page }: BlogProps): JSX.Element {
                 /> : null}
 
             <main>
+                {showModal && <Modal onClose={handleCloseModal} />}
                 {data?.title_header !== null ?
 
                     <section className={styles.header}>
@@ -87,7 +97,7 @@ function BlogPage({ page }: BlogProps): JSX.Element {
                         <div className={styles.questionsWrapper}>
                             <div>
                                 <Headlines tag='h3'>{data?.question.title}</Headlines>
-                                <Button>{data?.question.link}</Button>
+                                <Button init='button' onClick={() => handleOpenModal()}>{data?.question.link}</Button>
                             </div>
                         </div>
 
@@ -116,3 +126,4 @@ export interface BlogProps extends Record<string, unknown> {
 }
 
 export default withLayout(BlogPage)
+

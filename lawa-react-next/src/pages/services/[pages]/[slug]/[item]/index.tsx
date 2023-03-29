@@ -136,7 +136,7 @@ function SubServiceItem({ ...props }): JSX.Element {
 
           <section className={styles.specifics}>
             <div className={styles.specificsTitle}>
-              <Headlines tag='h2' >Наш Арсенал</Headlines>
+              <Headlines tag='h2'>Наш Арсенал</Headlines>
             </div>
             <div className={styles.specificsArsenal}>
               {data && data.arsenal.map((item, key) => (

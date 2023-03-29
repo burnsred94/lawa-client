@@ -35,6 +35,11 @@
 		gap: 100px;
 	}
 
+	&WrapperOnce {
+		display: grid;
+		grid-template-areas: "description";
+	}
+
 	&Title {
 		margin: 50px 0;
 
@@ -130,6 +135,10 @@
 		&Text {
 			color: var(--default-color-text);
 			font-size: 18px;
+		}
+
+		&Button {
+			margin-top: 50px;
 		}
 	}
 }

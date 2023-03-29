@@ -96,6 +96,7 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	gap: 30px;
+	margin-bottom: 70px;
 
 	&GridTheere {
 		grid-template-columns: 1fr 1fr 1fr;
@@ -109,7 +110,6 @@
 
 .process {
 	margin: 0 auto;
-	margin-top: 150px;
 	max-width: 1200px;
 
 	&Wrapper {
@@ -185,7 +185,7 @@
 .cases {
 	max-width: 1200px;
 	margin: 0 auto;
-	margin-top: 158px;
+	margin-top: 100px;
 
 	&Title {
 		display: flex;
@@ -252,15 +252,16 @@
 @media screen and (max-width: 768px) {
 	.header {
 		background: url("../../../../public/images/frameService.png") no-repeat center;
-		max-height: 100px;
+		height: 100px;
 		display: grid;
 		align-content: center;
+		justify-content: start;
 
 		&Wrapper {
 			h1 {
-				margin-left: 15px;
 				font-size: 26px;
-				line-height: 30px;
+				margin-left: 15px;
+				line-height: 28px;
 			}
 		}
 	}
@@ -271,7 +272,7 @@
 
 	.result {
 		margin-top: 80px;
-		padding: 0 15px;
+		padding: 15px;
 		&Images {
 			display: none;
 		}
@@ -303,71 +304,84 @@
 		}
 	}
 
-	.specifics {
+	.services {
 		padding: 0 15px;
+		grid-template-columns: 1fr;
+	}
+
+	.specifics {
+		padding: 15px;
 		margin-top: 100px;
 		grid-template-columns: 1fr;
 
+		&Title {
+			h2 {
+				margin: 0;
+			}
+
+			&::before {
+				display: none;
+			}
+		}
+
 		&GridTheere {
+			grid-template-columns: 1fr;
+		}
+
+		&Arsenal {
 			grid-template-columns: 1fr;
 		}
 	}
 
 	.process {
-		margin: 0 auto;
-		margin-top: 150px;
-		max-width: 1200px;
+		margin-top: 100px;
+		max-width: 100%;
+		padding: 0 15px;
 
 		&Wrapper {
-			display: grid;
-			grid-template-columns: 1fr 1.5fr 1fr;
-			align-items: center;
-			grid-template-areas: "first next last";
+			grid-template-columns: 1fr;
+			justify-items: center;
+			grid-template-areas:
+				"first"
+				"next"
+				"last";
 		}
 
 		&First {
 			display: flex;
 			flex-direction: column;
+			align-items: self-start;
 			border: 1px solid #e25730;
-			border-right: none;
-			max-height: 565px;
-			max-width: 100%;
-			grid-area: first;
+			margin-bottom: -20px;
+			width: 100%;
 
 			h3 {
 				margin: 35px 0 20px 40px;
 			}
-
 			&Items {
 				list-style: none;
 				color: #fff;
 				li {
 					margin-bottom: 18px;
-					font-size: 20px;
-					max-width: 290px;
+					max-width: 100%;
 				}
 			}
 		}
 
 		&Next {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			background-color: #191919;
-			grid-area: next;
-			max-width: 100%;
-			height: 720px;
+			position: relative;
+			width: 100px;
+			height: 70px;
+			img {
+				width: 25px;
+				height: 30px;
+				transform: rotate(90deg);
+			}
 		}
 
 		&Last {
-			background-color: #e25730;
-			display: flex;
-			flex-direction: column;
-			align-items: flex-start;
-			border: 1px solid #e25730;
-			border-right: none;
-			max-height: 565px;
-			max-width: 100%;
+			margin-top: -20px;
+			width: 100%;
 			grid-area: last;
 
 			h3 {
@@ -380,10 +394,8 @@
 				padding: 0;
 				li {
 					padding-left: 40px;
-					font-size: 20px;
-
 					margin-bottom: 18px;
-					max-width: 290px;
+					max-width: 100%;
 				}
 			}
 		}
@@ -439,8 +451,6 @@
 
 	.reviewCards {
 		grid-template-columns: 1fr;
-		&Card {
-		}
 	}
 	.questions {
 		margin-top: 100px;
