@@ -2,20 +2,21 @@ version: '3.1'
 
 services:
   service-web:
-      container_name: $INFRA_WEB_APP
-      image: ${INFRA_WEB_IMAGE}:${INFRA_WEB_IMAGE_TAG:-latest}
-      build: 
-        context: ./lawa-react-next
-        dockerfile: Dockerfile
-      restart: always
-      environment:
-        PORT: ${INFRA_WEB_PORT}
-        HOST: 0.0.0.0
-        NODE_ENV: development
-        WHOAMI_PORT_NUMBER: ${INFRA_WEB_PORT}
-        APP_API_URL: ${INFRA_API_URL}
-      ports:
-        - ${INFRA_WEB_PORT}:3000
-      volumes:
-        - ./lawa-react-next:/app/
-        - /app/node_modules
+    container_name: $INFRA_WEB_APP
+    image: ${INFRA_WEB_IMAGE}:${INFRA_WEB_IMAGE_TAG:-latest}
+    build:
+      context: ./lawa-react-next
+      dockerfile: Dockerfile
+    restart: always
+    hostname: ${INFRA_APP_DOMAIN}
+    environment:
+      PORT: ${INFRA_WEB_PORT}
+      HOST: 0.0.0.0
+      NODE_ENV: development
+      WHOAMI_PORT_NUMBER: ${INFRA_WEB_PORT}
+      APP_API_URL: ${INFRA_API_URL}
+    ports:
+      - ${INFRA_WEB_PORT}:3000
+    volumes:
+      - ./lawa-react-next:/app/
+      - /app/node_modules
