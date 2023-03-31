@@ -9,13 +9,26 @@ import { NextSeo } from "next-seo"
 import { useRouter } from "next/router";
 import styles from './style.module.scss'
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "@/components/Modal/Modal.component";
 
-function Contacts({ page }: ContactsProps): JSX.Element {
-  const data = page[0]
-
+function Contacts(): JSX.Element {
+  // const data = page[0]
   const route = useRouter()
+
+  const [data, setData] = useState<ContactPage>()
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data } = await axios.get<ContactPage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_CONTACT_PAGE);
+        setData(data[0])
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    fetchData()
+  }, [route.query])
+
 
   const [showModal, setShowModal] = useState(false);
 
@@ -140,7 +153,7 @@ function Contacts({ page }: ContactsProps): JSX.Element {
               </div>
             </div>
           </section>
-          {data.question !== null ?
+          {data?.question !== null ?
 
             <section className={styles.questions}>
               <div className={styles.questionsWrapper}>
@@ -160,18 +173,18 @@ function Contacts({ page }: ContactsProps): JSX.Element {
   )
 }
 
-export const getStaticProps = async () => {
-  const { data: page } = await axios.get<ContactPage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_CONTACT_PAGE);
+// export const getStaticProps = async () => {
+//   const { data: page } = await axios.get<ContactPage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_CONTACT_PAGE);
 
-  return {
-    props: {
-      page
-    },
-  };
-};
+//   return {
+//     props: {
+//       page
+//     },
+//   };
+// };
 
-export interface ContactsProps extends Record<string, unknown> {
-  page: ContactPage[];
-}
+// export interface ContactsProps extends Record<string, unknown> {
+//   page: ContactPage[];
+// }
 
 export default withLayout(Contacts);

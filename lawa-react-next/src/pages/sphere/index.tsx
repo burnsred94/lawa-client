@@ -17,12 +17,27 @@ import { NextSeo } from 'next-seo'
 import { Modal } from '@/components/Modal/Modal.component'
 import { SpherePage } from '@/interfaces/sphere-page.interface'
 
-function Sphere({ page }: SphereProps): JSX.Element {
+function Sphere(): JSX.Element {
     const route = useRouter()
     const [activeReview, setActiveReview] = useState()
     const [active, setActive] = useState(0)
 
-    const data = page[0]
+    // const data = page[0]
+
+
+    const [data, setData] = useState<SpherePage>()
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const { data } = await axios.get<SpherePage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_SPHERE_PAGE);
+                setData(data[0])
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        fetchData()
+    }, [route.query])
+
 
     const [showModal, setShowModal] = useState(false);
 
@@ -234,19 +249,19 @@ function Sphere({ page }: SphereProps): JSX.Element {
 }
 
 
-export const getStaticProps = async () => {
-    const { data: page } = await axios.get<SpherePage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_SPHERE_PAGE);
+// export const getStaticProps = async () => {
+//     const { data: page } = await axios.get<SpherePage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_SPHERE_PAGE);
 
-    return {
-        props: {
-            page
-        },
-    };
-};
+//     return {
+//         props: {
+//             page
+//         },
+//     };
+// };
 
-export interface SphereProps extends Record<string, unknown> {
-    page: SpherePage[];
-}
+// export interface SphereProps extends Record<string, unknown> {
+//     page: SpherePage[];
+// }
 
 
 

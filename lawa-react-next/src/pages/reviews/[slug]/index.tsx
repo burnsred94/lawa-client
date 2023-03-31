@@ -9,7 +9,7 @@ import axios from "axios"
 import { GetServerSideProps } from "next"
 import { NextSeo } from "next-seo"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Params } from "./interfaces/review.interfaces"
 import styles from "./style.module.scss"
 import cn from 'classnames'
@@ -17,9 +17,24 @@ import ReactMarkdown from "react-markdown"
 import { Modal } from "@/components/Modal/Modal.component"
 
 
-function Review({ data }: ReviewProps): JSX.Element {
+function Review(): JSX.Element {
     const route = useRouter()
     const [active, setActive] = useState(0)
+    const [data, setData] = useState<Review>()
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                if (route.query.slug) {
+                    const { data } = await axios.get<Review>(process.env.NEXT_PUBLIC_DOMAIN + URL_REVIEW + route.query.slug);
+                    setData(data)
+                }
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        fetchData()
+    }, [route.query])
 
     const [showModal, setShowModal] = useState(false);
 
@@ -57,36 +72,36 @@ function Review({ data }: ReviewProps): JSX.Element {
             <main>
                 {showModal && <Modal onClose={handleCloseModal} />}
 
-                {data.name !== null ?
+                {data?.name !== null ?
 
                     <section className={styles.header}>
                         <div className={styles.headerWrapper}>
-                            <Headlines tag='h1'>{data.name ? data.name : ''}</Headlines>
+                            <Headlines tag='h1'>{data?.name ? data.name : ''}</Headlines>
                         </div>
                     </section> :
 
                     null}
 
-                {data.name !== null ?
+                {data?.name !== null ?
 
                     <section className={styles.breadCrumb}>
                         <div className={styles.breadCrumbWrapper}>
-                            <Breadcrumbs data={[{ title: 'Наши отзывы', path: '/reviews/' }, { title: data.name, path: route.asPath }]} />
+                            <Breadcrumbs data={[{ title: 'Наши отзывы', path: '/reviews/' }, { title: data?.name as string, path: route.asPath }]} />
                         </div>
                     </section> :
 
                     null}
 
-                {data.photo !== null ?
+                {data?.photo !== null ?
 
                     <section className={styles.content}>
                         <div className={styles.contentTitle}>
-                            <Headlines tag="h2">{data.name ? data.name : ''}</Headlines>
+                            <Headlines tag="h2">{data?.name ? data.name : ''}</Headlines>
                         </div>
                         <div className={styles.contentWrapper}>
                             <div className={styles.contentPhoto}>
                                 <div className={styles.contentPhotoWrapper}>
-                                    {data.photo && data.photo.map((item, index) => (
+                                    {data?.photo && data.photo.map((item, index) => (
                                         <div key={index} className={cn({
                                             [styles.contentPhotoItemActive]: index === active,
                                             [styles.contentPhotoItemNonActive]: index !== active,
@@ -103,7 +118,7 @@ function Review({ data }: ReviewProps): JSX.Element {
                                     <div className={styles.contentPhotoSlider}>
                                         <div className={styles.sliderWrapper}>
                                             <button className={cn(`${styles.sliderButton}, ${styles.sliderButtonLeft}`, {
-                                                [styles.sliderButtonActive]: active !== data.photo.length,
+                                                [styles.sliderButtonActive]: active !== data?.photo.length,
                                                 [styles.sliderButtonNonActive]: active === 0,
                                             })}
                                                 onClick={() => active !== 0 ? setActive(active - 1) : setActive(0)}
@@ -119,8 +134,9 @@ function Review({ data }: ReviewProps): JSX.Element {
                                         <div className={styles.sliderWrapper}>
                                             <button className={cn(`${styles.sliderButton}, ${styles.sliderButtonRight}`, {
                                                 [styles.sliderButtonActive]: active >= 0,
-                                                [styles.sliderButtonNonActive]: active === data.photo.length - 1,
+                                                [styles.sliderButtonNonActive]: active === data?.photo.length ? data.photo.length - 1 : null,
                                             })}
+                                                //@ts-ignore
                                                 onClick={() => active < data.photo.length - 1 ? setActive(active + 1) : null}
                                             >
                                                 <Image
@@ -136,7 +152,7 @@ function Review({ data }: ReviewProps): JSX.Element {
                             </div>
                             <div className={styles.contentDescription}>
                                 <div className={styles.contentDescriptionText}>
-                                    <ReactMarkdown>{data.description}</ReactMarkdown>
+                                    <ReactMarkdown>{data?.description as string}</ReactMarkdown>
                                 </div>
                                 <div className={styles.contentDescriptionButton} >
                                     <Button init='button' onClick={() => handleOpenModal()}>Заказать Услугу</Button>
@@ -164,25 +180,25 @@ function Review({ data }: ReviewProps): JSX.Element {
     )
 }
 
-export const getServerSideProps: GetServerSideProps<{ data: Review }> = async (context) => {
-    const { slug } = context.params as Params
+// export const getServerSideProps: GetServerSideProps<{ data: Review }> = async (context) => {
+//     const { slug } = context.params as Params
 
-    const response = await axios.get<Review>(`${process.env.NEXT_PUBLIC_DOMAIN + URL_REVIEW}${slug}`).catch(error => {
-        if (error.response?.status === 404) {
-            return {
-                notFound: true,
-            }
-        }
-    })
+//     const response = await axios.get<Review>(`${process.env.NEXT_PUBLIC_DOMAIN + URL_REVIEW}${slug}`).catch(error => {
+//         if (error.response?.status === 404) {
+//             return {
+//                 notFound: true,
+//             }
+//         }
+//     })
 
 
-    //@ts-ignore
-    return response.data ? { props: { data: response.data } } : { notFound: true }
-}
+//     //@ts-ignore
+//     return response.data ? { props: { data: response.data } } : { notFound: true }
+// }
 
-export interface ReviewProps extends Record<string, unknown> {
-    data: Review
-}
+// export interface ReviewProps extends Record<string, unknown> {
+//     data: Review
+// }
 
 
 export default withLayout(Review)

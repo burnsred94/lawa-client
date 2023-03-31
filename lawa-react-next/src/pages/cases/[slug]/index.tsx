@@ -4,11 +4,11 @@ import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
 import { Params } from "@/pages/reviews/[slug]/interfaces/review.interfaces";
 import { withLayout } from "@/layout/layout";
 import { Button, Headlines } from "@/components";
-import { Case as ICase } from "@/interfaces/single/case.interface";
+import { Case, Case as ICase } from "@/interfaces/single/case.interface";
 import { URL_CASE } from "@/constants/constants";
 import { useRouter } from "next/router";
 import { loaderImage } from "@/utils/image-loader/image-loader.utlis";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 import axios from "axios";
@@ -18,9 +18,26 @@ import { Modal } from "@/components/Modal/Modal.component";
 
 
 
-function Case({ data }: CaseProps): JSX.Element {
+function Case(): JSX.Element {
     const route = useRouter();
     const [active, setActive] = useState(0);
+
+    const [data, setData] = useState<Case>()
+    const router = useRouter();
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const { data } = await axios.get<Case>(process.env.NEXT_PUBLIC_DOMAIN + URL_CASE + router.query.slug);
+                if (data) {
+                    setData(data)
+                }
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        fetchData()
+    }, [router.query])
 
     const [showModal, setShowModal] = useState(false);
 
@@ -37,7 +54,7 @@ function Case({ data }: CaseProps): JSX.Element {
         <>
             <main>
                 {showModal && <Modal onClose={handleCloseModal} />}
-                {data.title ?
+                {data?.title ?
 
                     <section className={styles.header}>
                         <div className={styles.headerWrapper}>
@@ -47,7 +64,7 @@ function Case({ data }: CaseProps): JSX.Element {
 
                     : null}
 
-                {data.title ?
+                {data?.title ?
 
                     <section className={styles.breadCrumb}>
                         <div className={styles.breadCrumbWrapper}>
@@ -57,7 +74,7 @@ function Case({ data }: CaseProps): JSX.Element {
 
                     null}
 
-                {data.description ? <section className={styles.content}>
+                {data?.description ? <section className={styles.content}>
                     <div className={styles.contentTitle}>
                         <Headlines tag="h2">{data.title}</Headlines>
                     </div>
@@ -144,24 +161,24 @@ function Case({ data }: CaseProps): JSX.Element {
     )
 }
 
-export const getServerSideProps: GetServerSideProps<{ data: ICase }> = async (context) => {
-    const { slug } = context.params as Params
+// export const getServerSideProps: GetServerSideProps<{ data: ICase }> = async (context) => {
+//     const { slug } = context.params as Params
 
-    const response = await axios.get<ICase>(`${process.env.NEXT_PUBLIC_DOMAIN + URL_CASE}${slug}`).catch(error => {
-        if (error.response?.status === 404) {
-            return {
-                notFound: true,
-            }
-        }
-    })
+//     const response = await axios.get<ICase>(`${process.env.NEXT_PUBLIC_DOMAIN + URL_CASE}${slug}`).catch(error => {
+//         if (error.response?.status === 404) {
+//             return {
+//                 notFound: true,
+//             }
+//         }
+//     })
 
 
-    //@ts-ignore
-    return response.data ? { props: { data: response.data } } : { notFound: true }
-}
+//     //@ts-ignore
+//     return response.data ? { props: { data: response.data } } : { notFound: true }
+// }
 
-export interface CaseProps extends Record<string, unknown> {
-    data: ICase
-}
+// export interface CaseProps extends Record<string, unknown> {
+//     data: ICase
+// }
 
 export default withLayout(Case);

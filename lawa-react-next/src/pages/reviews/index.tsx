@@ -10,14 +10,28 @@ import { Service } from "@/components/service/Service";
 import axios from "axios";
 import styles from './style.module.scss'
 import { Modal } from "@/components/Modal/Modal.component";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 
-function Reviews({ page }: ReviewsProps): JSX.Element {
-    const data = page[0]
-
+function Reviews(): JSX.Element {
     const [showModal, setShowModal] = useState(false);
+    const [data, setData] = useState<ReviewPage>()
+    const router = useRouter();
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const { data } = await axios.get<ReviewPage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_REVIEW_PAGE);
+                if (data) {
+                    setData(data[0])
+                }
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        fetchData()
+    }, [router.query])
 
     const handleOpenModal = () => {
         setShowModal(true);
@@ -70,7 +84,7 @@ function Reviews({ page }: ReviewsProps): JSX.Element {
 
                     null}
 
-                {data.title !== null ?
+                {data?.title !== null ?
 
                     <section className={styles.breadCrumb}>
                         <div className={styles.breadCrumbWrapper}>
@@ -80,13 +94,13 @@ function Reviews({ page }: ReviewsProps): JSX.Element {
 
                     null}
 
-                {data.reviews !== null ?
+                {data?.reviews !== null ?
 
                     <section className={styles.services}>
                         <Headlines tag='h2'>{data?.title ? data.title : ''}</Headlines>
                         <div className={styles.servicesWrapper}>
                             {
-                                data.reviews.map((item, index) => (
+                                data?.reviews.map((item, index) => (
                                     <>
                                         <Service type='card-review' link={item.link} text={item.description} img={item.logo} />
                                     </>
@@ -117,18 +131,17 @@ function Reviews({ page }: ReviewsProps): JSX.Element {
 }
 
 
-export const getStaticProps = async () => {
-    const { data: page } = await axios.get<ReviewPage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_REVIEW_PAGE);
+// export const getServerSideProps = async () => {
+//     const { data: page } = await axios.get<ReviewPage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_REVIEW_PAGE);
+//     return {
+//         props: {
+//             page
+//         },
+//     };
+// };
 
-    return {
-        props: {
-            page
-        },
-    };
-};
-
-export interface ReviewsProps extends Record<string, unknown> {
-    page: ReviewPage[];
-}
+// export interface ReviewsProps extends Record<string, unknown> {
+//     page: ReviewPage[];
+// }
 
 export default withLayout(Reviews)

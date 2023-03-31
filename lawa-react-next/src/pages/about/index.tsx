@@ -15,14 +15,31 @@ import { NextSeo } from 'next-seo'
 import { AssetService } from '@/services/AssetService'
 import { loaderImage } from '@/utils/image-loader/image-loader.utlis'
 import cn from 'classnames'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Modal } from '@/components/Modal/Modal.component'
 
-function About({ page }: AboutProps): JSX.Element {
+function About(): JSX.Element {
   const route = useRouter()
   const [active, setActive] = useState<number>(1)
 
-  const data = page[0]
+  // const data = page[0]
+
+  const [data, setData] = useState<AboutPage>()
+  const router = useRouter();
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { data } = await axios.get<AboutPage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_ABOUT_PAGE);
+        if (data) {
+          setData(data[0])
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    fetchData()
+  }, [router.query])
 
   const [showModal, setShowModal] = useState(false);
 
@@ -259,19 +276,19 @@ function About({ page }: AboutProps): JSX.Element {
   )
 }
 
-export const getStaticProps = async () => {
-  const { data: page } = await axios.get<AboutPage>(process.env.NEXT_PUBLIC_DOMAIN + URL_ABOUT_PAGE);
+// export const getStaticProps = async () => {
+//   const { data: page } = await axios.get<AboutPage>(process.env.NEXT_PUBLIC_DOMAIN + URL_ABOUT_PAGE);
 
-  return {
-    props: {
-      page
-    },
-  };
-};
+//   return {
+//     props: {
+//       page
+//     },
+//   };
+// };
 
-export interface AboutProps extends Record<string, unknown> {
-  page: AboutPage[];
-}
+// export interface AboutProps extends Record<string, unknown> {
+//   page: AboutPage[];
+// }
 
 
 export default withLayout(About)

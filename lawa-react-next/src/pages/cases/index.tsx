@@ -12,7 +12,7 @@ import cn from "classnames";
 import styles from "./style.module.scss";
 import axios from "axios";
 import { Modal } from "@/components/Modal/Modal.component";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const caveat = Caveat({
@@ -21,8 +21,25 @@ const caveat = Caveat({
     subsets: ['cyrillic', 'latin'],
 })
 
-function CasesPage({ page }: CasesProps): JSX.Element {
-    const data = page[0];
+function CasesPage(): JSX.Element {
+    // const data = page[0];
+
+    const [data, setData] = useState<CasePage>()
+    const router = useRouter();
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const { data } = await axios.get<CasePage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_CASE_PAGE);
+                if (data) {
+                    setData(data[0])
+                }
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        fetchData()
+    }, [router.query])
 
 
     const [showModal, setShowModal] = useState(false);
@@ -66,7 +83,7 @@ function CasesPage({ page }: CasesProps): JSX.Element {
             </>
             <main>
                 {showModal && <Modal onClose={handleCloseModal} />}
-                {data.title !== null ?
+                {data?.title !== null ?
 
                     <section className={styles.header}>
                         <div className={styles.headerWrapper}>
@@ -75,7 +92,7 @@ function CasesPage({ page }: CasesProps): JSX.Element {
                     </section> :
 
                     null}
-                {data.title !== null ?
+                {data?.title !== null ?
 
                     <section className={styles.breadCrumb}>
                         <div className={styles.breadCrumbWrapper}>
@@ -84,24 +101,24 @@ function CasesPage({ page }: CasesProps): JSX.Element {
                     </section> :
 
                     null}
-                {data.description !== null ?
+                {data?.description !== null ?
 
                     <section className={cn(`${caveat.className}`, `${styles.description}`)} >
                         <div className={styles.descriptionText}>
                             <Paragraph className={`${caveat.className}`} type='normal-text'>
-                                {data.description}
+                                {data?.description}
                             </Paragraph>
                         </div>
                     </section> :
 
                     null}
 
-                {data.cases !== null ?
+                {data?.cases !== null ?
 
                     <section className={styles.services}>
                         <div className={styles.servicesWrapper}>
                             {
-                                data.cases.map((post, index) => (
+                                data?.cases.map((post, index) => (
                                     <>
                                         <Case data={post} />
                                     </>
@@ -112,7 +129,7 @@ function CasesPage({ page }: CasesProps): JSX.Element {
 
                     null}
 
-                {data.questions !== null ?
+                {data?.questions !== null ?
 
                     <section className={styles.questions}>
                         <div className={styles.questionsWrapper}>
@@ -133,18 +150,18 @@ function CasesPage({ page }: CasesProps): JSX.Element {
 
 
 
-export const getStaticProps = async () => {
-    const { data: page } = await axios.get<CasePage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_CASE_PAGE);
+// export const getStaticProps = async () => {
+//     const { data: page } = await axios.get<CasePage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_CASE_PAGE);
 
-    return {
-        props: {
-            page
-        },
-    };
-};
+//     return {
+//         props: {
+//             page
+//         },
+//     };
+// };
 
-export interface CasesProps extends Record<string, unknown> {
-    page: CasePage[];
-}
+// export interface CasesProps extends Record<string, unknown> {
+//     page: CasePage[];
+// }
 
 export default withLayout(CasesPage)
