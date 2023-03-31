@@ -37,7 +37,6 @@ function Page({ ...props }): JSX.Element {
   const canonicalLink = link.includes('?') ? link.substring(0, link.indexOf('?')) : link
   const assetService = new AssetService({ assetsBase: process.env.NEXT_PUBLIC_DOMAIN as string })
 
-  console.log(route)
 
   useEffect(() => {
     async function fetchData() {
