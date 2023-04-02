@@ -15,6 +15,7 @@ import { NextSeo } from 'next-seo'
 import { AssetService } from '@/services/AssetService'
 import { Modal } from '@/components/Modal/Modal.component'
 import reviews from './reviews'
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 
 
 
@@ -214,7 +215,7 @@ function Home() {
 
           <section className={styles.slogan}>
             <div className={styles.sloganWrapper}>
-              <Headlines tag='h4'>{data?.slogan ? `${data?.slogan}` : ''}</Headlines>
+              <ReactMarkdown>{data?.slogan ? `${data?.slogan}` : ''}</ReactMarkdown>
             </div>
           </section> :
 
