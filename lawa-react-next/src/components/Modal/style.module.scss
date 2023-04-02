@@ -16,6 +16,54 @@
 	padding: 20px;
 	border-radius: 5px;
 
+	&Header {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 20px;
+
+		button {
+			background: none;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border: none;
+			width: 35px;
+			height: 35px;
+			cursor: pointer;
+
+			&::before {
+				content: "";
+				position: absolute;
+				transform: rotate(135deg);
+				width: 25px;
+				height: 2px;
+				background-color: #fff;
+			}
+
+			&::after {
+				content: "";
+				position: absolute;
+				transform: rotate(-135deg);
+				width: 25px;
+				height: 2px;
+				background-color: #fff;
+			}
+
+			&::before,
+			&::after {
+				transition: all 250ms ease-in-out;
+			}
+
+			&:hover {
+				&::before,
+				&::after {
+					transition: all 250ms ease-in-out;
+					background-color: var(--primary-color);
+				}
+			}
+		}
+	}
+
 	form > button {
 		margin-top: 30px;
 	}

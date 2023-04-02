@@ -1,45 +1,26 @@
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
-import cn from 'classnames'
+import { Button, Headlines } from "@/components";
+import Image from "next/image";
+import { URL_SPHERE } from "@/constants/constants";
+import { Sphere } from "@/interfaces/single/sphere.interface";
+import { withLayout } from "@/layout/layout";
+import { AssetService } from "@/services/AssetService";
+import axios from "axios";
+import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-import { Button, Headlines, Paragraph } from '@/components'
-import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
-import { Service } from '@/components/service/Service'
-import { withLayout } from '@/layout/layout'
-import ReactMarkdown from 'react-markdown'
-import styles from './style.module.scss'
-import axios from 'axios'
-import { URL_SERVICE_PAGE, URL_SPHERE_PAGE } from '@/constants/constants'
-import { Service as ServiceItem } from '@/interfaces/service-page.interface'
-import { AssetService } from '@/services/AssetService'
-import { NextSeo } from 'next-seo'
-import { Modal } from '@/components/Modal/Modal.component'
-import { SpherePage } from '@/interfaces/sphere-page.interface'
-import { loaderImage } from '@/utils/image-loader/image-loader.utlis'
-import Link from 'next/link'
-
-function Sphere(): JSX.Element {
-    const route = useRouter()
-    const [activeReview, setActiveReview] = useState()
-    const [active, setActive] = useState(0)
-
-    // const data = page[0]
+import styles from './style.module.scss';
+import { Breadcrumbs } from "@/components/Breadcrumbs/Breadcrumbs";
+import ReactMarkdown from "react-markdown";
+import { Modal } from "@/components/Modal/Modal.component";
+import { Service } from "@/components/service/Service";
+import cn from 'classnames';
 
 
-    const [data, setData] = useState<SpherePage>()
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const { data } = await axios.get<SpherePage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_SPHERE_PAGE);
-                setData(data[0])
-            } catch (e) {
-                console.log(e)
-            }
-        }
-        fetchData()
-    }, [route.query])
-
+const Sphere = (): JSX.Element => {
+    const route = useRouter();
+    const [active, setActive] = useState(0);
+    const [data, setData] = useState<Sphere>();
 
     const [showModal, setShowModal] = useState(false);
 
@@ -51,14 +32,30 @@ function Sphere(): JSX.Element {
         setShowModal(false);
     };
 
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                if (route.query.slug) {
+                    const { data } = await axios.get<Sphere>(process.env.NEXT_PUBLIC_DOMAIN + URL_SPHERE + route.query.slug);
+                    setData(data)
+                }
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        fetchData()
+    }, [route.query])
+
+
     const link = `https://lawa.by${route.asPath}`
     const canonicalLink = link.includes('?') ? link.substring(0, link.indexOf('?')) : link
     const assetService = new AssetService({ assetsBase: process.env.NEXT_PUBLIC_DOMAIN as string })
 
+
     return (
         <>
-            <>
-                {data?.seo !== null ? <NextSeo
+            {data?.seo !== null ?
+                <NextSeo
                     title={data?.seo.title}
                     description={data?.seo.description}
                     canonical={canonicalLink}
@@ -76,10 +73,8 @@ function Sphere(): JSX.Element {
                     }}
 
                 /> : null}
-            </>
             <main>
                 {showModal && <Modal onClose={handleCloseModal} />}
-
                 {data?.title !== null ?
 
                     <section className={styles.header}>
@@ -94,7 +89,7 @@ function Sphere(): JSX.Element {
 
                     <section className={styles.breadCrumb}>
                         <div className={styles.breadCrumbWrapper}>
-                            <Breadcrumbs data={[{ title: data?.title as string, path: route.asPath }]} />
+                            <Breadcrumbs data={[{ title: "Сферы", path: '/sphere' }, { title: data?.title as string, path: route.asPath }]} />
                         </div>
                     </section> :
 
@@ -124,32 +119,21 @@ function Sphere(): JSX.Element {
 
                     null}
 
-                {data?.spheres !== null ?
+                {data?.services.length !== 0 ?
 
-                    <section className={styles.sphere}>
-                        <div className={styles.sphereWrapper}>
-                            <div className={styles.sphereTitle}>
-                                <Headlines tag="h2">{data?.title ? data.title : ''}</Headlines>
+                    <section className={styles.service}>
+                        <div className={styles.serviceWrapper}>
+                            <div className={styles.serviceTitle}>
+                                <Headlines tag='h2'>{data?.title ? 'Услуги ' + data.title : ''}</Headlines>
                             </div>
-                            <div className={styles.sphereBlock}>
-                                {data?.spheres ? data?.spheres.map((value, key) => (
-                                    <div key={key} className={styles.sphereBlockWrapper}>
-                                        {value.img !== null ?
-                                            <Link href={value.sphere?.slug ? `${route.asPath}/${value.sphere.slug}` : 'sphere'}>
-                                                <div className={styles.sphereBlockItem}>
-                                                    <Image
-                                                        priority
-                                                        loader={() => loaderImage(value.img.url)}
-                                                        width={90}
-                                                        height={90}
-                                                        src={process.env.NEXT_PUBLIC_DOMAIN + value.img?.url}
-                                                        alt='img'
-                                                    />
-                                                </div>
-                                                <Paragraph type="normal-text">{value.title}</Paragraph>
-                                            </Link> : null}
-                                    </div>
-                                )) : null}
+                            <div className={styles.serviceItems}>
+                                {data?.services ? data.services.map((item, key) => {
+                                    if (item.publishedAt !== null) {
+                                        return (
+                                            <Service type='card' key={key} img={item.preview_img} link={'/services/' + item.slug}>{item.title}</Service>
+                                        )
+                                    }
+                                }) : null}
                             </div>
                         </div>
                     </section> :
@@ -224,7 +208,7 @@ function Sphere(): JSX.Element {
 
                     <section className={styles.cases}>
                         <div className={styles.casesTitle}>
-                            <Headlines tag='h2'>{data?.title_cases}</Headlines>
+                            <Headlines tag='h2'>{data?.case_title}</Headlines>
                             <Button init='link' link='/reviews'>Смотреть все Отзывы</Button>
                         </div>
                         <div className={styles.reviewCards}>
@@ -264,27 +248,12 @@ function Sphere(): JSX.Element {
                     </section> :
 
                     null}
+
+
+
             </main>
         </>
     )
 }
-
-
-// export const getStaticProps = async () => {
-//     const { data: page } = await axios.get<SpherePage[]>(process.env.NEXT_PUBLIC_DOMAIN + URL_SPHERE_PAGE);
-
-//     return {
-//         props: {
-//             page
-//         },
-//     };
-// };
-
-// export interface SphereProps extends Record<string, unknown> {
-//     page: SpherePage[];
-// }
-
-
-
 
 export default withLayout(Sphere)

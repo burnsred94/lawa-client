@@ -101,6 +101,7 @@ function CasesPage(): JSX.Element {
                     </section> :
 
                     null}
+
                 {data?.description !== null ?
 
                     <section className={cn(`${caveat.className}`, `${styles.description}`)} >

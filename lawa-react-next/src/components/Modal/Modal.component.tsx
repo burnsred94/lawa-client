@@ -38,11 +38,24 @@ export const Modal = ({ onClose }: ModalProps): JSX.Element => {
         }
     };
 
+    const handleClose = () => {
+        if (name.length > 0 || phone.length > 0 || email.length > 0 || message.length > 0) {
+            setPhone('');
+            setEmail('');
+            setName('');
+            setMessage('');
+        }
+        onClose();
+    }
+
     return (
         <div className={styles.modalOverlay}>
             <div className={styles.modal}>
                 <form onSubmit={(e) => handleSubmit(e)}>
-                    <Headlines tag='h3'>Думаешь, крутой продукт<br />обязательно стоит дорого?</Headlines>
+                    <div className={styles.modalHeader}>
+                        <Headlines tag='h3'>Думаешь, крутой продукт<br />обязательно стоит дорого?</Headlines>
+                        <button onClick={() => handleClose()}></button>
+                    </div>
                     <Paragraph type='sub-title-text-dull'>Мы умеем и любим решать сложные задачи. Давай обсудим проект!</Paragraph>
                     <label className={styles.modalLabel} htmlFor="name">
                         <Image src='/svg/people.svg' alt='people' width={24} height={24}

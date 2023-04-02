@@ -1,12 +1,10 @@
 import axios from 'axios'
 import Image from 'next/image'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 
 import { Button } from '../Button/Button'
-import { Headlines } from '../Headlines/Headlines'
-import { Paragraph } from '../Paragraph/Paragraph'
 import { FormProps } from './Form.props'
+import cn from 'classnames'
 import styles from './styles.module.scss'
 
 export const Form = ({ className, ...props }: FormProps): JSX.Element => {
@@ -40,7 +38,7 @@ export const Form = ({ className, ...props }: FormProps): JSX.Element => {
 
 
   return (
-    <div className={styles.modal}>
+    <div className={cn(styles.modal)}>
       <form onSubmit={(e) => handleSubmit(e)}>
         <label className={styles.modalLabel} htmlFor="name">
           <Image src='/svg/people.svg' alt='people' width={24} height={24}

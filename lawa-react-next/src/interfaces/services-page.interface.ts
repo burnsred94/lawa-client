@@ -2,7 +2,7 @@ import { Service } from './service-page.interface'
 import { Image } from './single/image.interface'
 import { ListResult } from './single/list-result.interface'
 import { Seo } from './single/seo.interface'
-import { Sphere } from './single/sphere.interface'
+import { SphereItem } from './single/sphere.interface'
 import { Table } from './single/table.interface'
 
 export interface ServicesPage {
@@ -20,7 +20,7 @@ export interface ServicesPage {
   publishedAt: string
   sitemap_exclude: any
   services: Service[]
-  spheres: Sphere[]
+  spheres: SphereItem[]
   images_result: Image[]
   list_result: ListResult[]
   table: Table

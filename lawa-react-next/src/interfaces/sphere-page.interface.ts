@@ -5,6 +5,7 @@ import { Case } from "./single/case.interface"
 import { Review } from "./single/review.interafaces"
 import { Questions } from "./single/questions.interface"
 import { Seo } from "./single/seo.interface"
+import { SphereItem } from "./single/sphere.interface"
 
 
 export interface SpherePage {
@@ -25,6 +26,7 @@ export interface SpherePage {
     cases: Case[]
     reviews: Review[]
     question: Questions
+    spheres: SphereItem[]
     seo: Seo
 }
 

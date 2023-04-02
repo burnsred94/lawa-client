@@ -275,6 +275,11 @@
 		display: grid;
 		margin-top: 46px;
 		grid-template-columns: 1fr 1fr 1fr 1fr;
+		row-gap: 50px;
+		div > img {
+			max-width: 250px;
+			max-height: 200px;
+		}
 	}
 
 	&Slider {

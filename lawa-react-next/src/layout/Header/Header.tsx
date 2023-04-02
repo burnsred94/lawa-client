@@ -6,22 +6,35 @@ import { MenuComponent } from '@/components/Menu/Menu'
 
 import { HeaderProps } from './Header.props'
 import styles from './style.module.scss'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 
 export const Header = ({ ...props }: HeaderProps): JSX.Element => {
   const [activeMenu, setActiveMenu] = useState(false)
+  const router = useRouter()
 
   return (
     <header className={styles.header}>
       <div className={styles.headerWrapper}>
         <div className={styles.logo}>
-          <Image
-            priority
-            src="/svg/logo.svg"
-            width={130}
-            height={30}
-            alt="Logo"
-          />
+          {router.asPath === '/' ?
+            <Image
+              priority
+              src="/svg/logo.svg"
+              width={130}
+              height={30}
+              alt="Logo"
+            /> : <Link href="/">
+              <Image
+                priority
+                src="/svg/logo.svg"
+                width={130}
+                height={30}
+                alt="Logo"
+              />
+            </Link>}
+
         </div>
         <div className={styles.headerContacts}>
           <Image
