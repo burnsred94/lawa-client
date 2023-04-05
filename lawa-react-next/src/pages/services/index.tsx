@@ -146,10 +146,35 @@ function Services(): JSX.Element {
 
           <section className={styles.result}>
             <div className={styles.resultWrapper}>
-              <div className={styles.resultImages}>
-                <div className={styles.resultImagesLeft} />
-                <div className={styles.resultImagesRight} />
-              </div>
+              {data?.images_result?.length as number > 0 ?
+                <div className={styles.resultImages}>
+                  <div className={styles.resultImagesLeft}>
+
+                    {data?.images_result[0] !== undefined ?
+                      <Image
+                        loader={() => loaderImage(data?.images_result[0].url as string)}
+                        src={`${process.env.NEXT_PUBLIC_DOMAIN}${data?.images_result[0].url}`}
+                        width={270}
+                        height={470}
+                        alt="left" />
+
+                      : null}
+
+                  </div>
+                  <div className={styles.resultImagesRight}>
+
+                    {data?.images_result[1] !== undefined ?
+                      <Image
+                        loader={() => loaderImage(data?.images_result[1].url as string)}
+                        src={`${process.env.NEXT_PUBLIC_DOMAIN}${data?.images_result[1].url}`}
+                        width={270}
+                        height={470}
+                        alt="left" />
+
+                      : null}
+                  </div>
+                </div>
+                : null}
               <div className={styles.resultList}>
                 <div className={styles.resultTitle}>
                   <Headlines tag="h2">

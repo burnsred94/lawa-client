@@ -15,6 +15,7 @@ import ReactMarkdown from "react-markdown";
 import { Modal } from "@/components/Modal/Modal.component";
 import { Service } from "@/components/service/Service";
 import cn from 'classnames';
+import { loaderImage } from "@/utils/image-loader/image-loader.utlis";
 
 
 const Sphere = (): JSX.Element => {
@@ -99,10 +100,26 @@ const Sphere = (): JSX.Element => {
 
                     <section className={styles.result}>
                         <div className={styles.resultWrapper}>
-                            <div className={styles.resultImages}>
-                                <div className={styles.resultImagesLeft} />
-                                <div className={styles.resultImagesRight} />
-                            </div>
+                            {data?.images?.length as number > 0 ?
+                                <div className={styles.resultImages}>
+                                    <div className={styles.resultImagesLeft}>
+                                        {data?.images[0] !== undefined ? <Image
+                                            loader={() => loaderImage(data?.images[0].url as string)}
+                                            src={`${process.env.NEXT_PUBLIC_DOMAIN}${data?.images[0].url}`}
+                                            width={270}
+                                            height={470}
+                                            alt="left" /> : null}
+                                    </div>
+                                    <div className={styles.resultImagesRight} >
+                                        {data?.images[1] !== undefined ? <Image
+                                            loader={() => loaderImage(data?.images[1].url as string)}
+                                            src={`${process.env.NEXT_PUBLIC_DOMAIN}${data?.images[1].url}`}
+                                            width={270}
+                                            height={470}
+                                            alt="left" /> : null}
+                                    </div>
+                                </div>
+                                : null}
                             <div className={styles.resultList}>
                                 <div className={styles.resultTitle}>
                                     <Headlines tag="h2">
@@ -146,7 +163,7 @@ const Sphere = (): JSX.Element => {
                         <div className={styles.processWrapper}>
                             <div className={styles.processFirst}>
                                 <Headlines tag="h3">
-                                    Делаем мы
+                                    {data?.we_and_you.title_we ? data?.we_and_you.title_we : null}
                                 </Headlines>
                                 <ul className={styles.processFirstItems}>
                                     {data?.we_and_you.We.map((listItem, key) => (
@@ -159,7 +176,7 @@ const Sphere = (): JSX.Element => {
                             </div>
                             <div className={styles.processLast}>
                                 <Headlines tag="h3">
-                                    Получаете вы
+                                    {data?.we_and_you.title_you ? data?.we_and_you.title_you : null}
                                 </Headlines>
                                 <ul className={styles.processLastItems}>
                                     {data?.we_and_you.You.map((listItem, key) => (
@@ -176,7 +193,7 @@ const Sphere = (): JSX.Element => {
 
                     <section className={styles.cases}>
                         <div className={styles.casesTitle}>
-                            <Headlines tag='h2'>Наши Кейсы</Headlines>
+                            <Headlines tag='h2'>{data.case_title ? data.case_title : null}</Headlines>
                             <Button init='link' link='/cases'>Смотреть все работы</Button>
                         </div>
                         <div className={styles.casesCards}>
@@ -208,7 +225,7 @@ const Sphere = (): JSX.Element => {
 
                     <section className={styles.cases}>
                         <div className={styles.casesTitle}>
-                            <Headlines tag='h2'>{data?.case_title}</Headlines>
+                            <Headlines tag='h2'>{data?.review_title ? data?.review_title : null}</Headlines>
                             <Button init='link' link='/reviews'>Смотреть все Отзывы</Button>
                         </div>
                         <div className={styles.reviewCards}>
@@ -241,15 +258,13 @@ const Sphere = (): JSX.Element => {
                     <section className={styles.questions}>
                         <div className={styles.questionsWrapper}>
                             <div>
-                                <Headlines tag='h3'>Остались вопросы?</Headlines>
-                                <Button init='button' onClick={() => handleOpenModal()}>Обсудить проект</Button>
+                                <Headlines tag='h3'>{data?.question.title}</Headlines>
+                                <Button init='button' onClick={() => handleOpenModal()}>{data?.question.link}</Button>
                             </div>
                         </div>
                     </section> :
 
                     null}
-
-
 
             </main>
         </>

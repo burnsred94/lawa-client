@@ -18,6 +18,7 @@ import { AssetService } from '@/services/AssetService'
 import { NextSeo } from 'next-seo'
 import ReactMarkdown from 'react-markdown'
 import { Modal } from '@/components/Modal/Modal.component'
+import { loaderImage } from '@/utils/image-loader/image-loader.utlis'
 
 
 function SlugPage({ ...props }: SlugProps): JSX.Element {
@@ -113,10 +114,35 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
 
           <section className={styles.result}>
             <div className={styles.resultWrapper}>
-              <div className={styles.resultImages}>
-                <div className={styles.resultImagesLeft} />
-                <div className={styles.resultImagesRight} />
-              </div>
+              {data?.images?.length as number > 0 ?
+                <div className={styles.resultImages}>
+                  <div className={styles.resultImagesLeft}>
+                    {data?.images[0] !== undefined ?
+
+                      <Image
+                        loader={() => loaderImage(data?.images[0].url as string)}
+                        src={`${process.env.NEXT_PUBLIC_DOMAIN}${data?.images[0].url}`}
+                        width={data?.images[0].width || 2400}
+                        height={data?.images[0].height || 1252}
+                        alt="left" />
+
+                      : null}
+
+                  </div>
+                  <div className={styles.resultImagesRight}>
+                    {data?.images[1] !== undefined ?
+
+                      <Image
+                        loader={() => loaderImage(data?.images[1].url as string)}
+                        src={`${process.env.NEXT_PUBLIC_DOMAIN}${data?.images[0].url}`}
+                        width={270}
+                        height={470}
+                        alt="left" />
+
+                      : null}
+                  </div>
+                </div>
+                : null}
               <div className={styles.resultList}>
                 <div className={styles.resultTitle}>
                   <Headlines tag="h2">

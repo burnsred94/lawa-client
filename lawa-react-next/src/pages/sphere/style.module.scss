@@ -63,13 +63,11 @@
 		max-width: 580px;
 
 		&Left {
-			background-image: url("../../../public/images/lawa-right.png");
 			width: 270px;
 			height: 476px;
 		}
 
 		&Right {
-			background-image: url("../../../public/images/lawa-left.png");
 			margin-top: 60px;
 			width: 270px;
 			height: 476px;
@@ -80,6 +78,13 @@
 		grid-area: list;
 		max-width: 450px;
 
+		li {
+			list-style: none;
+		}
+
+		ul {
+			padding: 0;
+		}
 		&Description {
 			color: var(--default-color-text);
 			letter-spacing: 150%;
@@ -90,7 +95,7 @@
 }
 
 .sphere {
-	margin-top: 150px;
+	margin-top: 100px;
 	width: 100%;
 
 	&Wrapper {
@@ -100,6 +105,16 @@
 		grid-template-areas:
 			"title"
 			"block";
+	}
+
+	&SubDescription {
+		color: #fff;
+
+		p {
+			margin-bottom: 15px;
+			line-height: 22px;
+			text-indent: 15px;
+		}
 	}
 
 	&Title {

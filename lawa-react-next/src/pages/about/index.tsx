@@ -100,10 +100,34 @@ function About(): JSX.Element {
 
           <section className={styles.result}>
             <div className={styles.resultWrapper}>
-              <div className={styles.resultImages}>
-                <div className={styles.resultImagesLeft} />
-                <div className={styles.resultImagesRight} />
-              </div>
+              {data?.images?.length as number > 0 ?
+                <div className={styles.resultImages}>
+                  <div className={styles.resultImagesLeft}>
+                    {data?.images[0] !== undefined ?
+
+                      <Image
+                        loader={() => loaderImage(data?.images[0].url as string)}
+                        src={`${process.env.NEXT_PUBLIC_DOMAIN}${data?.images[0].url}`}
+                        width={270}
+                        height={470}
+                        alt="left" />
+
+                      : null}
+                  </div>
+                  <div className={styles.resultImagesRight}>
+                    {data?.images[1] !== undefined || data?.images[1] !== null ?
+
+                      <Image
+                        loader={() => loaderImage(data?.images[1].url as string)}
+                        src={`${process.env.NEXT_PUBLIC_DOMAIN}${data?.images[1].url}`}
+                        width={270}
+                        height={470}
+                        alt="left" />
+
+                      : null}
+                  </div>
+                </div>
+                : null}
               <div className={styles.resultList}>
                 <div className={styles.resultTitle}>
                   <Headlines tag="h2">

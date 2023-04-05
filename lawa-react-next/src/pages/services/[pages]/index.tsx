@@ -15,6 +15,7 @@ import { Service as ServiceItem } from '@/interfaces/service-page.interface'
 import { AssetService } from '@/services/AssetService'
 import { NextSeo } from 'next-seo'
 import { Modal } from '@/components/Modal/Modal.component'
+import { loaderImage } from '@/utils/image-loader/image-loader.utlis'
 
 function Page({ ...props }): JSX.Element {
   const route = useRouter()
@@ -99,10 +100,37 @@ function Page({ ...props }): JSX.Element {
 
           <section className={styles.result}>
             <div className={styles.resultWrapper}>
-              <div className={styles.resultImages}>
-                <div className={styles.resultImagesLeft} />
-                <div className={styles.resultImagesRight} />
-              </div>
+              {data?.images?.length as number > 0 ?
+                <div className={styles.resultImages}>
+                  <div className={styles.resultImagesLeft}>
+
+                    {data?.images[0] !== undefined ?
+
+                      <Image
+                        loader={() => loaderImage(data?.images[0].url as string)}
+                        src={`${process.env.NEXT_PUBLIC_DOMAIN}${data?.images[0].url}`}
+                        width={270}
+                        height={470}
+                        alt="left" />
+
+                      : null}
+
+                  </div>
+                  <div className={styles.resultImagesRight}>
+                    {data?.images[1] !== undefined ?
+
+                      <Image
+                        loader={() => loaderImage(data?.images[1].url as string)}
+                        src={`${process.env.NEXT_PUBLIC_DOMAIN}${data?.images[1].url}`}
+                        width={270}
+                        height={470}
+                        alt="left" />
+
+                      : null}
+
+                  </div>
+                </div>
+                : null}
               <div className={styles.resultList}>
                 <div className={styles.resultTitle}>
                   <Headlines tag="h2">

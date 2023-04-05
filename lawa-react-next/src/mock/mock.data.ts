@@ -2193,6 +2193,11 @@ export const menu: Menu[] = [
     ]
   },
   {
+    name: "Сферы",
+    link: '/sphere',
+
+  },
+  {
     name: 'Кейсы',
     link: '/cases'
   },

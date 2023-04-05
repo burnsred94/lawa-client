@@ -33,10 +33,9 @@
 		display: grid;
 		z-index: 2;
 		margin: 0 auto;
-
 	}
 	&SubDescription {
-		color:#fff;
+		color: #fff;
 
 		p {
 			margin-bottom: 15px;
@@ -373,9 +372,7 @@
 }
 
 @media screen and (max-width: 768px) {
-	
 	.header {
-
 		background: url("../../../public/images/frameService.png") no-repeat center;
 		height: 100px;
 		display: grid;
@@ -575,10 +572,10 @@
 			height: 100%;
 			max-width: 1200px;
 			margin: 0 auto;
-    
-      div {
-        margin-left: 20px;
-      }
+
+			div {
+				margin-left: 20px;
+			}
 			button {
 				margin-top: 53px;
 			}

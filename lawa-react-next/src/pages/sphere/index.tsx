@@ -18,6 +18,7 @@ import { Modal } from '@/components/Modal/Modal.component'
 import { SpherePage } from '@/interfaces/sphere-page.interface'
 import { loaderImage } from '@/utils/image-loader/image-loader.utlis'
 import Link from 'next/link'
+import { it } from 'node:test'
 
 function Sphere(): JSX.Element {
     const route = useRouter()
@@ -28,6 +29,9 @@ function Sphere(): JSX.Element {
 
 
     const [data, setData] = useState<SpherePage>()
+
+    console.log(data?.images_header[0])
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -100,30 +104,6 @@ function Sphere(): JSX.Element {
 
                     null}
 
-                {data?.title !== null && data?.description !== null ?
-
-                    <section className={styles.result}>
-                        <div className={styles.resultWrapper}>
-                            <div className={styles.resultImages}>
-                                <div className={styles.resultImagesLeft} />
-                                <div className={styles.resultImagesRight} />
-                            </div>
-                            <div className={styles.resultList}>
-                                <div className={styles.resultTitle}>
-                                    <Headlines tag="h2">
-                                        {data && data.title}
-                                    </Headlines>
-                                </div>
-                                <div className={styles.resultList}>
-                                    <ReactMarkdown className={styles.resultListDescription}>{data?.description as string}</ReactMarkdown>
-                                    <Button init='button' onClick={() => handleOpenModal()}>Заказать услугу</Button>
-                                </div>
-                            </div>
-                        </div>
-                    </section> :
-
-                    null}
-
                 {data?.spheres !== null ?
 
                     <section className={styles.sphere}>
@@ -131,6 +111,7 @@ function Sphere(): JSX.Element {
                             <div className={styles.sphereTitle}>
                                 <Headlines tag="h2">{data?.title ? data.title : ''}</Headlines>
                             </div>
+                            <ReactMarkdown className={styles.sphereSubDescription}>{data?.description as string}</ReactMarkdown>
                             <div className={styles.sphereBlock}>
                                 {data?.spheres ? data?.spheres.map((value, key) => (
                                     <div key={key} className={styles.sphereBlockWrapper}>
@@ -156,13 +137,57 @@ function Sphere(): JSX.Element {
 
                     null}
 
+                {data?.list_result !== null ?
+
+                    <section className={styles.result}>
+                        <div className={styles.resultWrapper}>
+                            {data?.images_header?.length as number > 0 ?
+                                <div className={styles.resultImages}>
+                                    <div className={styles.resultImagesLeft} >
+                                        {data?.images_header[0] !== undefined ? <Image
+                                            loader={() => loaderImage(data?.images_header[0].url as string)}
+                                            src={`${process.env.NEXT_PUBLIC_DOMAIN}${data?.images_header[0].url}`}
+                                            width={270}
+                                            height={470}
+                                            alt="left" /> : null}
+                                    </div>
+                                    <div className={styles.resultImagesRight}>
+                                        {data?.images_header[1] !== undefined ? <Image
+                                            loader={() => loaderImage(data?.images_header[1].url as string)}
+                                            src={`${process.env.NEXT_PUBLIC_DOMAIN}${data?.images_header[0].url}`}
+                                            width={270}
+                                            height={470}
+                                            alt="left" /> : null}
+                                    </div>
+                                </div>
+                                : null}
+                            <div className={styles.resultList}>
+                                <div className={styles.resultTitle}>
+                                    <Headlines tag="h2">
+                                        {data?.title_result ? data.title_result : ''}
+                                    </Headlines>
+                                </div>
+                                <ul className={styles.resultListItems}>
+                                    {data?.list_result && data?.list_result.map((item, key) => (
+                                        <li key={key}>
+                                            {item.img !== null ? <Image priority alt={item.img.hash} width={45} height={45} src={process.env.NEXT_PUBLIC_DOMAIN + item.img.url} /> : null}
+                                            <Paragraph type="normal-text">{item.description}</Paragraph>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </section> :
+
+                    null}
+
                 {data?.we_and_you !== null ?
 
                     <section className={styles.process}>
                         <div className={styles.processWrapper}>
                             <div className={styles.processFirst}>
                                 <Headlines tag="h3">
-                                    Делаем мы
+                                    {data?.we_and_you.title_we}
                                 </Headlines>
                                 <ul className={styles.processFirstItems}>
                                     {data?.we_and_you.We.map((listItem, key) => (
@@ -175,7 +200,7 @@ function Sphere(): JSX.Element {
                             </div>
                             <div className={styles.processLast}>
                                 <Headlines tag="h3">
-                                    Получаете вы
+                                    {data?.we_and_you.title_you}
                                 </Headlines>
                                 <ul className={styles.processLastItems}>
                                     {data?.we_and_you.You.map((listItem, key) => (
@@ -192,7 +217,7 @@ function Sphere(): JSX.Element {
 
                     <section className={styles.cases}>
                         <div className={styles.casesTitle}>
-                            <Headlines tag='h2'>Наши Кейсы</Headlines>
+                            <Headlines tag='h2'>{data?.title_cases ? data.title_cases : ''}</Headlines>
                             <Button init='link' link='/cases'>Смотреть все работы</Button>
                         </div>
                         <div className={styles.casesCards}>
@@ -224,7 +249,7 @@ function Sphere(): JSX.Element {
 
                     <section className={styles.cases}>
                         <div className={styles.casesTitle}>
-                            <Headlines tag='h2'>{data?.title_cases}</Headlines>
+                            <Headlines tag='h2'>{data?.review_title ? data.review_title : ''}</Headlines>
                             <Button init='link' link='/reviews'>Смотреть все Отзывы</Button>
                         </div>
                         <div className={styles.reviewCards}>

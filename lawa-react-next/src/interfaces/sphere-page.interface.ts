@@ -6,6 +6,7 @@ import { Review } from "./single/review.interafaces"
 import { Questions } from "./single/questions.interface"
 import { Seo } from "./single/seo.interface"
 import { SphereItem } from "./single/sphere.interface"
+import { ListResult } from "./single/list-result.interface"
 
 
 export interface SpherePage {
@@ -27,6 +28,8 @@ export interface SpherePage {
     reviews: Review[]
     question: Questions
     spheres: SphereItem[]
+    list_result: ListResult[]
+    title_result: string
     seo: Seo
 }
 
