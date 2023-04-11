@@ -229,10 +229,10 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
 
           null}
 
-        {data?.cases.length ?
+        {data?.cases.length !== 0 ?
 
           <section className={styles.cases}>
-            {data?.cases !== null ? <div className={styles.casesTitle}>
+            {data?.cases.length !== null ? <div className={styles.casesTitle}>
               <Headlines tag='h2'>{"Наши Кейсы"}</Headlines>
               <Button init='link' link='/cases'>Смотреть все работы</Button>
             </div> : null}
@@ -261,7 +261,7 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
           </section> :
           null}
 
-        {data?.reviews.length ?
+        {data?.reviews.length !== 0 ?
 
           <section className={styles.cases}>
             <div className={styles.casesTitle}>

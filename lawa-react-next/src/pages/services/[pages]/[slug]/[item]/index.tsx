@@ -206,11 +206,11 @@ function SubServiceItem({ ...props }): JSX.Element {
 
           null}
 
-        {data?.cases.length !== null ?
+        {data?.cases.length !== 0 ?
 
           <section className={styles.cases}>
             <div className={styles.casesTitle}>
-              <Headlines tag='h2'>{data?.cases !== null && 'Наши кейсы'}</Headlines>
+              <Headlines tag='h2'>{data?.cases.length !== null && 'Наши кейсы'}</Headlines>
               <Button init="link" link="/cases">Смотреть все работы</Button>
             </div>
             <div className={styles.casesCards}>
@@ -237,7 +237,7 @@ function SubServiceItem({ ...props }): JSX.Element {
           </section> :
           null}
 
-        {data?.reviews !== null ?
+        {data?.reviews.length !== 0 ?
 
           <section className={styles.cases}>
             <div className={styles.casesTitle}>

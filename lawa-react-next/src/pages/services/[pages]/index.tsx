@@ -203,7 +203,7 @@ function Page({ ...props }): JSX.Element {
 
           null}
 
-        {data?.cases.length ?
+        {data?.cases.length !== 0 ?
 
           <section className={styles.cases}>
             <div className={styles.casesTitle}>

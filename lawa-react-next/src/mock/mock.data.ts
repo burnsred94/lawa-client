@@ -2195,7 +2195,10 @@ export const menu: Menu[] = [
   {
     name: "Сферы",
     link: '/sphere',
-
+  },
+  {
+    name: 'Блог',
+    link: '/blog',
   },
   {
     name: 'Кейсы',

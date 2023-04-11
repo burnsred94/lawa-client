@@ -16,6 +16,7 @@ import { AssetService } from '@/services/AssetService'
 import { Modal } from '@/components/Modal/Modal.component'
 import reviews from './reviews'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
+import { SliderAuto } from '@/components/Slider/Slider'
 
 
 
@@ -261,25 +262,9 @@ function Home() {
               </div>
             </div>
             <div className={styles.trustBlocks}>
-              <button className={styles.trustButtonLeft}>
-                <Image src='svg/arrow-left.svg' alt='arrow' width={24} height={24} priority />
-              </button>
-              {
-                data?.trust_images ? data.trust_images.map((item, key) => (
-                  <div key={key} className={styles.trustImage}>
-                    <Image
-                      loader={() => loaderImage(item.url)}
-                      src={process.env.NEXT_PUBLIC_DOMAIN + item.url}
-                      alt={item.name}
-                      width={220}
-                      height={170}
-                    />
-                  </div>
-                )) : null
-              }
-              <button className={styles.trustButtonRight}>
-                <Image src='svg/arrow-right.svg' alt='arrow' width={24} height={24} priority />
-              </button>
+              <div className={styles.trustImages}>
+                <SliderAuto data={data?.trust_images !== undefined ? data.trust_images : null} />
+              </div>
             </div>
           </section>
 

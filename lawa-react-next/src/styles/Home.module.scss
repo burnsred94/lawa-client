@@ -317,14 +317,6 @@
 	}
 
 	&Blocks {
-		max-width: 100%;
-		position: relative;
-		display: grid;
-		grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-		justify-items: space-between;
-		background-color: var(--secondary-color);
-		z-index: 1;
-
 		div > img {
 			filter: grayscale(100%);
 			opacity: 1;
@@ -374,14 +366,12 @@
 		}
 	}
 
-	&Image {
-		display: grid;
-		align-items: center;
-		justify-items: center;
-		max-width: 307px;
-		height: 207px;
-		border-right: 1px #2b2b2b solid;
-		border-left: 1px #2b2b2b solid;
+	&Images {
+		margin: 0 auto;
+		width: 1450px;
+		div {
+			margin: 0;
+		}
 	}
 }
 

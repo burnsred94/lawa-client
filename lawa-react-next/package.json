@@ -25,7 +25,12 @@
     "react-hook-form": "^7.43.1",
     "react-markdown": "^8.0.6",
     "react-phone-number-input": "^3.2.19",
+    "react-slick": "^0.29.0",
     "sass": "^1.58.3",
+    "slick-carousel": "^1.8.1",
     "typescript": "4.9.5"
+  },
+  "devDependencies": {
+    "@types/react-slick": "^0.23.10"
   }
 }
