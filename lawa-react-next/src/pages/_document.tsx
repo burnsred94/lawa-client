@@ -24,7 +24,7 @@ export default function Document() {
                     });
                     `,
         }} />
-        <noscript><div><img src="https://mc.yandex.ru/watch/88485289" style={"position:absolute; left:-9999px;" as CSSProperties} alt="" /></div></noscript>
+        <noscript><div><img src="https://mc.yandex.ru/watch/88485289" style={{ position: "absolute", left: "-9999px" }} alt="" /></div></noscript>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-250028760-1"></script>
         <script dangerouslySetInnerHTML={{
           __html: `
