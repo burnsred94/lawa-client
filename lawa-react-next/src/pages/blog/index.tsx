@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { Navigation } from "../../components/navigation/nav.component";
 import { Modal } from "@/components/Modal/Modal.component";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 function BlogPage(): JSX.Element {
     const route = useRouter();
@@ -46,7 +47,7 @@ function BlogPage(): JSX.Element {
 
     return (
         <>
-            {data?.seo !== null ?
+            {/* {data?.seo !== null ?
 
                 <NextSeo
                     title={data?.seo.title}
@@ -64,9 +65,10 @@ function BlogPage(): JSX.Element {
                             }
                         ]
                     }}
-                /> : null}
+                /> : null} */}
 
             <main>
+
                 {showModal && <Modal onClose={handleCloseModal} />}
                 {data?.title_header !== null ?
 
@@ -96,7 +98,9 @@ function BlogPage(): JSX.Element {
                             {
                                 data?.posts.map((post, index) => (
                                     <>
-                                        <Post data={post} />
+                                        <Link href={route.asPath + '/' + post.slug}>
+                                            <Post data={post} />
+                                        </Link>
                                     </>
                                 ))
                             }
