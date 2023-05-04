@@ -12,7 +12,7 @@ services:
     environment:
       PORT: ${INFRA_WEB_PORT}
       HOST: 0.0.0.0
-      NODE_ENV: production
+      NODE_ENV: development
       WHOAMI_PORT_NUMBER: ${INFRA_WEB_PORT}
       APP_API_URL: ${INFRA_API_URL}
     ports:
