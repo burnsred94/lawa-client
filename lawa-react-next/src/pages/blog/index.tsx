@@ -12,6 +12,7 @@ import { Navigation } from "../../components/navigation/nav.component";
 import { Modal } from "@/components/Modal/Modal.component";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { ScrollToTopButton } from "@/components/ScrollButton/ScrollButton.component";
 
 function BlogPage(): JSX.Element {
     const route = useRouter();
@@ -68,6 +69,7 @@ function BlogPage(): JSX.Element {
                 /> : null} */}
 
             <main>
+                <ScrollToTopButton />
 
                 {showModal && <Modal onClose={handleCloseModal} />}
                 {data?.title_header !== null ?

@@ -11,11 +11,12 @@ RUN npm i
 RUN npm run build
 
 
-FROM node:16-alpine as run-stage
+FROM node:16-alpine
 
 ENV NODE_ENV=production
 
 WORKDIR /app
+
 
 # copy build app, no source code exposition
 COPY --from=build-stage /app/.next ./.next
@@ -29,6 +30,6 @@ RUN npm ci --omit=dev
 
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
 
 

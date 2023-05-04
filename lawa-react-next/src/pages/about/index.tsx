@@ -17,6 +17,7 @@ import { loaderImage } from '@/utils/image-loader/image-loader.utlis'
 import cn from 'classnames'
 import { useEffect, useState } from 'react'
 import { Modal } from '@/components/Modal/Modal.component'
+import { ScrollToTopButton } from '@/components/ScrollButton/ScrollButton.component'
 
 function About(): JSX.Element {
   const route = useRouter()
@@ -75,6 +76,8 @@ function About(): JSX.Element {
         }}
       /> : null}
       <main>
+        <ScrollToTopButton />
+
         {showModal && <Modal onClose={handleCloseModal} />}
         {data?.title_header ?
 

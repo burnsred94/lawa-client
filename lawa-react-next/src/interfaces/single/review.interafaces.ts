@@ -1,4 +1,5 @@
 import { Image } from "./image.interface"
+import { Seo } from "./seo.interface"
 
 export interface Review {
   id: number
@@ -11,5 +12,6 @@ export interface Review {
   publishedAt: string
   sitemap_exclude: any
   logo: Image
+  seo: Seo
   photo: Image[]
 }

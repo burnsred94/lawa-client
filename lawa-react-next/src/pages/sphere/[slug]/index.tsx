@@ -16,6 +16,7 @@ import { Modal } from "@/components/Modal/Modal.component";
 import { Service } from "@/components/service/Service";
 import cn from 'classnames';
 import { loaderImage } from "@/utils/image-loader/image-loader.utlis";
+import { ScrollToTopButton } from "@/components/ScrollButton/ScrollButton.component";
 
 
 const Sphere = (): JSX.Element => {
@@ -75,6 +76,7 @@ const Sphere = (): JSX.Element => {
 
                 /> : null}
             <main>
+                <ScrollToTopButton />
                 {showModal && <Modal onClose={handleCloseModal} />}
                 {data?.title !== null ?
 

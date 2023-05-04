@@ -11,6 +11,7 @@ import axios from "axios";
 import styles from './style.module.scss'
 import { Modal } from "@/components/Modal/Modal.component";
 import { useEffect, useState } from "react";
+import { ScrollToTopButton } from "@/components/ScrollButton/ScrollButton.component";
 
 
 
@@ -72,6 +73,8 @@ function Reviews(): JSX.Element {
                 />
             </>
             <main>
+                <ScrollToTopButton />
+
                 {showModal && <Modal onClose={handleCloseModal} />}
 
                 {data?.title !== null ?

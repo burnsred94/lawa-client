@@ -17,6 +17,7 @@ import { reviews } from "@/mock/mock.data"
 import ReactMarkdown from "react-markdown"
 import { Modal } from "@/components/Modal/Modal.component"
 import { loaderImage } from "@/utils/image-loader/image-loader.utlis"
+import { ScrollToTopButton } from "@/components/ScrollButton/ScrollButton.component"
 
 
 function SubServiceItem({ ...props }): JSX.Element {
@@ -79,6 +80,8 @@ function SubServiceItem({ ...props }): JSX.Element {
           /> : null}
       </>
       <main>
+        <ScrollToTopButton />
+
         {showModal && <Modal onClose={handleCloseModal} />}
 
         {data?.title !== null ?

@@ -13,6 +13,7 @@ import styles from "./style.module.scss";
 import axios from "axios";
 import { Modal } from "@/components/Modal/Modal.component";
 import { useEffect, useState } from "react";
+import { ScrollToTopButton } from "@/components/ScrollButton/ScrollButton.component";
 
 
 const caveat = Caveat({
@@ -82,6 +83,8 @@ function CasesPage(): JSX.Element {
                 />
             </>
             <main>
+                <ScrollToTopButton />
+
                 {showModal && <Modal onClose={handleCloseModal} />}
                 {data?.title !== null ?
 

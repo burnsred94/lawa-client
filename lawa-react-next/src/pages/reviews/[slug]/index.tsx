@@ -15,6 +15,8 @@ import styles from "./style.module.scss"
 import cn from 'classnames'
 import ReactMarkdown from "react-markdown"
 import { Modal } from "@/components/Modal/Modal.component"
+import { ScrollToTopButton } from "@/components/ScrollButton/ScrollButton.component"
+import { AssetService } from "@/services/AssetService"
 
 
 function Review(): JSX.Element {
@@ -46,10 +48,14 @@ function Review(): JSX.Element {
         setShowModal(false);
     };
 
+    const link = `https://lawa.by${route.asPath}`
+    const canonicalLink = link.includes('?') ? link.substring(0, link.indexOf('?')) : link
+    const assetService = new AssetService({ assetsBase: process.env.NEXT_PUBLIC_DOMAIN as string })
+
     return (
         <>
             <>
-                {/* <NextSeo
+                <NextSeo
                     title={data?.seo?.title}
                     description={data?.seo.description}
                     canonical={canonicalLink}
@@ -67,9 +73,11 @@ function Review(): JSX.Element {
                         }],
                     }}
 
-                /> */}
+                />
             </>
             <main>
+                <ScrollToTopButton />
+
                 {showModal && <Modal onClose={handleCloseModal} />}
 
                 {data?.name !== null ?

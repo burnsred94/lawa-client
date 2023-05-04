@@ -15,6 +15,7 @@ import axios from "axios";
 import cn from "classnames";
 import styles from "./style.module.scss";
 import { Modal } from "@/components/Modal/Modal.component";
+import { ScrollToTopButton } from "@/components/ScrollButton/ScrollButton.component";
 
 
 
@@ -53,6 +54,8 @@ function Case(): JSX.Element {
     return (
         <>
             <main>
+                <ScrollToTopButton />
+
                 {showModal && <Modal onClose={handleCloseModal} />}
                 {data?.title ?
 

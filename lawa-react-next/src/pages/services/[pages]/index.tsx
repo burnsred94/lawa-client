@@ -16,6 +16,7 @@ import { AssetService } from '@/services/AssetService'
 import { NextSeo } from 'next-seo'
 import { Modal } from '@/components/Modal/Modal.component'
 import { loaderImage } from '@/utils/image-loader/image-loader.utlis'
+import { ScrollToTopButton } from '@/components/ScrollButton/ScrollButton.component'
 
 function Page({ ...props }): JSX.Element {
   const route = useRouter()
@@ -75,6 +76,7 @@ function Page({ ...props }): JSX.Element {
         /> : null}
       </>
       <main>
+        <ScrollToTopButton />
         {showModal && <Modal onClose={handleCloseModal} />}
 
         {data?.title !== null ?

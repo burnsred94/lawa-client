@@ -24,19 +24,19 @@ export const Footer = ({ ...props }: FooterProps): JSX.Element => {
             <Link href='/services'>Услуги</Link>
           </li>
           <li className={styles.footerWrapperNavigationItem}>
-            <Link href='#'>Кейсы</Link>
+            <Link href='/cases'>Кейсы</Link>
           </li>
           <li className={styles.footerWrapperNavigationItem}>
-            <Link href='#'>О Нас</Link>
+            <Link href='/about'>О Нас</Link>
           </li>
           <li className={styles.footerWrapperNavigationItem}>
-            <Link href='#'>Блог</Link>
+            <Link href='/blog'>Блог</Link>
           </li>
           <li className={styles.footerWrapperNavigationItem}>
-            <Link href='#'>Отзывы</Link>
+            <Link href='/reviews'>Отзывы</Link>
           </li>
           <li className={styles.footerWrapperNavigationItem}>
-            <Link href='#'>Контакты</Link>
+            <Link href='/contacts'>Контакты</Link>
           </li>
         </ul>
         <div className={styles.footerWrapperCopyright}>

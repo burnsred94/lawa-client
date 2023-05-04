@@ -19,6 +19,7 @@ import { NextSeo } from 'next-seo'
 import ReactMarkdown from 'react-markdown'
 import { Modal } from '@/components/Modal/Modal.component'
 import { loaderImage } from '@/utils/image-loader/image-loader.utlis'
+import { ScrollToTopButton } from '@/components/ScrollButton/ScrollButton.component'
 
 
 function SlugPage({ ...props }: SlugProps): JSX.Element {
@@ -82,6 +83,7 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
           /> : null}
       </>
       <main>
+        <ScrollToTopButton />
         {showModal && <Modal onClose={handleCloseModal} />}
         {data?.title !== null ?
 

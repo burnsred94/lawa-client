@@ -19,6 +19,7 @@ import { SpherePage } from '@/interfaces/sphere-page.interface'
 import { loaderImage } from '@/utils/image-loader/image-loader.utlis'
 import Link from 'next/link'
 import { it } from 'node:test'
+import { ScrollToTopButton } from '@/components/ScrollButton/ScrollButton.component'
 
 function Sphere(): JSX.Element {
     const route = useRouter()
@@ -82,6 +83,7 @@ function Sphere(): JSX.Element {
                 /> : null}
             </>
             <main>
+                <ScrollToTopButton />
                 {showModal && <Modal onClose={handleCloseModal} />}
 
                 {data?.title !== null ?

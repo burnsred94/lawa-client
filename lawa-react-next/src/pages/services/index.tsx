@@ -15,6 +15,7 @@ import { NextSeo } from 'next-seo'
 import { AssetService } from '@/services/AssetService'
 import { Modal } from '@/components/Modal/Modal.component'
 import ReactMarkdown from 'react-markdown'
+import { ScrollToTopButton } from '@/components/ScrollButton/ScrollButton.component'
 
 
 function Services(): JSX.Element {
@@ -73,6 +74,7 @@ function Services(): JSX.Element {
         /> : null}
       </>
       <main>
+        <ScrollToTopButton />
         {showModal && <Modal onClose={handleCloseModal} />}
         <section className={styles.header}>
           <div className={styles.headerWrapper}>

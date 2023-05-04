@@ -13,6 +13,7 @@ import { PostPage } from "@/interfaces/post-page.interfaces";
 import ReactMarkdown from "react-markdown";
 import { loaderImage } from "@/utils/image-loader/image-loader.utlis";
 import Image from "next/image";
+import { ScrollToTopButton } from "@/components/ScrollButton/ScrollButton.component";
 
 
 function Post(): JSX.Element {
@@ -48,9 +49,10 @@ function Post(): JSX.Element {
     const canonicalLink = link.includes('?') ? link.substring(0, link.indexOf('?')) : link
     const assetService = new AssetService({ assetsBase: process.env.NEXT_PUBLIC_DOMAIN as string })
 
-    console.log(data)
     return (
         <>
+            <ScrollToTopButton />
+
             {showModal && <Modal onClose={handleCloseModal} />}
             {data?.title !== null ?
 

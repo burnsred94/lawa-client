@@ -11,6 +11,8 @@ import styles from './style.module.scss'
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Modal } from "@/components/Modal/Modal.component";
+import { ScrollToTopButton } from "@/components/ScrollButton/ScrollButton.component";
+import { AssetService } from "@/services/AssetService";
 
 function Contacts(): JSX.Element {
   // const data = page[0]
@@ -40,30 +42,33 @@ function Contacts(): JSX.Element {
     setShowModal(false);
   };
 
-
+  const link = `https://lawa.by${route.asPath}`
+  const canonicalLink = link.includes('?') ? link.substring(0, link.indexOf('?')) : link
+  const assetService = new AssetService({ assetsBase: process.env.NEXT_PUBLIC_DOMAIN as string })
 
   return (
     <>
-      {/* <NextSeo
-          title={data?.seo?.title}
-          description={data?.seo.description}
-          canonical={canonicalLink}
-          openGraph={{
-            url: canonicalLink,
-            title: data?.seo.title,
-            description: data?.seo.description,
-            images: [{
-              url: `${assetService.permalink(`${data?.seo.image.url as string || ''}`, 'asset')}`,
-              width: data?.seo.image.width || 2400,
-              height: data?.seo.image.height || 1252,
-              alt: 'Lawa',
-              type: data?.seo.image.mime || 'image/jpeg',
-            }],
-          }} */}
-
+      {data?.seo ? <NextSeo
+        title={data?.seo?.title}
+        description={data?.seo.description}
+        canonical={canonicalLink}
+        openGraph={{
+          url: canonicalLink,
+          title: data?.seo.title,
+          description: data?.seo.description ? data.seo.description : '',
+          images: [{
+            url: `${assetService.permalink(`${data?.seo.image.url as string || ''}`, 'asset')}`,
+            width: data?.seo.image.width || 2400,
+            height: data?.seo.image.height || 1252,
+            alt: 'Lawa',
+            type: data?.seo.image.mime || 'image/jpeg',
+          }],
+        }} /> : null}
 
       <>
         <main>
+          <ScrollToTopButton />
+
           {showModal && <Modal onClose={handleCloseModal} />}
           {data?.title ?
 

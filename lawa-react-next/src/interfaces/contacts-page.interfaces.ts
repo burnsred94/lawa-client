@@ -1,4 +1,5 @@
 import { Questions } from "./single/questions.interface"
+import { Seo } from "./single/seo.interface"
 
 export interface ContactPage {
     id: number
@@ -8,6 +9,7 @@ export interface ContactPage {
     updatedAt: string
     publishedAt: string
     sitemap_exclude: boolean
+    seo: Seo
     question: Questions
 }
 

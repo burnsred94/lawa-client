@@ -17,6 +17,7 @@ import { Modal } from '@/components/Modal/Modal.component'
 import reviews from './reviews'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import { SliderAuto } from '@/components/Slider/Slider'
+import { ScrollToTopButton } from '@/components/ScrollButton/ScrollButton.component'
 
 
 
@@ -24,7 +25,6 @@ function Home() {
   const [active, setActive] = useState(0)
   const [activeReview, setActiveReview] = useState(0)
   const [data, setData] = useState<MainPage>()
-
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -78,6 +78,7 @@ function Home() {
         />
       </>
       <main className={styles.main}>
+        <ScrollToTopButton />
         {showModal && <Modal onClose={handleCloseModal} />}
         {data?.header_image !== null && data?.title !== null ?
 
@@ -110,7 +111,7 @@ function Home() {
                     ))}
                   </div>
                   <div className={styles.headerSocialTime}>
-                    <span>Время работы:</span>
+                    {data?.time_work ? <span>Время работы:</span> : null}
                     <span>
                       {data && data.time_work}
                     </span>
@@ -304,13 +305,13 @@ function Home() {
 }
 
 
-// export const getStaticPaths = async () => {
-//   const { data: page } = await axios.get<HomeProps>(process.env.NEXT_PUBLIC_DOMAIN + URL_SERVICE_PAGE);
+// export const getStaticProps = async () => {
+//   console.log(process.env.NEXT_PUBLIC_DOMAIN as string + URL_MAIN_PAGE);
+//   const { data: page } = await axios.get<HomeProps>(process.env.NEXT_PUBLIC_DOMAIN as string + URL_MAIN_PAGE);
 //   return {
 //     props: {
 //       page
-//     },
-//     fallback: false
+//     }
 //   };
 // };
 

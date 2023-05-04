@@ -113,23 +113,26 @@ export const Service = ({ type, children, link, img, text, client_name, title }:
     case 'specific-card':
       return (
         <div className={styles.specific}>
-          <div className={styles.specificImage}>
-            {img ? <Image priority loader={() => loaderImage(img.url)} src={process.env.NEXT_PUBLIC_DOMAIN + img.url} width={56} height={56} alt='image specific' /> : "Not load image"}
-            <Paragraph type='normal-text'>{text}</Paragraph>
-          </div>
-          <div className={styles.specificDescription}>
-            <Paragraph type='sub-title-text-dull' >{typeof children === 'string' ? children : 'Not description preview'}</Paragraph>
-          </div>
-          <div className={styles.specificLink}>
-            <Link href={`${link}`} onClick={() => setActiveText(true)}>Подробнее
-              <Image
-                src='/svg/left_tang.svg'
-                width={24}
-                height={24}
-                alt='arrow right'
-              />
-            </Link>
-          </div>
+          <Link href={`${link}`}>
+            <div className={styles.specificImage}>
+              {img ? <Image priority loader={() => loaderImage(img.url)} src={process.env.NEXT_PUBLIC_DOMAIN + img.url} width={56} height={56} alt='image specific' /> : "Not load image"}
+              <Paragraph type='normal-text'>{text}</Paragraph>
+            </div>
+            <div className={styles.specificDescription}>
+              <Paragraph type='sub-title-text-dull' >{typeof children === 'string' ? children : 'Not description preview'}</Paragraph>
+            </div>
+            <div className={styles.specificLink}>
+              <Link href={`${link}`} onClick={() => setActiveText(true)}>Подробнее
+                <Image
+                  src='/svg/left_tang.svg'
+                  width={24}
+                  height={24}
+                  alt='arrow right'
+                />
+              </Link>
+            </div>
+          </Link>
+
         </div>
       )
     case 'arsenal-card':
