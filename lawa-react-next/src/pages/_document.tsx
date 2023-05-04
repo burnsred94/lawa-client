@@ -1,4 +1,3 @@
-import { ScrollToTopButton } from '@/components/ScrollButton/ScrollButton.component'
 import { Html, Head, Main, NextScript } from 'next/document'
 import { CSSProperties } from 'react'
 

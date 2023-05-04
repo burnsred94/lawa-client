@@ -11,12 +11,11 @@ RUN npm i
 RUN npm run build
 
 
-FROM node:16-alpine
+FROM node:16-alpine as run-stage
 
 ENV NODE_ENV=production
 
 WORKDIR /app
-
 
 # copy build app, no source code exposition
 COPY --from=build-stage /app/.next ./.next
