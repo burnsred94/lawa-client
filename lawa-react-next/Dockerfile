@@ -43,7 +43,7 @@ ENTRYPOINT ["/sbin/tini", "--"]
 
 FROM node-base as dev-deps
 
-ENV NODE_ENV=.env
+ENV NODE_ENV=production
 
 WORKDIR /app
 
@@ -55,7 +55,7 @@ RUN npm i
 
 FROM node-base AS dev-runtime
 
-ENV NODE_ENV=.env
+ENV NODE_ENV=production
 
 WORKDIR /app
 
