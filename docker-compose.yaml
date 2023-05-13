@@ -7,7 +7,6 @@ services:
     build:
       context: ./lawa-react-next
       dockerfile: Dockerfile
-      target: production
     restart: always
     hostname: ${INFRA_APP_DOMAIN}
     environment:
