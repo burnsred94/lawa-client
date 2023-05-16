@@ -2188,7 +2188,7 @@ export const menu: Menu[] = [
       },
       {
         name: 'Сопровождение BTL',
-        link: 'ssupporting-the-BTL',
+        link: 'supporting-the-BTL',
       },
     ]
   },

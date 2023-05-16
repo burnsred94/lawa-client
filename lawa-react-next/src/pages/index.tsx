@@ -21,10 +21,9 @@ import { ScrollToTopButton } from '@/components/ScrollButton/ScrollButton.compon
 
 
 
-function Home() {
+function Home({ page: data }: HomeProps) {
   const [active, setActive] = useState(0)
   const [activeReview, setActiveReview] = useState(0)
-  const [data, setData] = useState<MainPage>()
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -40,20 +39,6 @@ function Home() {
   const canonicalLink = link.includes('?') ? link.substring(0, link.indexOf('?')) : link
   const assetService = new AssetService({ assetsBase: process.env.NEXT_PUBLIC_DOMAIN as string })
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const { data } = await axios.get<MainPage>(process.env.NEXT_PUBLIC_DOMAIN + URL_MAIN_PAGE);
-        console.log(data)
-        if (data) {
-          setData(data)
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    }
-    fetchData()
-  }, [route.query])
 
   return (
     <>
@@ -77,7 +62,7 @@ function Home() {
 
         />
       </>
-      <main className={styles.main}>
+      {data && <main className={styles.main}>
         <ScrollToTopButton />
         {showModal && <Modal onClose={handleCloseModal} />}
         {data?.header_image !== null && data?.title !== null ?
@@ -299,25 +284,24 @@ function Home() {
 
           null}
 
-      </main>
+      </main>}
     </>
   )
 }
 
 
-// export const getStaticProps = async () => {
-//   console.log(process.env.NEXT_PUBLIC_DOMAIN as string + URL_MAIN_PAGE);
-//   const { data: page } = await axios.get<HomeProps>(process.env.NEXT_PUBLIC_DOMAIN as string + URL_MAIN_PAGE);
-//   return {
-//     props: {
-//       page
-//     }
-//   };
-// };
+export const getServerSideProps = async () => {
+  const { data: page } = await axios.get<HomeProps>(process.env.NEXT_PUBLIC_DOMAIN as string + URL_MAIN_PAGE);
+  return {
+    props: {
+      page
+    }
+  };
+};
 
-// export interface HomeProps extends Record<string, unknown> {
-//   page: MainPage
-// }
+export interface HomeProps extends Record<string, unknown> {
+  page: MainPage
+}
 
 
 export default withLayout(Home)

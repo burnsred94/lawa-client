@@ -57,19 +57,19 @@ function Review(): JSX.Element {
             <>
                 <NextSeo
                     title={data?.seo?.title}
-                    description={data?.seo.description}
+                    description={data?.seo?.description}
                     canonical={canonicalLink}
 
                     openGraph={{
                         url: canonicalLink,
-                        title: data?.seo.title,
-                        description: data?.seo.description,
+                        title: data?.seo?.title,
+                        description: data?.seo?.description,
                         images: [{
-                            url: `${assetService.permalink(`${data?.seo.image.url as string || ''}`, 'asset')}`,
-                            width: data?.seo.image.width || 2400,
-                            height: data?.seo.image.height || 1252,
+                            url: `${assetService.permalink(`${data?.seo?.image.url as string || ''}`, 'asset')}`,
+                            width: data?.seo?.image.width || 2400,
+                            height: data?.seo?.image.height || 1252,
                             alt: 'Lawa',
-                            type: data?.seo.image.mime || 'image/jpeg',
+                            type: data?.seo?.image.mime || 'image/jpeg',
                         }],
                     }}
 

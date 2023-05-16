@@ -7,16 +7,12 @@ services:
     build:
       context: ./lawa-react-next
       dockerfile: Dockerfile
+      target: production
     restart: always
     hostname: ${INFRA_APP_DOMAIN}
     environment:
       PORT: ${INFRA_WEB_PORT}
-      HOST: 0.0.0.0
-      NODE_ENV: production
       WHOAMI_PORT_NUMBER: ${INFRA_WEB_PORT}
       APP_API_URL: ${INFRA_API_URL}
     ports:
       - ${INFRA_WEB_PORT}:3000
-    volumes:
-      - ./lawa-react-next:/app/
-      - /app/node_modules
