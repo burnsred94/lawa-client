@@ -20,12 +20,14 @@ export const SliderAuto = ({ data }: SliderProps): JSX.Element => {
         <>
             <Slider {...settings}>
                 {data !== null ? data.map((item, index) => (
-                    <>
-                        <div className={styles.wrapper}>
-                            <Image loader={() => loaderImage(item.url)} width={200} height={150} alt="slider_image" src={`${process.env.NEXT_PUBLIC_DOMAIN}${item.url}`} />
+                    <div key={item.id}>
+                        <div className={styles.wrapper} key={item.id}>
+                            <Image key={item.id} width={200} height={150} alt="slider_image" src={`${process.env.NEXT_PUBLIC_DOMAIN}${item.url}`} />
                         </div>
-                    </>
-                )) : null}
+
+                    </div>
+                )
+                ) : null}
             </Slider>
         </>
     )
