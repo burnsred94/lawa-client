@@ -32,7 +32,6 @@ class MyDocument extends Document {
             <noscript>
               <div>
                 <img src="https://mc.yandex.ru/watch/88485289" style={{ position: "absolute", left: "-9999px" }}
-                // styles={"position:absolute; left:-9999px;"}
                 />
               </div>
             </noscript>
