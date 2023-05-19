@@ -2,6 +2,8 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Lato } from '@next/font/google'
 
+
+
 const lato = Lato({
   weight: ['400', '700'],
   style: ['normal', 'italic'],

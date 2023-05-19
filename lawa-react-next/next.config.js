@@ -1,17 +1,17 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+
+module.exports = {
   reactStrictMode: true,
   pageExtensions: ['tsx'],
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: '178.172.236.218',
-        port: '32771',
-        pathname: '/uploads/**',
+        protocol: 'https',
+        hostname: 'lawa.by',
+        port: '',
+        pathname: '/manager/uploads/**',
       },
     ],
   },
 }
 
-module.exports = nextConfig

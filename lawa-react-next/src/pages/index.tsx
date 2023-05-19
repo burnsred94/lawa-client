@@ -80,8 +80,9 @@ function Home({ page: data }: HomeProps) {
               </div>
               <div className={styles.headerImages}>
                 {
-                  data?.header_image ? <Image loader={
-                    () => loaderImage(data.header_image.url)} src={process.env.NEXT_PUBLIC_DOMAIN + data.header_image.url} alt={data.header_image.name} width={450} height={450} /> : null
+                  data?.header_image ? <Image src={process.env.NEXT_PUBLIC_DOMAIN + data.header_image.url} alt={data.header_image.name} width={450} height={450}
+                    decoding="async" priority={true}
+                  /> : null
                 }
               </div>
               <div className={styles.headerSocial}>
@@ -90,7 +91,7 @@ function Home({ page: data }: HomeProps) {
                     {data?.social.map((social, key) => (
                       <div key={key} className={styles.headerSocialItem}>
                         <a href={social.address}>
-                          <Image loader={() => loaderImage(social.img.url)} src={process.env.NEXT_PUBLIC_DOMAIN + social.img.url} alt={social.img.name} width={17} height={17} />
+                          <Image decoding="async" src={process.env.NEXT_PUBLIC_DOMAIN + social.img.url} alt={social.img.name} width={17} height={17} />
                         </a>
                       </div>
                     ))}
@@ -135,9 +136,9 @@ function Home({ page: data }: HomeProps) {
           <section className={styles.approach}>
             <div className={styles.approachImages}>
               {data?.approach_image ? <Image
-                loader={() => loaderImage(data.approach_image.url)}
                 src={process.env.NEXT_PUBLIC_DOMAIN + data.approach_image.url}
                 alt={data.approach_image.name}
+                decoding="async"
                 width={495}
                 height={506}
               /> : null}
@@ -148,7 +149,7 @@ function Home({ page: data }: HomeProps) {
                 {data?.approach_list ? data.approach_list.map((item, key) => (
                   <li key={key} className={styles.approachListItem}>
                     <Image
-                      loader={() => loaderImage(item.img.url)}
+                      decoding="async"
                       src={process.env.NEXT_PUBLIC_DOMAIN + item.img.url}
                       width={40}
                       height={40}
@@ -260,7 +261,7 @@ function Home({ page: data }: HomeProps) {
           <section className={styles.form}>
             <div className={styles.formWrapper}>
               <div className={styles.formWrapperImage}>
-                <Image src='/images/message.png' width={650} height={650} alt='message' />
+                <Image decoding='async' src='/images/message.png' width={650} height={650} alt='message' />
               </div>
               <div className={styles.formWrapperFields}>
                 <Headlines tag='h3'>{data?.title_form ? data.title_form : ''}</Headlines>
