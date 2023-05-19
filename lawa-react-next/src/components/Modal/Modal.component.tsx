@@ -1,11 +1,15 @@
 
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Button } from '../Button/Button';
-import Image from 'next/image';
 import { Headlines } from '../Headlines/Headlines';
 import styles from './style.module.scss'; // стили для модального окна
 import { Paragraph } from '../Paragraph/Paragraph';
 import axios from 'axios';
+import { Input } from '../Input/Input.component';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { IFormInterface } from '../Form/Form.interfaces';
+import 'react-phone-number-input/style.css';
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 
 
 interface ModalProps {
@@ -13,95 +17,91 @@ interface ModalProps {
 }
 
 export const Modal = ({ onClose }: ModalProps): JSX.Element => {
+    const { register, control, handleSubmit, formState, setValue } = useForm<IFormInterface>();
+    const [submitData, setSubmitData] = useState(false);
 
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
 
-    const handleSubmit = async (e: React.SyntheticEvent) => {
-        e.preventDefault();
-
-        if (!name || !phone || !email || !message) {
-            onClose();
-        } else {
+    const onSubmit: SubmitHandler<IFormInterface> = async (data: IFormInterface, e: any) => {
+        if (data) {
             await axios.post(`${process.env.NEXT_PUBLIC_DOMAIN}/api/mails`, {
                 data: {
-                    name: name,
-                    phone_number: phone,
-                    email: email,
-                    text_mail: message,
+                    name: data.name,
+                    phone_number: data.telefone,
+                    email: data.email,
+                    text_mail: data.textarea,
                     date: new Date()
                 }
             })
-            onClose();
         }
+        e.preventDefault();
+        onClose();
+        setSubmitData(true);
     };
 
     const handleClose = () => {
-        if (name.length > 0 || phone.length > 0 || email.length > 0 || message.length > 0) {
-            setPhone('');
-            setEmail('');
-            setName('');
-            setMessage('');
-        }
+        setValue("telefone", '');
+        setValue("name", '');
+        setValue('email', '');
+        setValue('textarea', '');
         onClose();
     }
+
 
     return (
         <div className={styles.modalOverlay}>
             <div className={styles.modal}>
-                <form onSubmit={(e) => handleSubmit(e)}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={styles.modalHeader}>
                         <Headlines tag='h3'>Думаешь, крутой продукт<br />обязательно стоит дорого?</Headlines>
                         <button onClick={() => handleClose()}></button>
                     </div>
                     <Paragraph type='sub-title-text-dull'>Мы умеем и любим решать сложные задачи. Давай обсудим проект!</Paragraph>
-                    <label className={styles.modalLabel} htmlFor="name">
-                        <Image src='/svg/people.svg' alt='people' width={24} height={24}
+                    <label htmlFor="name">
+                        <Input typeInput='text' placeholder='Ваше имя'
+                            error={formState.errors.name}
+                            {...register('name', { required: { value: true, message: "Заполните имя" } })}
                         />
-                        <input className={styles.modalInput}
-                            type="text"
-                            id="name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            placeholder="Заполните имя" >
-                        </input>
                     </label>
-                    <label className={styles.modalLabel} htmlFor="email">
-                        <Image src='/svg/email.svg' alt='email' width={24} height={24}
+                    <label htmlFor="email">
+                        <Input typeInput='email' placeholder='Ваша почта'
+                            error={formState.errors.email}
+                            {...register('email', { required: { value: true, message: "Введите свою почту" } })}
                         />
-                        <input className={styles.modalInput}
-                            type="text"
-                            id="email"
-                            placeholder='E-mail'
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)} />
                     </label>
-                    <label className={styles.modalLabel} htmlFor="telefone">
-                        <Image src='/svg/tel.svg' alt='tel' width={24} height={24}
+                    <label className={styles.modalLabel} htmlFor="telefone" >
+                        <Controller
+
+                            control={control}
+                            rules={{ validate: (value) => isValidPhoneNumber(value, "BY") || 'Телефон должен быть формата +375 (XX) XXX XX XX' }}
+                            {...register('telefone', { required: { value: true, message: 'Введите номер телефона' } })}
+                            render={({ field: { onChange, value, ref } }) => (
+                                <Input typeInput='telefone' placeholder='Ваш телефон'
+                                    error={formState.errors.telefone}
+                                    value={value}
+                                    onChange={onChange}
+                                    id='telefone'
+                                />
+                            )}
                         />
-                        <input className={styles.modalInput}
-                            type="phone"
-                            id="telefone"
-                            placeholder='Телефон'
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)} />
                     </label>
-                    <label className={styles.modalTextLabel} htmlFor="message">
-                        <div className={styles.modalTextLabelWrapper}>
-                            <Image src='/svg/pencil.svg' alt='email' width={24} height={24}
-                            />
+                    <label className={styles.modalTextLabel} htmlFor="textarea">
+                        <Input typeInput='textarea'
+                            error={formState.errors.textarea}
+                        >
                             <textarea className={styles.modalTextLabelArea}
+                                {...register('textarea', { required: { value: true, message: 'Введите сообщение' }, maxLength: { value: 500, message: 'Максимальная д' } })}
                                 id="message"
-                                value={message}
                                 placeholder='Ваше сообщение'
-                                onChange={(e) => setMessage(e.target.value)} />
-                        </div>
+                            />
+
+                        </Input>
                     </label>
                     <Button init='button' className={styles.modalButton} type="submit">Отправить</Button>
                 </form>
             </div>
         </div>
     )
+
+
+
 };

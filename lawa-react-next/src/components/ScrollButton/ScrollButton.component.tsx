@@ -6,7 +6,7 @@ import Image from 'next/image';
 export const ScrollToTopButton = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [scrollPosition, setScrollPosition] = useState(0);
-    console.log(isVisible)
+
     useEffect(() => {
         document.addEventListener('scroll', handleScroll);
         return () => {
@@ -21,7 +21,6 @@ export const ScrollToTopButton = () => {
 
     const handleScroll = () => {
         const scrollTop = window.pageYOffset;
-        console.log(scrollTop);
         setScrollPosition(scrollTop);
         if (scrollTop > 300) {
             setIsVisible(true);

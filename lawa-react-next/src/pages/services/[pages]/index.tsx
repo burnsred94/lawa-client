@@ -52,7 +52,6 @@ function Page({ ...props }): JSX.Element {
     fetchData()
   }, [route.query])
 
-
   return (
     <>
       <>
