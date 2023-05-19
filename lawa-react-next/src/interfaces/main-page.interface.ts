@@ -1,6 +1,6 @@
 import { Seo } from "./single/seo.interface"
 import { Image } from "./single/image.interface"
-import {  Service } from "./service-page.interface"
+import { Service } from "./service-page.interface"
 import { ApproachList } from "./single/approach-list.interface"
 import { Social } from "./single/soical.interfaces"
 import { Case } from "./single/case.interface"

@@ -261,7 +261,7 @@ function Home({ page: data }: HomeProps) {
           <section className={styles.form}>
             <div className={styles.formWrapper}>
               <div className={styles.formWrapperImage}>
-                <Image decoding='async' src='/images/message.png' width={650} height={650} alt='message' />
+                <Image decoding='async' src='/images/message.webp' width={650} height={650} alt='message' />
               </div>
               <div className={styles.formWrapperFields}>
                 <Headlines tag='h3'>{data?.title_form ? data.title_form : ''}</Headlines>
