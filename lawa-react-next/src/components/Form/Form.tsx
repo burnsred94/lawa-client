@@ -7,10 +7,7 @@ import { IFormInterface } from './Form.interfaces';
 
 import { Button } from '../Button/Button'
 import { FormProps } from './Form.props'
-import cn from 'classnames'
 import styles from './styles.module.scss'
-import { Paragraph } from '../Paragraph/Paragraph';
-import { Headlines } from '../Headlines/Headlines';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 
 export const Form = ({ className, ...props }: FormProps): JSX.Element => {
