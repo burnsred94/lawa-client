@@ -82,7 +82,7 @@ function SubServiceItem({ ...props }): JSX.Element {
       <main>
         <ScrollToTopButton />
 
-        {showModal && <Modal onClose={handleCloseModal} />}
+        {showModal && <Modal onClose={handleCloseModal} url={link} />}
 
         {data?.title !== null ?
 

@@ -75,7 +75,7 @@ function Services(): JSX.Element {
       </>
       <main>
         <ScrollToTopButton />
-        {showModal && <Modal onClose={handleCloseModal} />}
+        {showModal && <Modal onClose={handleCloseModal} url={link} />}
         <section className={styles.header}>
           <div className={styles.headerWrapper}>
             <Headlines tag='h1'>{data?.title ? data.title : ''}</Headlines>

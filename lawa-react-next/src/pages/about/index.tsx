@@ -78,7 +78,7 @@ function About(): JSX.Element {
       <main>
         <ScrollToTopButton />
 
-        {showModal && <Modal onClose={handleCloseModal} />}
+        {showModal && <Modal onClose={handleCloseModal} url={link} />}
         {data?.title_header ?
 
           <section className={styles.header}>

@@ -84,7 +84,7 @@ function SlugPage({ ...props }: SlugProps): JSX.Element {
       </>
       <main>
         <ScrollToTopButton />
-        {showModal && <Modal onClose={handleCloseModal} />}
+        {showModal && <Modal onClose={handleCloseModal} url={link} />}
         {data?.title !== null ?
 
           <section className={styles.header}>

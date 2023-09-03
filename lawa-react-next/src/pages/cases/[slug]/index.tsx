@@ -25,6 +25,7 @@ function Case(): JSX.Element {
 
     const [data, setData] = useState<Case>()
     const router = useRouter();
+    const link = `https://lawa.by${route.asPath}`
 
     useEffect(() => {
         async function fetchData() {
@@ -56,7 +57,7 @@ function Case(): JSX.Element {
             <main>
                 <ScrollToTopButton />
 
-                {showModal && <Modal onClose={handleCloseModal} />}
+                {showModal && <Modal onClose={handleCloseModal} url={link} />}
                 {data?.title ?
 
                     <section className={styles.header}>

@@ -14,9 +14,10 @@ import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 
 interface ModalProps {
     onClose: () => void;
+    url: string;
 }
 
-export const Modal = ({ onClose }: ModalProps): JSX.Element => {
+export const Modal = ({ onClose, url }: ModalProps): JSX.Element => {
     const { register, control, handleSubmit, formState, setValue } = useForm<IFormInterface>();
     const [submitData, setSubmitData] = useState(false);
 
@@ -29,7 +30,8 @@ export const Modal = ({ onClose }: ModalProps): JSX.Element => {
                     phone_number: data.telefone,
                     email: data.email,
                     text_mail: data.textarea,
-                    date: new Date()
+                    date: new Date(),
+                    url_site: url,
                 }
             })
         }
